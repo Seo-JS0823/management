@@ -17,7 +17,7 @@ import com.emp.util.EmployeeID;
 public class ManagerEmployeeController {
 
 	@Autowired
-	private EmployeeMapper empMapper;
+	private MmgEmployeeMapper empMapper;
 	
 	/* 관리자 메인 페이지 보여주기 - 서주성 - */
 	@GetMapping("/mngindex")

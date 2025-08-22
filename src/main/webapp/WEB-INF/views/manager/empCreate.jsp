@@ -24,7 +24,7 @@
     }
 
     .joinForm {
-      width: 400px;
+      width: 700px;
       background-color: #fff;
       padding: 40px 30px;
       border-radius: 12px;
@@ -44,7 +44,7 @@
     .textForm input,
     .textForm select {
       width: 100%;
-      padding: 12px 15px;
+      padding: 5px;
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 15px;
@@ -91,7 +91,6 @@
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      margin-top: 10px;
     }
 
     .address:hover {
@@ -242,14 +241,19 @@
       <ul id="addressList"></ul>
       <button type="button" id="closeModal" style="margin-top: 10px;">닫기</button>
     </div>
-
+    
     <div class="textForm">
-      <input name="phone_num" type="tel" placeholder="전화번호" required />
+      <input name="phone_num" type="text" placeholder="전화번호" required />
     </div>
 
     <div class="textForm">
-      
-      <input id="hiredate" name="hirthdate" placeholder="yyyy-mm-dd 형식으로 생일을 입력해주세요." type="text"  required />
+      생년월일
+      <input id="hiredate" name="birthdate" type="date"/>
+    </div>
+    
+    <div class="textForm">
+    	입사일
+    	<input name="employment_date" type="date"/>
     </div>
 
     <input type="submit" class="btn" value="J O I N" />
