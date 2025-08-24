@@ -19,19 +19,6 @@ public class AttedController {
 		return mav;
 	}
 
-
-	/*
-	 * 전재율
-	 * 직원 메인 페이지 View
-	 * 메서드 이름 : atteIndexView
-	 */
-	public ModelAndView attedIndexView() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;		
-	}
-
-
 	/*
 	 * 전재율
 	 * 자신(직원)의 출근 체크 로직 실행

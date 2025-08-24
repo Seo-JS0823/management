@@ -1,3 +1,8 @@
+const equalsEl = document.querySelector('[id=equals]');
+if(equalsEl != null) {
+	alert('이미 존재하는 직원입니다.');
+};
+
 // 모달창 열기
 let modalEl = document.querySelector('[id=addressSearch]');
 
@@ -32,7 +37,7 @@ searchBtnEl.addEventListener('click', () => {
 		return;
 	}
 	
-	fetch(`http://192.168.0.97:9090/address?keyword=${encodeURIComponent(keyword)}`)
+	fetch(`http://localhost:9090/address?keyword=${encodeURIComponent(keyword)}`)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("네트워크 오류");
@@ -63,8 +68,7 @@ searchBtnEl.addEventListener('click', () => {
 */
 
 				li.style.cursor = 'pointer';
-				li.style.padding = '5px';
-				li.style.border = '2px solid #000';
+				li.style.padding = '3px';
 				li.style.borderRadius = '10px';
 				li.style.listStyle = 'none';
 				li.style.marginBottom = '5px';

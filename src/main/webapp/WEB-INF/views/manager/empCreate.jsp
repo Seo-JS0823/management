@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>회원가입</title>
+  <title>My Company</title>
 
   <style>
     * {
@@ -24,7 +24,7 @@
     }
 
     .joinForm {
-      width: 700px;
+      width: 500px;
       background-color: #fff;
       padding: 40px 30px;
       border-radius: 12px;
@@ -157,6 +157,9 @@
   </style>
 </head>
 <body>
+	<c:if test="${not empty equals}">
+		<input type="hidden" id="equals">
+	</c:if>
   <form action="/manage/empCreate" method="POST" class="joinForm">
     <h2>직원등록</h2>
     <div class="textForm">
@@ -228,7 +231,6 @@
     </div>
 
     <div class="textForm">
-      <input type="hidden" id="addressCode" name="address_id" />
       <button type="button" id="addressSearch" class="address">주소검색</button>
       <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" />
     </div>
@@ -248,12 +250,12 @@
 
     <div class="textForm">
       생년월일
-      <input id="hiredate" name="birthdate" type="date"/>
+      <input id="hiredate" name="birthdate" type="date" value="1980-01-01"/>
     </div>
     
     <div class="textForm">
     	입사일
-    	<input name="employment_date" type="date"/>
+    	<input name="employment_date" type="date" value="2025-05-01"/>
     </div>
 
     <input type="submit" class="btn" value="J O I N" />

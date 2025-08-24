@@ -1,12 +1,17 @@
-package com.emp.manager.employee;
+package com.emp.employ.employee;
 
 public class EmployeeDTO {
 	
 	/*
 	employee_id		사번
-	department_id	부서
+	password		직원패스워드   : 처음 직원 등록시 자신의 생년월일 YYYYMMDD 형식으로 부여
+	department_id	부서코드
+	department_name	부서명
 	worktype_id		근무형태 코드
+	worktype		근무형태 이름
 	position_id		직급 코드
+	position_name	직급 이름
+	manager_name	부서 담당자 이름 : 없으면 '미지정'
 	name			이름
 	gender			성별
 	birthdate		생년월일
@@ -20,9 +25,19 @@ public class EmployeeDTO {
 	*/
 	
 	private String employee_id;
+	private String password;
+	
 	private int department_id;
+	private String department_name;
+	
 	private int worktype_id;
+	private String worktype;
+	
 	private int position_id;
+	private String position_name;
+	
+	private String manager_name;
+	
 	private String name;
 	private String gender;
 	private String birthdate;
@@ -30,6 +45,7 @@ public class EmployeeDTO {
 	private String email;
 	private String address;
 	private String employment_date;
+	
 	private int emp_flag;
 	private int address_id;
 	
@@ -88,11 +104,35 @@ public class EmployeeDTO {
 		this.address_id = Integer.parseInt(address_id);
 	}
 	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public void setDepartment_name(String department_name) {
+		this.department_name = department_name;
+	}
+	
+	public void setWorktype(String worktype) {
+		this.worktype = worktype;
+	}
+	
+	public void setPosition_name(String position_name) {
+		this.position_name = position_name;
+	}
+	
+	public void setManager_name(String manager_name) {
+		this.manager_name = manager_name;
+	}
+	
 	/* Getter 영역 */
 	public String getEmployee_id() {
 		return employee_id;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+	
 	public int getDepartment_id() {
 		return department_id;
 	}
@@ -139,6 +179,22 @@ public class EmployeeDTO {
 	
 	public int getAddress_id() {
 		return address_id;
+	}
+	
+	public String getDepartment_name() {
+		return department_name;
+	}
+	
+	public String getWorktype() {
+		return worktype;
+	}
+	
+	public String getPosition_name() {
+		return position_name;
+	}
+	
+	public String getManager_name() {
+		return manager_name;
 	}
 	
 }
