@@ -35,7 +35,7 @@ public class Interceptor implements HandlerInterceptor {
 		}
 		
 		/* 직원 권한만 필요한 페이지 */
-		if(uri.startsWith("/leave") || uri.startsWith("/lateness") || uri.startsWith("/atted")) {
+		if(uri.startsWith("/leave") || uri.startsWith("/lateness") || uri.startsWith("/atted") || uri.startsWith("/emp")) {
 			if(!isEmployee) {
 				response.sendRedirect("/");
 				return false;

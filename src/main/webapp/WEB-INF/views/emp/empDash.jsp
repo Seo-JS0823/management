@@ -17,18 +17,18 @@
 <!-- 본문 영역 -->
 <main class="emp_dashboard">
 	<div class="emp_top_box">
-		<div class="emp_main_box">
-			<form action="" method="post">
+		<form action="" method="post">
+			<div class="emp_main_box">
 				<label class="em_label">출석 체크</label>
 				<input class="em_sm_btn" type="submit" value="출석"/>
-			</form>
-		</div>
-		<div class="emp_main_box">
-			<form action="" method="post">
+			</div>
+		</form>
+		<form action="" method="post">
+			<div class="emp_main_box">
 				<label class="em_label">퇴근 체크</label>
 				<input class="em_sm_btn" type="submit" value="퇴근"/>
-			</form>
-		</div>
+			</div>
+		</form>
 		<div class="emp_main_box">
 			<label class="em_label">남은 연차</label>
 			<!-- 연차 계산 변수 들어올 자리 -->

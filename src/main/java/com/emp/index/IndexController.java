@@ -41,9 +41,12 @@ public class IndexController {
 		}
 		
 		/* 로그인한 유저가 담당자인 경우 보여주는 페이지 */
+		/* 담당자도 직원 기능을 사용할 수 있으니 "employee" session을 넣는다. */
 		if(manager != 0) {
 			session.setAttribute("valueManager", true);
+			session.setAttribute("valueEmployee", true);
 			session.setAttribute("manager", target);
+			session.setAttribute("employee", target);
 			mav.addObject("manager", target);
 			mav.setViewName("manager/manager");
 			return mav;
