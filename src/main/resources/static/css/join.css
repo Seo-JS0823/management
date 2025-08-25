@@ -1,0 +1,97 @@
+@charset "UTF-8";
+.join_box {
+	width: 550px;
+	
+	height: 650px;
+	padding: 10px;
+	
+	margin: 0 auto;
+	margin-top: 200px;
+	
+	background-color: white;
+	
+	border-radius: 20px;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+.join_menu {
+	width: 100%;
+	height: 40px;
+	margin: 0 auto;
+	margin-top: 5px;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+}
+
+.join_menu:first-child {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.join_menu p {
+	width: 120px;
+	min-width: 120px;
+	line-height: 40px;
+	text-align: center;
+	margin-right: 20px;
+	
+	box-shadow:
+		0 0 3px #000;
+		
+	border-radius: 12px;
+	
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.join_menu input {
+	width: 100%;
+	height: 40px;
+	
+	outline: none;
+	border: none;
+	border-radius: 12px;
+	box-shadow:
+		0 0 3px #000;
+		
+	padding-left: 10px;
+	font-size: 15px;
+}
+
+.join_menu [name=address] {
+	height: 30px;
+}
+
+.join_menu select {
+	width: 74%;
+	height: 40px;
+	
+	outline: none;
+	border: none;
+	border-radius: 12px;
+	box-shadow:
+		0 0 3px #000;
+		
+	padding-left: 10px;
+	font-size: 15px;
+}
+
+.join_menu [type=button] {
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	color: white;
+	background-image: linear-gradient(150deg, #81ecec, #6c5ce7);
+		
+	&:hover {
+		font-size: 20px;
+		text-shadow:
+			0 0 1px #000,
+			0 0 5px #FFF;
+	}
+}

@@ -25,6 +25,14 @@ public class IndexController {
 		return mav;
 	}
 	
+	@GetMapping("/joinView")
+	public ModelAndView joinView() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("index/join");
+		return mav;
+	}
+	
 	@PostMapping("/login")
 	public ModelAndView login(EmployeeDTO employee, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -51,7 +59,6 @@ public class IndexController {
 			mav.setViewName("manager/manager");
 			return mav;
 		}
-		
 		
 		/* 로그인한 유저가 직원인 경우 보여주는 페이지 */
 		session.setAttribute("valueEmployee", true);

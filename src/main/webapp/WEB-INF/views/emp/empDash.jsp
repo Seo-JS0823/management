@@ -28,11 +28,11 @@
 	<div class="emp_top_box">
 		<form action="/atted/atteStart" method="post">
 			<div class="emp_main_box">
-				<label class="em_label">출석 체크</label>
 				<input type="hidden" name="currentDate"/>
 				<input type="hidden" name="atte_start"/>
 				<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
-				<input class="em_sm_btn" type="submit" value="출석"/>
+				<label class="em_label">출석 체크</label>
+				<input class="em_sm_btn" type="submit" id="atte_startBTN" value="출석"/>
 			</div>
 		</form>
 		<form action="/atted/atteEnd" method="post">
@@ -41,7 +41,7 @@
 				<input type="hidden" name="atte_end"/>
 				<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
 				<label class="em_label">퇴근 체크</label>
-				<input class="em_sm_btn" type="submit" value="퇴근"/>
+				<input class="em_sm_btn" type="submit" id="atte_endBTN" value="퇴근"/>
 			</div>
 		</form>
 		<div class="emp_main_box">

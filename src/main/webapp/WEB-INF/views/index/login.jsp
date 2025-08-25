@@ -18,6 +18,7 @@
 			<input class="login_text" type="text" name="employee_id" placeholder="사번코드를 입력해주세요."/>
 			<input class="login_text" type="text" name="password" placeholder="비밀번호를 입력해주세요."/>
 			<input class="login_text" type="submit" id="loginBtn" value="로그인"/>
+			<input class="login_text" type="submit" id="joinBtn" value="회원가입"/>
 		</form>
 	</div>
 <script src="/js/login.js"></script>

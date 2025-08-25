@@ -1,3 +1,4 @@
+// 제대로 입력 안되었을 경우 출력
 const btnEl = document.querySelector('[id=loginBtn]');
 
 btnEl.addEventListener('click', function(e) {
@@ -17,8 +18,40 @@ btnEl.addEventListener('click', function(e) {
 	}	
 });
 
+// 로그인 했는데 존재하지 않는 직원인 경우 출력할 메세지
 const notEmpEl = document.querySelector('[id=notEmp]');
 
 if(notEmpEl != null) {
 	alert(notEmpEl.value);
 }
+
+// 회원가입 버튼 눌렀을 때
+const joinBtnEl = document.querySelector('[id=joinBtn]');
+
+joinBtnEl.addEventListener('click', function() {
+	const login_formEl = document.querySelector('[class=login_form]');
+	
+	login_formEl.action = '/joinView';
+	login_formEl.method = 'GET';
+	return true;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
