@@ -16,15 +16,30 @@
 
 <!-- 본문 영역 -->
 <main class="emp_dashboard">
+	<c:if test="${not empty attedStartSuccess}">
+		<input type="hidden" id="attedStartSuccess" value="${attedStartSuccess.atte_start}"/>
+	</c:if>
+	<c:if test="${not empty startNot}">
+		<input type="hidden" id="startNot"/>
+	</c:if>
+	<c:if test="${not empty endSuccess}">
+		<input type="hidden" id="endSuccess" value="${endSuccess.atte_end}"/>
+	</c:if>
 	<div class="emp_top_box">
-		<form action="" method="post">
+		<form action="/atted/atteStart" method="post">
 			<div class="emp_main_box">
 				<label class="em_label">출석 체크</label>
+				<input type="hidden" name="currentDate"/>
+				<input type="hidden" name="atte_start"/>
+				<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
 				<input class="em_sm_btn" type="submit" value="출석"/>
 			</div>
 		</form>
-		<form action="" method="post">
+		<form action="/atted/atteEnd" method="post">
 			<div class="emp_main_box">
+				<input type="hidden" name="currentDate"/>
+				<input type="hidden" name="atte_end"/>
+				<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
 				<label class="em_label">퇴근 체크</label>
 				<input class="em_sm_btn" type="submit" value="퇴근"/>
 			</div>
@@ -71,6 +86,7 @@
 		</div>
 	</div>
 </main>
+<script src="/js/atted.js"></script>
 <script src="/js/nowtime.js"></script>
 </body>
 </html>
