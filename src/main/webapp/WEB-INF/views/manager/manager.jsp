@@ -16,6 +16,31 @@
 
 <!-- 관리자 메인 페이지 본문 부분 -->
 <main>
+	<!-- 출석 체크 완료되었음을 표시 -->
+	<c:if test="${not empty attedStartSuccess}">
+		<input type="hidden" id="attedStartSuccess" value="${attedStartSuccess.atte_start}"/>
+	</c:if>
+	
+	<!-- 퇴근 체크할 때 당일 출석 체크를 하지 않았음을 표시 -->
+	<c:if test="${not empty startNot}">
+		<input type="hidden" id="startNot"/>
+	</c:if>
+	
+	<!-- 퇴근 체크 완료되었음을 표시 -->
+	<c:if test="${not empty endSuccess}">
+		<input type="hidden" id="endSuccess" value="${endSuccess.atte_end}"/>
+	</c:if>
+	
+	<!-- 출근체크를 한 상태에서 출근체크버튼을 눌렀을 때 보여줄 직원 이름 -->
+	<c:if test="${not empty startContains}">
+		<input type="hidden" id="startContains" value="${startContains}"/>
+	</c:if>
+	
+	<!-- 퇴근체크를 한 상태에서 퇴근체크버튼을 눌렀을 때 보여줄 직원 이름 -->
+	<c:if test="${not empty endContains}">
+		<input type="hidden" id="endContains" value="${endContains}"/>
+	</c:if>
+	
 	<div class="mng_top_box">
 		<div class="mng_top_item">
 			<p>당일 출근 인원</p>

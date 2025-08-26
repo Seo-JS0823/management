@@ -54,7 +54,7 @@ public class AttedController {
 		/* 당일 출석체크를 했었으면 실행 */
 		if(contains != null) {
 			
-			/* 관리자인 경우 관리자 페이지로 redirect */
+			/* 관리자인 경우 관리자 페이지로 */
 			boolean manager = session.getAttribute("valueManager") != null;
 			if(manager) {
 				mav.addObject("startContains", employee.getName());
@@ -62,6 +62,7 @@ public class AttedController {
 				return mav;
 			}
 			
+			/* 직원인 경우 직원 페이지로 */
 			mav.addObject("startContains", employee.getName());
 			mav.setViewName("emp/empDash");
 			return mav;

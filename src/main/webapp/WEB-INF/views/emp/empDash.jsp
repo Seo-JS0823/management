@@ -31,10 +31,12 @@
 		<input type="hidden" id="endSuccess" value="${endSuccess.atte_end}"/>
 	</c:if>
 	
-	<!--  -->
+	<!-- 출근체크를 한 상태에서 출근체크버튼을 눌렀을 때 보여줄 직원 이름 -->
 	<c:if test="${not empty startContains}">
 		<input type="hidden" id="startContains" value="${startContains}"/>
 	</c:if>
+	
+	<!-- 퇴근체크를 한 상태에서 퇴근체크버튼을 눌렀을 때 보여줄 직원 이름 -->
 	<c:if test="${not empty endContains}">
 		<input type="hidden" id="endContains" value="${endContains}"/>
 	</c:if>
