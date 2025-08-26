@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/reset.css">
 	<link rel="stylesheet" href="/css/join.css">
+	<link rel="stylesheet" href="/css/reset.css">
 	<title>My Company JoIn</title>
+<style>
+	#addressModal {
+		display: none;
+	}
+</style>
 </head>
 <body style="background: #2C3E50;">
+<c:if test="${not empty empDelete}">
+	<input type="hidden" id="empDelete" value="${empDelete}"/>
+</c:if>
+<c:if test="${not empty equals}">
+	<input type="hidden" id="equals" value="${equals}"/>
+</c:if>
 <form action="/join" method="post">
 	<div class="join_box">
 		<div class="join_menu">
@@ -78,7 +90,7 @@
 		</div>
 		<div class="join_menu">
 			<p>주소</p>
-			<input type="hidden" id="addressCode"/>
+			<input type="hidden" id="addressCode" name="address_id"/>
 			<input type="button" id="addressSearch" value="주소 검색"/>
 		</div>
 		<div class="join_menu">
@@ -102,5 +114,6 @@
 	</div>
 </div>
 <script src="/js/address.js"></script>
+<script src="/js/join.js"></script>
 </body>
 </html>

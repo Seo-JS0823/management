@@ -21,6 +21,13 @@
 			<input class="login_text" type="submit" id="joinBtn" value="회원가입"/>
 		</form>
 	</div>
+	<c:if test="${not empty managerSuccess}">
+		<input type="hidden" id="managerSuccess" value="${managerSuccess}"/>
+		<div class="managerSuccess">
+			<label>${managerSuccess}</label>
+			<button type="button" id="idBtn">닫기</button>
+		</div>
+	</c:if>
 <script src="/js/login.js"></script>
 </body>
 </html>

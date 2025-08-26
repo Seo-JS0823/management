@@ -36,8 +36,17 @@ joinBtnEl.addEventListener('click', function() {
 	return true;
 });
 
+// 관리자 회원가입 후 보여줄 사번코드와 비밀번호
+let managerSuccessEl = document.querySelector('[class=managerSuccess]');
+let idBtnEl = document.querySelector('[id=idBtn]');
 
+if(managerSuccessEl != null) {
+	managerSuccessEl.style.display = 'flex';
+}
 
+idBtnEl.addEventListener('click', function() {
+	managerSuccessEl.style.display = 'none';
+});
 
 
 

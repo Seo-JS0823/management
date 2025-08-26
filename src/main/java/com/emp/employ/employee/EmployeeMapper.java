@@ -14,6 +14,4 @@ public interface EmployeeMapper {
 	/* 직원 정보 업데이트 */
 	void empUpdate(EmployeeDTO employee);
 	
-	/* 관리자 회원가입 */
-	void managerInsert(EmployeeDTO employee);
 }

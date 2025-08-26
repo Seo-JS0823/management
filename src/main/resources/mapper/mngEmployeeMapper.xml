@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- com.emp.employ.employee.EmployeeDTO -->
-<mapper namespace="com.emp.manager.employee.MmgEmployeeMapper">
+<mapper namespace="com.emp.manager.employee.MngEmployeeMapper">
 	
 	<!-- 직원 등록 : employeeInsert -->
 	<insert id="employeeInsert">
@@ -43,6 +43,14 @@
 			)
 	</insert>
 	
+	<!-- 직원 DELETE -->
+	<delete id="employeeDelete">
+		DELETE FROM
+			employees
+		WHERE
+			employee_id = #{employee_id}
+	</delete>
+	
 	<!-- 등록된 직원인지 검증 -->
 	<select id="employeeEquals" resultType="int">
 		SELECT
@@ -54,5 +62,27 @@
 			employment_date = #{employment_date} AND
 			phone_num = #{phone_num}
 	</select>
+	
+	<!-- 부서 담당자로 지정하기 전 담당자가 존재하는지 확인 -->
+	<select id="managerContains" resultType="int">
+		SELECT
+			count(manager_name)
+		FROM
+			departments
+		WHERE
+			department_id = #{department_id}
+	</select>
+	
+	<!-- 부서 담당자로 지정 -->
+	<update id="managerUpdate">
+		UPDATE
+			departments
+		SET
+			manager_id = #{employee_id},
+			manager_name = #{name}
+		WHERE
+			department_id = #{department_id}
+	</update>
+	
 	
 </mapper>

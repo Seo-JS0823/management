@@ -103,5 +103,6 @@
 	</div>
 </main>
 <script src="/js/nowtime.js"></script>
+<script src="/js/atted.js"></script>
 </body>
 </html>

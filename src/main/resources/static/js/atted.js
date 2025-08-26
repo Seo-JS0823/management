@@ -48,6 +48,13 @@ atte_startBTNEl.addEventListener('click', function(e) {
 	const hours = String(now.getHours()).padStart(2, '0');
 	const minutes = String(now.getMinutes()).padStart(2, '0');
 	
+	/* 출석 체크 버튼을 누르는 시간이 17시 이후인 경우 출석체크 막는 로직 */
+	if(hours > 17) {
+		alert(`${hours}:${minutes} ` + '현재는 출근시간이 아닙니다. 까마득히 지났어요. 왜 이제야 오셨나요?');
+		e.preventDefault();
+		return false;
+	}
+	
 	if(confirm('현재 시각 ' + `${hours}시 ${minutes}분입니다. 출석 체크를 하시겠습니까?`)) {
 		return true;
 	} else {

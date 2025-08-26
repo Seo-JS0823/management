@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class ManagerEmployeeController {
 
 	@Autowired
-	private MmgEmployeeMapper mngEmpMapper;
+	private MngEmployeeMapper mngEmpMapper;
 	
 	/* 관리자 메인 페이지 보여주기 - 서주성 - */
 	@GetMapping("/mngindex")
@@ -53,10 +53,12 @@ public class ManagerEmployeeController {
 	public ModelAndView empC(EmployeeDTO employee) {
 		ModelAndView mav = new ModelAndView();
 		
+		System.out.println(employee.getName());
+		
 		int equals = mngEmpMapper.employeeEquals(employee);
 		if(equals != 0) {
 			mav.addObject("equals", "이미 등록된 직원입니다.");
-			mav.setViewName("redirect:/manage/empView");
+			mav.setViewName("manager/empCreate");
 			return mav;
 		}
 		
@@ -68,7 +70,6 @@ public class ManagerEmployeeController {
 					new SimpleDateFormat("yyyy-mm-dd").parse(employee.getEmployment_date()));
 			password = employee.getBirthdate().replaceAll("-", "");
 			
-			System.out.println(password);
 		} catch (ParseException e) {
 			e.printStackTrace();
 			throw new IllegalStateException("Parsing Error : " + e.getMessage());

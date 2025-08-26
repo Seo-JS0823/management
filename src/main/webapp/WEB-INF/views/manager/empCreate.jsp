@@ -231,6 +231,7 @@
     </div>
 
     <div class="textForm">
+    	<input type="hidden" id="addressCode" name="address_id"/>
       <button type="button" id="addressSearch" class="address">주소검색</button>
       <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" />
     </div>
