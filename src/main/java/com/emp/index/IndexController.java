@@ -17,6 +17,7 @@ public class IndexController {
 	@Autowired
 	private EmployeeMapper empMapper;
 	
+	/* 루트 경로 */
 	@GetMapping("/")
 	public ModelAndView indexView() {
 		ModelAndView mav = new ModelAndView();
@@ -25,6 +26,7 @@ public class IndexController {
 		return mav;
 	}
 	
+	/* 회원가입 페이지 경로 */
 	@GetMapping("/joinView")
 	public ModelAndView joinView() {
 		ModelAndView mav = new ModelAndView();
@@ -33,6 +35,7 @@ public class IndexController {
 		return mav;
 	}
 	
+	/* 로그인 실행 */
 	@PostMapping("/login")
 	public ModelAndView login(EmployeeDTO employee, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
@@ -67,4 +70,32 @@ public class IndexController {
 		mav.setViewName("emp/empDash");
 		return mav;
 	}
+	
+	/* 회원가입 실행 */
+	@PostMapping("/join")
+	public ModelAndView join(EmployeeDTO employee) {
+		ModelAndView mav = new ModelAndView();
+		
+		
+		mav.setViewName("redirect:/");
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

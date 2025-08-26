@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 public class AttedService {
 
 	/*
-	0 = 정상출근 / 1 = 정상퇴근 / 2 = 조퇴 / 3 = 지각 / 4 = 결석 / 5 = 초과근무
+	0 = 정상출근 / 1 = 정상퇴근 / 2 = 조퇴 / 3 = 지각 / 4 = 결석 / 5 = 초과근무 / 6 = 승인대기
 	 */
-	
 	
 	/* 출석 체크할 때 필요한 로직 */
 	public void atteStartFlag(AttedDTO atted) {
@@ -34,9 +33,9 @@ public class AttedService {
 		/* 정상 퇴근 기준 시간 */
 		LocalTime now = LocalTime.of(17, 0);
 		
-		/* 17시 전 이면 조퇴 처리 */
+		/* 17시 전 이면 승인대기 처리 */
 		if(atted.getAtte_end().isBefore(now)) {
-			atted.setAtte_flag(2);
+			atted.setAtte_flag(6);
 		}
 		
 		/* 17시 이후이면서 정상 출근이면 정상 퇴근 처리 */
@@ -49,14 +48,24 @@ public class AttedService {
 			atted.setAtte_flag(3);
 		}
 		
-		/* work_time 계산 : Duration */
+		/* work_time 계산 : Duration
 		Duration worktime = Duration.between(atted.getAtte_start(), atted.getAtte_end());
 		
 		int hour = (int) worktime.toHours();
 		int minute = (int) worktime.toMinutes();
 		
-		
+		System.out.println(minute);
 		atted.setWork_time(LocalTime.of(hour, minute));
+		*/
 		
+		LocalTime atte_start = atted.getAtte_start();
+		LocalTime atte_end = atted.getAtte_end();
+		
+		Duration work_time = Duration.between(atte_start, atte_end);
+		
+		int hours = (int) work_time.toHours();
+		int minute = (int) work_time.toMinutes() % 60;
+		
+		atted.setWork_time(LocalTime.of(hours, minute));
 	}
 }

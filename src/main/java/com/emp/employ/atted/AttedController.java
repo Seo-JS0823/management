@@ -48,9 +48,29 @@ public class AttedController {
 			return mav;
 		}
 		
+		/* 당일 출석체크 했는지? */
+		AttedDTO contains = attedMapper.atteEndContains(atted);
+		
+		/* 당일 출석체크를 했었으면 실행 */
+		if(contains != null) {
+			
+			/* 관리자인 경우 관리자 페이지로 redirect */
+			boolean manager = session.getAttribute("valueManager") != null;
+			if(manager) {
+				mav.addObject("startContains", employee.getName());
+				mav.setViewName("manager/manager");
+				return mav;
+			}
+			
+			mav.addObject("startContains", employee.getName());
+			mav.setViewName("emp/empDash");
+			return mav;
+		}
+		
 		AttedDTO target = atted;
 		attedService.atteStartFlag(target);
 		attedMapper.atteStart(target);
+		
 		
 		mav.addObject("attedStartSuccess", target);
 		mav.addObject("employee", employee);
@@ -76,6 +96,15 @@ public class AttedController {
 			return mav;
 		}
 		
+		int stop = attedMapper.atteEndStop(atted);
+		if(stop > 0) {
+			mav.addObject("endContains", employee.getName());
+			mav.setViewName("emp/empDash");
+			return mav;
+		}
+		
+		
+		
 		AttedDTO target = atted;
 		AttedDTO atte_start = attedMapper.atteEndContains(atted);
 
@@ -88,14 +117,6 @@ public class AttedController {
 		target.setAtte_start(atte_start.getAtte_start());
 		
 		attedService.atteEndFlag(target);
-		
-		
-		System.out.println(target.getCurrentDate());
-		System.out.println(target.getEmployee_id());
-		System.out.println(target.getAtte_flag());
-		
-		/* 당일 출석 체크를 하지 않았으면 이 if문이 실행 */
-		
 		
 		/* 출석 체크를 했었다면 Update 실행 */
 		attedMapper.atteEndUpdate(target);

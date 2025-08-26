@@ -18,9 +18,9 @@
 
 .join_menu {
 	width: 100%;
-	height: 40px;
+	height: 35px;
 	margin: 0 auto;
-	margin-top: 5px;
+	margin-top: 8px;
 	
 	display: flex;
 	flex-direction: row;
@@ -36,7 +36,7 @@
 .join_menu p {
 	width: 120px;
 	min-width: 120px;
-	line-height: 40px;
+	line-height: 35px;
 	text-align: center;
 	margin-right: 20px;
 	
@@ -51,7 +51,7 @@
 
 .join_menu input {
 	width: 100%;
-	height: 40px;
+	height: 35px;
 	
 	outline: none;
 	border: none;
@@ -69,7 +69,7 @@
 
 .join_menu select {
 	width: 74%;
-	height: 40px;
+	height: 35px;
 	
 	outline: none;
 	border: none;
@@ -95,3 +95,141 @@
 			0 0 5px #FFF;
 	}
 }
+
+.join_menu input[type=radio] {
+	box-shadow: none;
+	width: 20px;
+	height: 20px;
+}
+
+.join_menu h3 {
+	width: 60px;
+	text-align: center;
+}
+
+input[type=submit] {
+	width: 70%;
+	height: 35px;
+	margin: 0 auto;
+	margin-top: 15px;
+	
+	border: none;
+	outline: none;
+	border-radius: 15px;
+	
+	background-image: linear-gradient(150deg, #81ecec, #6c5ce7);
+	color: white;
+	
+	text-shadow:
+		0 0 3px #FFF;
+	box-shadow:
+		0 0 3px #000;
+		
+	letter-spacing: 2px;
+	
+	font-size: 18px;
+	font-weight: 600;
+}
+
+#addressModal {
+	display: none;
+	width: 30%;
+	min-width: 500px;
+	max-height: 500px;
+	
+	position: fixed;
+	
+	/* 화면 중앙에 위치하게 */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+	
+	background-color: white;
+	
+	overflow-y: auto;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	border: 1.5px solid #CCC;
+	box-shadow: 0 0 3px #000;
+	
+	div {
+		display: flex;
+		flex-direction: column;
+		
+		input[type=text] {
+			width: 80%;
+			height: 35px;
+			padding-left: 15px;
+			
+			margin: 0 auto;
+			margin-top: 10px;
+			margin-bottom: 20px;
+			
+			outline: none;
+			border: none;
+			box-shadow: 0 0 3px #000;
+			
+			border-radius: 10px;
+		}
+		
+		button[id=searchBtn] {
+			width: 30%;
+			height: 35px;
+			margin-left: auto;
+			margin-right: 55px;
+			
+			border: none;
+			box-shadow: 0 0 3px #000;
+			
+			border-radius: 10px;
+			
+			font-size: 20px;
+			font-weight: 600;
+			
+			color: white;
+			background-image: linear-gradient(150deg, #81ecec, #6c5ce7);
+			
+			&:hover {
+				font-size: 22px;
+			}
+		}
+		
+	}
+	
+	/* 닫기 버튼 */
+	button[id=closeModal] {
+		width: 30%;
+		height: 35px;
+		margin-left: auto;
+		margin-top: 15px;
+		margin-right: 55px;
+		margin-bottom: 20px;
+		
+		border: none;
+		box-shadow: 0 0 3px #000;
+		
+		border-radius: 10px;
+		
+		font-size: 20px;
+		font-weight: 600;
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

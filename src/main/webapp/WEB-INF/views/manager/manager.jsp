@@ -37,22 +37,36 @@
 	<div class="mng_bottom_box">
 		<div class="mng_bottom_item">
 			<div class="mng_bottom_menu">
-				<label>담당 부서</label><label>부서 이름</label>
+				<label>담당 부서</label><label>${manager.department_name}</label>
 			</div>
 			<div class="mng_bottom_menu">
-				<label>부서 코드</label><label>부서 코드</label>
+				<label>부서 코드</label><label>${manager.department_id}</label>
 			</div>
 			<div class="mng_bottom_menu">
-				<label>이름</label><label>이름</label>
+				<label>이름</label><label>${manager.name}</label>
 			</div>			
 			<div class="mng_bottom_menu">
-				<label>사번 코드</label><label>사번 코드</label>
+				<label>사번 코드</label><label>${manager.employee_id}</label>
 			</div>
 			<div class="mng_bottom_menu">
-				<label>입사일</label><label>입사일</label>
+				<label>입사일</label><label>${manager.employment_date}</label>
 			</div>
 			<div class="mng_bottom_menu">
 				<label>부서 직원수</label><label>부서 직원수</label>
+			</div>
+			<div class="mng_bottom_menu">
+				<form action="/atted/atteStart" method="post">
+					<input type="hidden" name="currentDate"/>
+					<input type="hidden" name="atte_start"/>
+					<input type="hidden" name="employee_id" value="${manager.employee_id}"/>
+					<input class="em_sm_btn" type="submit" id="atte_startBTN" value="출석"/>
+				</form>
+				<form action="/atted/atteEnd" method="post">
+					<input type="hidden" name="currentDate"/>
+					<input type="hidden" name="atte_end"/>
+					<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
+					<input class="em_sm_btn" type="submit" id="atte_endBTN" value="퇴근"/>
+				</form>
 			</div>
 		</div>
 		<div class="mng_bottom_item">

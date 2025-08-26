@@ -7,6 +7,21 @@ if(attedStartSuccessEl != null) {
 	alert(attedStart + '에 출석 체크가 완료되었습니다.');
 }
 
+// 당일 출석 체크 했는데 또 눌렀을 경우
+const startContainsEl = document.querySelector('[id=startContains]');
+
+if(startContainsEl != null) {
+	alert(startContainsEl.value + ' 님은 당일 이미 출석체크를 하셨습니다');
+}
+
+// 당일 퇴근 체크 했는데 또 눌렀을 경우
+const endContainsEl = document.querySelector('[id=endContains]');
+
+if(endContainsEl != null) {
+	alert(endContainsEl.value + ' 님은 당일 이미 퇴근체크를 하셨습니다');
+}
+
+
 // 퇴근 체크 버튼 누를 때 현재 시간 보여주기
 const atte_endBTNEl = document.querySelector('[id=atte_endBTN]');
 

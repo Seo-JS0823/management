@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.emp.employ.employee.EmployeeDTO;
 import com.emp.util.EmployeeID;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/manage")
 public class ManagerEmployeeController {
@@ -22,9 +24,17 @@ public class ManagerEmployeeController {
 	
 	/* 관리자 메인 페이지 보여주기 - 서주성 - */
 	@GetMapping("/mngindex")
-	public ModelAndView manageForm() {
+	public ModelAndView manageForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("employee");
+		if(manager == null) {
+			session.invalidate();
+			mav.setViewName("redirect:/");
+			return mav;
+		}
+		
+		mav.addObject("manager", manager);
 		mav.setViewName("manager/manager");
 		return mav;
 	}

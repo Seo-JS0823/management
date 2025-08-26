@@ -131,7 +131,32 @@ main {
 	}
 }
 
+.mng_bottom_menu:last-child {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
 
+.mng_bottom_menu input[type=submit] {
+	width: 120px;
+	height: 30px;
+	
+	border: none;
+	border-radius: 10px;
+	margin:0 auto;
+	
+	background-color: #2C3E50;
+	color: white;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	
+	&:hover {
+		background-image: linear-gradient(150deg, #81ecec, #6c5ce7);
+		text-shadow: 0 0 3px #FFF;
+	}
+}
 
 
 

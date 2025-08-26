@@ -16,14 +16,27 @@
 
 <!-- 본문 영역 -->
 <main class="emp_dashboard">
+	<!-- 출석 체크 완료되었음을 표시 -->
 	<c:if test="${not empty attedStartSuccess}">
 		<input type="hidden" id="attedStartSuccess" value="${attedStartSuccess.atte_start}"/>
 	</c:if>
+	
+	<!-- 퇴근 체크할 때 당일 출석 체크를 하지 않았음을 표시 -->
 	<c:if test="${not empty startNot}">
 		<input type="hidden" id="startNot"/>
 	</c:if>
+	
+	<!-- 퇴근 체크 완료되었음을 표시 -->
 	<c:if test="${not empty endSuccess}">
 		<input type="hidden" id="endSuccess" value="${endSuccess.atte_end}"/>
+	</c:if>
+	
+	<!--  -->
+	<c:if test="${not empty startContains}">
+		<input type="hidden" id="startContains" value="${startContains}"/>
+	</c:if>
+	<c:if test="${not empty endContains}">
+		<input type="hidden" id="endContains" value="${endContains}"/>
 	</c:if>
 	<div class="emp_top_box">
 		<form action="/atted/atteStart" method="post">
