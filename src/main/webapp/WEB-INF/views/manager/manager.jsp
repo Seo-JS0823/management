@@ -41,6 +41,16 @@
 		<input type="hidden" id="endContains" value="${endContains}"/>
 	</c:if>
 	
+	<!-- 연차 정보 업데이트 했을 때 -->
+	<c:if test="${not empty leave_upd_cnt}">
+		<input type="hidden" id="leave_upd_cnt" value="${leave_upd_cnt}"/>
+	</c:if>
+	
+	<!-- 선택한 월 연차 업데이트가 이미 되었을 경우 보여줄 경고창 -->
+	<c:if test="${not empty annualContains}">
+		<input type="hidden" id="annualContains" value="${annualContains}"/>
+	</c:if>
+	
 	<div class="mng_top_box">
 		<div class="mng_top_item">
 			<p>당일 출근 인원</p>
@@ -93,6 +103,30 @@
 					<input class="em_sm_btn" type="submit" id="atte_endBTN" value="퇴근"/>
 				</form>
 			</div>
+			<c:if test="${not empty annualBTN}">
+			<div class="mng_bottom_menu">
+				<!-- /manage/annualCreate -->
+				<form action="/manage/annualCreate" method="post">
+					<input type="hidden" id="year_month" name="year_month"/>
+					<select id="month">
+						<option value="" disabled selected>연차 적립월 선택</option>
+						<option value="01">1 월</option>
+						<option value="02">2 월</option>
+						<option value="03">3 월</option>
+						<option value="04">4 월</option>
+						<option value="05">5 월</option>
+						<option value="06">6 월</option>
+						<option value="07">7 월</option>
+						<option value="08">8 월</option>
+						<option value="09">9 월</option>
+						<option value="10">10 월</option>
+						<option value="11">11 월</option>
+						<option value="12">12 월</option>
+					</select>
+					<input class="em_sm_btn" type="submit" id="leave_BTN" value="당월 연차 적립"/>
+				</form>
+			</div>
+			</c:if>
 		</div>
 		<div class="mng_bottom_item">
 			여기는 부서 직원 목록

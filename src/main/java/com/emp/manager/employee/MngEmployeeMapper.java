@@ -25,4 +25,7 @@ public interface MngEmployeeMapper {
 	
 	/* 직원 DELETE */
 	int employeeDelete(EmployeeDTO employee);
+	
+	/* 로그인한 담당자 */
+	int hrPart(EmployeeDTO employee);
 }

@@ -84,5 +84,17 @@
 			department_id = #{department_id}
 	</update>
 	
+	<!-- 인사담당자 확인 SELECT -->
+	<select id="hrPart" resultType="int">
+		SELECT
+    		COUNT(*) AS cnt
+		FROM
+    		departments D, employees E
+		WHERE
+    		E.department_id = D.department_id AND
+		    E.employee_id = #{employee_id} AND
+    		D.manager_id = #{employee_id} AND
+		    D.department_id = '9010'	
+	</select>
 	
 </mapper>

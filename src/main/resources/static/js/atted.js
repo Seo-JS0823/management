@@ -64,6 +64,17 @@ atte_startBTNEl.addEventListener('click', function(e) {
 	
 });
 
+// year_month 연차 적립에 필요한 데이터
+const monthEl = document.querySelector('[id=month]');
+
+monthEl.addEventListener('click', function() {
+	const now = new Date();
+	const year = now.getFullYear();
+	
+	const year_monthEl = document.querySelector('[id=year_month]');
+	year_monthEl.value = `${year}-${monthEl.value}-01`;
+	
+});
 
 // 퇴근 체크 눌렀을 때 당일 출석하지 않았다면 보여줄 경고창
 const startNotEl = document.querySelector('[id=startNot]');
@@ -79,3 +90,49 @@ if(endSuccessEl != null) {
 	let attedEnd = endSuccessEl.value;
 	alert(attedEnd + '에 퇴근 체크가 완료되었습니다.');
 }
+
+
+// 당월 연차 정보 업데이트 했을 때 업데이트된 직원 수 보여주기
+const leave_upd_cntEl = document.querySelector('[id=leave_upd_cnt]');
+
+if(leave_upd_cntEl != null) {
+	alert('연차가 업데이트된 직원수는 ' + leave_upd_cntEl.value + ' 명 입니다.');
+}
+
+// 선택한 월 연차적립이 완료되었는데 또 적립하려는 경우 경고창 보여주기
+const annualContainsEl = document.querySelector('[id=annualContains]');
+
+if(annualContainsEl != null) {
+	alert(annualContainsEl.value);
+}
+
+// [당월 연차 적립] 버튼 눌렀을 때 select가 선택되지 않았으면 막음 + 당월보다 높은 월을 선택했을 경우 막음
+const leave_BTNEl = document.querySelector('[id=leave_BTN]');
+
+leave_BTNEl.addEventListener('click', function(e) {
+	
+	const now = new Date();
+	const month = String(now.getMonth() + 1).padStart(2, '0');
+	
+	if(monthEl.value.trim() == '') {
+		alert('연차를 적립할 월을 선택하세요.')
+		e.preventDefault();
+		return false;
+	}
+	
+	if(monthEl.value.trim() > month) {
+		alert('미래를 적립할 수 없습니다.');
+		e.preventDefault();
+		return false;
+	}
+	
+});
+
+
+
+
+
+
+
+
+

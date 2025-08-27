@@ -58,6 +58,7 @@
 		        <option value="6030">생산 3라인</option>
 		        <option value="7010">운송 1팀</option>
 		        <option value="8010">안전관리팀</option>
+		        <option value="9010">인사팀</option>
 			</select>
 		</div>
 		<div class="join_menu">
@@ -87,6 +88,10 @@
 		<div class="join_menu">
 			<p>입사일</p>
 			<input type="date" name="employment_date" value="2024-12-01"/>
+		</div>
+		<div class="join_menu">
+			<p>이메일</p>
+			<input type="text" name="email"/>
 		</div>
 		<div class="join_menu">
 			<p>주소</p>

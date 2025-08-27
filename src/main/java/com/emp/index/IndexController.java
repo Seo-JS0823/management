@@ -27,8 +27,23 @@ public class IndexController {
 	
 	/* 루트 경로 */
 	@GetMapping("/")
-	public ModelAndView indexView() {
+	public ModelAndView indexView(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		boolean valueManager = session.getAttribute("valueManager") != null;
+		boolean valueEmployee = session.getAttribute("valueEmployee") != null;
+		
+		/*
+		if(valueManager) {
+			mav.setViewName("redirect:/manage/mngindex");
+			return mav;
+		}
+		
+		if(valueEmployee) {
+			mav.setViewName("redirect:/emp/empView");
+			return mav;
+		}
+		*/
 		
 		mav.setViewName("index/login");
 		return mav;
@@ -59,6 +74,19 @@ public class IndexController {
 			return mav;
 		}
 		
+		/* 로그인한 직원이 인사담당자인 경우 연차 적립 버튼생성 */
+		int hrPart = mngEmpMapper.hrPart(target);
+		if(hrPart == 1) {
+			session.setAttribute("valueManager", true);
+			session.setAttribute("valueEmployee", true);
+			session.setAttribute("manager", target);
+			session.setAttribute("employee", target);
+			mav.addObject("annualBTN", true);
+			mav.addObject("manager", target);
+			mav.setViewName("manager/manager");
+			return mav;
+		}
+		
 		/* 로그인한 유저가 담당자인 경우 보여주는 페이지 */
 		/* 담당자도 직원 기능을 사용할 수 있으니 "employee" session을 넣는다. */
 		if(manager != 0) {
@@ -84,8 +112,6 @@ public class IndexController {
 	public ModelAndView join(EmployeeDTO employee) {
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println(employee.getAddress());
-		System.out.println(employee.getAddress_id());
 		/* 이미 등록되어 있을 경우 */
 		int equals = mngEmpMapper.employeeEquals(employee);
 		if(equals != 0) {

@@ -56,7 +56,6 @@ public class AttedController {
 		
 		/* 당일 출석체크를 했었으면 실행 */
 		if(contains != null) {
-			
 			/* 관리자인 경우 관리자 페이지로 */
 			if(manager) {
 				mav.addObject("startContains", employee.getName());
@@ -80,6 +79,7 @@ public class AttedController {
 		if(manager) {
 			mav.addObject("attedStartSuccess", target);
 			mav.addObject("manager", employee);
+			mav.setViewName("manager/manager");
 			return mav;
 		}
 		
