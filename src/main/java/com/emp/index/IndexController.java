@@ -33,7 +33,7 @@ public class IndexController {
 		boolean valueManager = session.getAttribute("valueManager") != null;
 		boolean valueEmployee = session.getAttribute("valueEmployee") != null;
 		
-		/*
+		/* 테스트 원활하게 하기 위해 잠깐 주석 처리
 		if(valueManager) {
 			mav.setViewName("redirect:/manage/mngindex");
 			return mav;
@@ -74,16 +74,15 @@ public class IndexController {
 			return mav;
 		}
 		
-		/* 로그인한 직원이 인사담당자인 경우 연차 적립 버튼생성 */
+		/* 로그인한 직원이 인사담당자인 경우 */
 		int hrPart = mngEmpMapper.hrPart(target);
 		if(hrPart == 1) {
 			session.setAttribute("valueManager", true);
 			session.setAttribute("valueEmployee", true);
 			session.setAttribute("manager", target);
 			session.setAttribute("employee", target);
-			mav.addObject("annualBTN", true);
-			mav.addObject("manager", target);
-			mav.setViewName("manager/manager");
+			session.setAttribute("hrPart", true);
+			mav.setViewName("redirect:/manage/mngindex");
 			return mav;
 		}
 		
@@ -94,16 +93,14 @@ public class IndexController {
 			session.setAttribute("valueEmployee", true);
 			session.setAttribute("manager", target);
 			session.setAttribute("employee", target);
-			mav.addObject("manager", target);
-			mav.setViewName("manager/manager");
+			mav.setViewName("redirect:/manage/mngindex");
 			return mav;
 		}
 		
 		/* 로그인한 유저가 직원인 경우 보여주는 페이지 */
 		session.setAttribute("valueEmployee", true);
 		session.setAttribute("employee", target);
-		mav.addObject("employee", target);
-		mav.setViewName("emp/empDash");
+		mav.setViewName("redirect:/emp/empView");
 		return mav;
 	}
 	

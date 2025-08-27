@@ -11,13 +11,8 @@
 		</a>
 	</div>
 	<div class="emp_header_item">
-		<a href="">
-			<label class="item-label">휴가 신청</label>
-		</a>
-	</div>
-	<div class="emp_header_item">
 		<a href="#">
-			<label class="item-label">초과근무 신청</label>
+			<label class="item-label">휴가 신청</label>
 		</a>
 	</div>
 	<div class="emp_header_item">

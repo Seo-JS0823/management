@@ -27,10 +27,20 @@ public class ManagerEmployeeController {
 	public ModelAndView manageForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
-		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("employee");
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		boolean hrPart = session.getAttribute("hrPart") != null;
+		
 		if(manager == null) {
 			session.invalidate();
 			mav.setViewName("redirect:/");
+			return mav;
+		}
+		
+		// 인사 담당자인 경우 연차버튼 생성
+		if(hrPart) {
+			mav.addObject("annualBTN", true);
+			mav.addObject("manager", manager);
+			mav.setViewName("manager/manager");
 			return mav;
 		}
 		

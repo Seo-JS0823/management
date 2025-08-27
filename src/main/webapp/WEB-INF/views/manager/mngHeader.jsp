@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header	class="mngHeader">
 	<div class="mngHeader_menu">
-		<a href="#">Manager Dash Board</a>
+		<a href="/manage/mngindex">Manager Dash Board</a>
 	</div>
 	<div class="mngHeader_menu">
 		<p>출/퇴근 현황</p>
@@ -21,7 +21,7 @@
 		<p>승인</p>
 		<ul class="selected_menu">
 			<li><a href="#">휴가자 승인</a></li>
-			<li><a href="#">초과근무 승인</a></li>
+			<li><a href="/manage/annualCreateView">연차 적립</a>
 		</ul>
 	</div>
 	<div class="mngHeader_menu">

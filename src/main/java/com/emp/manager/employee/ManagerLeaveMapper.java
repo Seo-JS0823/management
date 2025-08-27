@@ -1,14 +1,17 @@
 package com.emp.manager.employee;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+
+import com.emp.employ.employee.EmployeeDTO;
+import com.emp.employ.leave.LeaveDTO;
 
 @Mapper
 public interface ManagerLeaveMapper {
 	
-	// annualCreate 연차 적립 실행
-	int annualCreate(@Param("year_month") String year_month);
+	/* 적립할 연차 직원 검색 */
+	EmployeeDTO annualEmp(String name);
 	
-	// 당월 연차가 적립되었는지 확인
-	int annualContains(@Param("year_month") String year_month);
+	/* 연차 적립 */
+	int annualInsert(LeaveDTO target);
+	
 }

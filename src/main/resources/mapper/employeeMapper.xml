@@ -57,6 +57,13 @@
 			employee_id = #{employee_id}
 	</update>
 	
+	<!-- 기본 직원 정보 -->
+	<select id="employeeRead" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+			*
+		FROM
+			employees
+	</select>
 	
 </mapper>
 
