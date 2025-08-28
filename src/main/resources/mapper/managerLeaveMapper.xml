@@ -19,10 +19,45 @@
 			E.name = #{name}
 	</select>
 	
-	<!-- 연차 적립 실행 -->
+	<!-- 연차 적립 실행 : 이거 건들면 프로젝트 망-->
 	<insert id="annualInsert">
-		
+		INSERT INTO annualleave (employee_id, leave_date, leave_type, leave_count, content, work_month)
+		SELECT
+		    #{employee_id},
+		    #{leave_date},
+		    'SAVE',
+		    CASE
+		        WHEN #{content} LIKE '%기본 연차%' OR #{content} LIKE '%기본연차%' OR #{content} LIKE '%기본%' THEN #{leave_count}
+		        WHEN EXISTS (
+		            SELECT 1
+		            FROM (
+		                SELECT COUNT(*) AS work_days
+		                FROM attendance_record
+		                WHERE employee_id = #{employee_id}
+		                  AND TO_CHAR(currentDate, 'YYYY-MM') = SUBSTR(#{work_month}, 1, 7)
+		                  AND atte_flag = 1
+		            ) a
+		            JOIN (
+		                SELECT COUNT(*) AS total_work_days
+		                FROM (
+		                    SELECT TRUNC(TO_DATE(#{work_month}, 'YYYY-MM-DD'), 'MM') + LEVEL - 1 AS DT
+		                    FROM DUAL
+		                    CONNECT BY LEVEL <![CDATA[<=]]> TO_NUMBER(TO_CHAR(LAST_DAY(TO_DATE(#{work_month}, 'YYYY-MM-DD')), 'DD'))
+		                )
+		                WHERE TO_CHAR(DT, 'DY', 'NLS_DATE_LANGUAGE=KOREAN') NOT IN ('토', '일')
+		            ) b ON a.work_days = b.total_work_days
+		        )
+		            THEN #{leave_count}
+		        ELSE 0
+		    END AS leave_count,
+		    #{content} AS content,
+		    CASE
+		        WHEN #{content} LIKE '%만근%' THEN TO_DATE(#{work_month}, 'YYYY-MM-DD')
+		        ELSE NULL
+		    END AS work_month
+		FROM DUAL
 	</insert>
+	
 </mapper>
 
 

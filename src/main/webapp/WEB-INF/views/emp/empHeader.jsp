@@ -11,8 +11,14 @@
 		</a>
 	</div>
 	<div class="emp_header_item">
-		<a href="#">
+		<a href="/leave/leaveView?employee_id=${employee.employee_id}">
 			<label class="item-label">휴가 신청</label>
+		</a>
+	</div>
+	<!-- <a href="/leave/leaveReqHistoryList?employee_id=${employee.employee_id}">휴가신청 기록보기</a> -->
+	<div class="emp_header_item">
+		<a href="/leave/leaveReqHistoryList?employee_id=${employee.employee_id}">
+			<label class="item-label">휴가 조회</label>
 		</a>
 	</div>
 	<div class="emp_header_item">

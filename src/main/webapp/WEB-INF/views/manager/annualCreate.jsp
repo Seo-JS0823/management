@@ -44,7 +44,7 @@
 					<p>입사일</p><input type="text" value="${target.employment_date}" readonly/>
 				</div>
 				<div class="emp_info">
-					<p>만근월 선택</p><input type="date" name="atted_date"/>	
+					<p>만근월 선택</p><input type="date" name="work_month"/>	
 					<input type="hidden" id="leave_date" name="leave_date"/>				
 					<input type="number" name="leave_count" placeholder="연차 수"/>
 				</div>
