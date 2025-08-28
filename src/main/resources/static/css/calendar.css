@@ -1,0 +1,98 @@
+@charset "UTF-8";
+.calendars {
+	padding: 50px;
+	width: 70%;
+	margin: auto;
+}
+
+table tr[role=row] th {
+	color: white;
+	padding: 5px;
+	background-color: #2C3E50;
+	font-size: 20px;
+	text-shadow: 0 0 2px #FFF;
+	
+	border: none;
+}
+
+.fc-toolbar-title {
+	color: white;
+	text-shadow: 0 0 3px #000;		
+}
+
+.fc .fc-day-today {
+	background: lightpink !important;
+}
+
+.fc-event {
+	border: none;
+	border-radius: 8px;
+	padding: 4px;
+	font-size: 14px;
+	font-weight: 500;
+	background-color: lightgreen;
+	letter-spacing: 3px;
+	margin-bottom: 5px;
+}
+
+.box {
+	width: 100%;
+	height: 100%;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.leave-info {
+	width: 18%;
+	height: 100%;
+	
+	background-color: #2C3E50;
+	
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.leave-list {
+	width: 100%;
+	height: 35px;
+	
+	
+	border: none;
+	border-radius: 12px;
+	
+	margin-bottom: 12px;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	font-size: 14px;
+	
+	padding-left: 10px;
+	
+	color: white;
+	text-shadow: 0 0 2px #000;
+	
+	white-space: nowrap;
+}
+
+img {
+	width: 25px;
+	margin-right: 10px;
+}
+
+.leave-list p {
+	margin-right: 10px;
+}
+
+
+
+
+
+
+
+

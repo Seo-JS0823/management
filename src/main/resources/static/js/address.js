@@ -7,15 +7,15 @@ if(equalsEl != null) {
 let modalEl = document.querySelector('[id=addressSearch]');
 
 modalEl.addEventListener('click', () => {
-	let addressModalEl = document.querySelector('[id=addressModal]');
-	addressModalEl.style.display = 'block';
+	let addressModalEl = document.querySelector('[class=modal]');
+	addressModalEl.style.display = 'flex';
 });
 
 // 모달창 닫기
 let closeModalEl = document.querySelector('[id=closeModal]');
 
 closeModalEl.addEventListener('click', () => {
-	let addressModalEl = document.querySelector('[id=addressModal]');
+	let addressModalEl = document.querySelector('[class=modal]');
 	addressModalEl.style.display = 'none';
 });
 
@@ -37,7 +37,7 @@ searchBtnEl.addEventListener('click', () => {
 		return;
 	}
 	
-	fetch(`http://192.168.0.97:9090/address?keyword=${encodeURIComponent(keyword)}`)
+	fetch(`http://localhost:9090/address?keyword=${encodeURIComponent(keyword)}`)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("네트워크 오류");
@@ -68,27 +68,31 @@ searchBtnEl.addEventListener('click', () => {
 */
 
 				li.style.cursor = 'pointer';
-				li.style.padding = '3px';
+				li.style.padding = '10px';
 				li.style.borderRadius = '10px';
 				li.style.listStyle = 'none';
 				li.style.marginBottom = '5px';
+				li.style.boxShadow = '0 0 5px #000';
 				
 				// 출력된 주소를 클릭했을 때 실행되는 이벤트로
 				// #successAddr ID를 가진 <input> 태그에 입력됨
 				li.addEventListener('click', () => {
 					document.querySelector('[id=successAddr]').value = li.dataset.name;
 					document.querySelector('[id=addressCode]').value = li.dataset.id;
-					document.querySelector('[id=addressModal]').style.display = 'none';
+					document.querySelector('[class=modal]').style.display = 'none';
 				});
 				
 				// hover 기능 : 마우스가 올려졌을 때
 				li.addEventListener('mouseover', () => {
-					li.style.boxShadow = '0 0 5px #000, 0 0 10px #333';
+					li.style.backgroundColor = '#4b4edc';
+					li.style.color = 'white';
 				})
 				
 				// hover 기능 : 마우스가 내려졌을 때
 				li.addEventListener('mouseleave', () => {
-					li.style.boxShadow = 'none';
+					li.style.backgroundColor = 'white';
+					li.style.color = 'black';
+					li.style.boxShadow = '0 0 5px #000';
 				})
 				
 				// 1줄씩 출력

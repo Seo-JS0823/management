@@ -49,4 +49,10 @@ public interface MngEmployeeMapper {
 	/* 당일 기준 담당자 부서별 휴가나가있는 인원 조회 */
 	int nowLeaveEmp(EmployeeDTO manager);
 	
+	/* 관리자의 휴가 승인 대기건 조회 */
+	int leaveAgreeCount(EmployeeDTO employee);
+	
+	/* 휴가기록 모두 조회 */
+	List<EmployeeDTO> allLeaveEmp();
+	
 }

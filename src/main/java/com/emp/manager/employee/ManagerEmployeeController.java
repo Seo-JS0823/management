@@ -44,7 +44,11 @@ public class ManagerEmployeeController {
 		String per = String.format("%.1f", ((double) nowWorkEmpCount / (double) departAllEmpCount) * 100);
 		/* 당일 기준 담당자의 부서별 휴가자 인원 구하기 */
 		int nowLeaveEmp = mngEmpMapper.nowLeaveEmp(manager);
+		/* 담당 부서의 휴가 승인 대기건 조회 */
+		int leaveAgreeCount = mngEmpMapper.leaveAgreeCount(manager);
 		
+		
+		mav.addObject("leaveAgreeCount", leaveAgreeCount);
 		mav.addObject("nowLeaveEmp", nowLeaveEmp);
 		mav.addObject("per", per);
 		mav.addObject("allEmpCount", departAllEmpCount);
@@ -120,6 +124,15 @@ public class ManagerEmployeeController {
 		mav.addObject("count", empList.size() + " 명");
 		mav.addObject("target", empList);
 		mav.setViewName("manager/empList");
+		return mav;
+	}
+	
+	/* 휴가자 조회 페이지 */
+	@GetMapping("/nowLeaveView")
+	public ModelAndView nowLeave() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("manager/leaveNow");
 		return mav;
 	}
 	

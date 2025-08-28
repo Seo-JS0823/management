@@ -43,15 +43,15 @@
 	<div class="mng_top_box">
 		<div class="mng_top_item">
 			<p>${manager.department_name} 당일 출근 인원</p>
-			<p>${nowWorkEmpCount}/${allEmpCount}명<br>${per}%</p>
+			<p>${nowWorkEmpCount}/${allEmpCount} 명<br>${per}%</p>
 		</div>
 		<div class="mng_top_item">
 			<p>${manager.department_name} 부서 휴가자 인원</p>
-			<p>${nowLeaveEmp}명</p>
+			<p>${nowLeaveEmp} 명</p>
 		</div>
 		<div class="mng_top_item">
 			<p>휴가 승인 대기</p>
-			<p>199987654건</p>
+			<p>${leaveAgreeCount} 건</p>
 		</div>
 	</div>
 	<div class="mng_bottom_box">
@@ -72,7 +72,7 @@
 				<label>입사일</label><label>${manager.employment_date}</label>
 			</div>
 			<div class="mng_bottom_menu">
-				<label>부서 직원수</label><label>부서 직원수</label>
+				<label>부서 직원수</label><label>${allEmpCount} 명</label>
 			</div>
 			<div class="mng_bottom_menu">
 				<form action="/atted/atteStart" method="post">

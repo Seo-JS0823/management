@@ -28,4 +28,5 @@ public interface LeaveMapper {
 	
 	/* 직원의 연차 정보 불러오기 */
 	double leaveRead(EmployeeDTO employee);
+	
 }

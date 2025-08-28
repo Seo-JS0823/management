@@ -180,6 +180,34 @@
 		    LH.status = 1
 	</select>
 	
+	<!-- 모든 휴가자 기록 조회 -->
+	<select id="allLeaveEmp" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+		    E.name,
+		    E.gender,
+		    D.department_name,
+		    TO_CHAR(LH.leave_start_date, 'YYYY-MM-DD') AS leave_start_date,
+		    TO_CHAR(LH.leave_end_date, 'YYYY-MM-DD') AS leave_end_date
+		FROM
+		    employees E, departments D, leave_history LH
+		WHERE
+		    E.department_id = D.department_id AND
+		    E.employee_id = LH.employee_id AND
+		    LH.status = 1
+	</select>
+	
+	<!-- 부서별 직원의 휴가 승인 대기건 조회 (관리자 기능) -->
+	<select id="leaveAgreeCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			leave_history LH, employees E, departments D
+		WHERE
+			E.department_id = D.department_id AND
+			E.employee_id = LH.employee_id AND
+			D.department_id = #{department_id}
+	</select>
+	
 </mapper>
 
 

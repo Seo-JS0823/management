@@ -34,6 +34,7 @@ public class WebConfig implements WebMvcConfigurer {
     				"/login",
     				"/join",
     				"/address",
+    				"/api",
     				"/css/**",
     				"/images/**",
     				"/js/**"

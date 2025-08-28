@@ -46,6 +46,9 @@ public class EmployeeDTO {
 	private String address;
 	private String employment_date;
 	
+	private String leave_start_date;
+	private String leave_end_date;
+	
 	private int emp_flag;
 	private int address_id;
 	
@@ -195,6 +198,26 @@ public class EmployeeDTO {
 	
 	public String getManager_name() {
 		return manager_name;
+	}
+
+	public String getLeave_start_date() {
+		return leave_start_date;
+	}
+
+	public void setLeave_start_date(String leave_start_date) {
+		this.leave_start_date = leave_start_date;
+	}
+
+	public String getLeave_end_date() {
+		return leave_end_date;
+	}
+
+	public void setLeave_end_date(String leave_end_date) {
+		this.leave_end_date = leave_end_date;
+	}
+
+	public void setAddress_id(int address_id) {
+		this.address_id = address_id;
 	}
 	
 }

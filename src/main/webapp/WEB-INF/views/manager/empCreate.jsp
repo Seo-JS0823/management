@@ -29,6 +29,7 @@
       padding: 40px 30px;
       border-radius: 12px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      height: 900px;
     }
 
     .joinForm h2 {
@@ -73,6 +74,11 @@
       font-size: 16px;
       cursor: pointer;
       transition: 0.4s;
+      margin-top: 10px;
+      
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
     }
 
     .btn:hover {
@@ -99,17 +105,15 @@
 
     /* 모달창 스타일 */
     #addressModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      transform: translate(-50%, -50%);
       background-color: white;
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       z-index: 1000;
+      
+      width: 600px;
+      margin: 0 auto;
+      
     }
 
     #addressModal input[type="text"] {
@@ -128,7 +132,6 @@
       color: white;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px;
     }
 
     #searchBtn:hover,
@@ -139,9 +142,11 @@
     #addressList {
       list-style: none;
       margin-top: 15px;
-      max-height: 120px;
+      max-height: 500px;
       overflow-y: auto;
       padding-left: 0;
+      
+      padding: 10px;
     }
 
     #addressList li {
@@ -154,6 +159,21 @@
       background-color: #f1f1f1;
     }
     
+    .modal {
+    	width: 100%;
+    	height: 100%;
+    	display: none;
+    	
+    	background-color: rgba(0, 0, 0, 0.8);
+    	top: 50%;
+		left: 50%;
+		position: fixed;
+		transform: translate(-50%, -50%);
+		
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -236,14 +256,6 @@
       <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" />
     </div>
 
-    <div id="addressModal">
-      <div style="display: flex;">
-        <input type="text" id="searchKeyword" placeholder="도로명 주소 입력" />
-        <button type="button" id="searchBtn">검색</button>
-      </div>
-      <ul id="addressList"></ul>
-      <button type="button" id="closeModal" style="margin-top: 10px;">닫기</button>
-    </div>
     
     <div class="textForm">
       <input name="phone_num" type="text" placeholder="전화번호" required />
@@ -260,7 +272,19 @@
     </div>
 
     <input type="submit" class="btn" value="J O I N" />
+    <a href="/emp/empView" class="btn">뒤로가기</a>
   </form>
+  	
+  <div class="modal">
+    <div id="addressModal">
+      <div style="display: flex;">
+        <input type="text" id="searchKeyword" placeholder="도로명 주소 입력" />
+        <button type="button" id="searchBtn">검색</button>
+      </div>
+      <ul id="addressList"></ul>
+      <button type="button" id="closeModal" style="margin-top: 10px;">닫기</button>
+    </div>
+  </div>
   <script src="/js/address.js"></script>
 </body>
 </html>

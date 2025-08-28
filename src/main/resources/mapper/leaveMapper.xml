@@ -96,19 +96,25 @@
 	 status = 2
 	WHERE seq = #{seq}
 </update>
-
+	
+	<!-- 직원(본인)의 보유 연차 조회 -->
 	<select id="leaveRead" resultType="double">
 		SELECT
-    		SUM(CASE
-        		WHEN leave_type = 'SAVE' THEN leave_count
-        		WHEN leave_type = 'USE' THEN -leave_count
-        		ELSE 0
-    		END) AS leave_count
+		   CASE
+		   WHEN count(D.leave_count) = 0 THEN 0
+		   END AS leave_count 
 		FROM
-    		annualleave
+		(SELECT
+		   SUM(CASE
+		      WHEN leave_type = 'SAVE' THEN leave_count
+		      WHEN leave_type = 'USE' THEN -leave_count
+		      ELSE 0
+		   END) AS leave_count
+		FROM
+		   annualleave
 		WHERE
-    		employee_id = #{employee_id}
-		GROUP BY employee_id
+		   employee_id = #{employee_id}
+		GROUP BY employee_id) D
 	</select>
 
 </mapper>
