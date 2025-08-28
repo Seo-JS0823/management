@@ -2,6 +2,7 @@ package com.emp.manager.employee;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,6 @@ public class ManagerEmployeeController {
 		ModelAndView mav = new ModelAndView();
 		
 		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
-		boolean hrPart = session.getAttribute("hrPart") != null;
 		
 		if(manager == null) {
 			session.invalidate();
@@ -36,14 +36,19 @@ public class ManagerEmployeeController {
 			return mav;
 		}
 		
-		// 인사 담당자인 경우 연차버튼 생성
-		if(hrPart) {
-			mav.addObject("annualBTN", true);
-			mav.addObject("manager", manager);
-			mav.setViewName("manager/manager");
-			return mav;
-		}
+		/* 당일 부서별 출근한 직원수 */
+		int nowWorkEmpCount = mngEmpMapper.nowPartEmpCount(manager.getDepartment_id());
+		/* 자기 부서 직원수 */
+		int departAllEmpCount = mngEmpMapper.departAllEmpCount(manager.getDepartment_id());
+		/* 출근율 퍼센테이지 */
+		String per = String.format("%.1f", ((double) nowWorkEmpCount / (double) departAllEmpCount) * 100);
+		/* 당일 기준 담당자의 부서별 휴가자 인원 구하기 */
+		int nowLeaveEmp = mngEmpMapper.nowLeaveEmp(manager);
 		
+		mav.addObject("nowLeaveEmp", nowLeaveEmp);
+		mav.addObject("per", per);
+		mav.addObject("allEmpCount", departAllEmpCount);
+		mav.addObject("nowWorkEmpCount", nowWorkEmpCount);
 		mav.addObject("manager", manager);
 		mav.setViewName("manager/manager");
 		return mav;
@@ -91,6 +96,30 @@ public class ManagerEmployeeController {
 		
 		/* 보여줄 페이지 */
 		mav.setViewName("redirect:/manage/mngindex");
+		return mav;
+	}
+	
+	/* 직원 목록 페이지 보여주기 */
+	@GetMapping("/empListView")
+	public ModelAndView empListView() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("manager/empList");
+		return mav;
+	}
+	
+	/* 직원 검색 */
+	@PostMapping("/empList")
+	public ModelAndView empList(String search) {
+		ModelAndView mav = new ModelAndView();
+		
+		/* 직원검색 리스트 조회 */
+		List<EmployeeDTO> empList = mngEmpMapper.searchEmp(search);
+		
+		
+		mav.addObject("count", empList.size() + " 명");
+		mav.addObject("target", empList);
+		mav.setViewName("manager/empList");
 		return mav;
 	}
 	

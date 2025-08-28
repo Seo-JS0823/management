@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header class="emp_header">
 	<div class="emp_header_item">
-		<a href="#">
+		<a href="/emp/empView">
 			<label class="item-label">Dash Board</label>
 		</a>
 	</div>

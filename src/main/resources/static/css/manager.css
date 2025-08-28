@@ -20,7 +20,7 @@ main {
 	
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 	
 	align-items: center;
 	
@@ -28,9 +28,11 @@ main {
 }
 
 .mng_top_item {
-	width: 15%;
+	width: 20%;
 	height: 80%;
 	padding: 5px;
+	margin-right: 100px;
+	
 	
 	background-color: #2C3E50;
 	border: none;
@@ -44,7 +46,7 @@ main {
 	flex-direction: column;
 	
 	text-align: center;
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
 	
 	color: white;
@@ -56,6 +58,7 @@ main {
 	}
 	
 	p:last-child {
+		margin-top: 20px;
 		font-size: 30px;
 		text-shadow:
 			0 0 1px #000,
@@ -63,11 +66,19 @@ main {
 	}
 }
 
+.mng_top_item:first-child p:last-child {
+	margin-top: 0px;
+}
+
+.mng_top_item:last-child {
+	margin-right: 0px;
+}
+
 /* 관리자 메인 페이지 본문 부분 */
 .mng_bottom_box {
 	width: 90%;
 	min-width: 1450px;
-	height: 85%;
+	height: 60%;
 	
 	margin: 0 auto;
 	margin-top: 30px;
@@ -94,6 +105,8 @@ main {
 	
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	padding: 10px;
 }
 

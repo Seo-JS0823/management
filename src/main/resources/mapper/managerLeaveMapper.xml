@@ -58,6 +58,14 @@
 		FROM DUAL
 	</insert>
 	
+	<!-- 연차적립 대상의 정보 불러오기 -->
+	<select id="leaveTarget" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT * FROM
+			employees
+		WHERE
+			employee_id = #{employee_id}
+	</select>
+	
 </mapper>
 
 

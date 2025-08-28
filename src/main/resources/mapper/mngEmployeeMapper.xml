@@ -97,4 +97,95 @@
 		    D.department_id = '9010'	
 	</select>
 	
+	<!-- 직원 목록 검색 : 검색어 부서명 or 직원명 -->
+	<select id="searchEmp" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+			E.name,
+			P.position_name,
+			E.employee_id,
+			W.worktype,
+			TO_CHAR(E.employment_date, 'YYYY-MM-DD') AS employment_date,
+			D.department_name,
+			D.manager_name,
+			TO_CHAR(E.birthdate, 'YYYY-MM-DD') AS birthdate,
+			E.address
+		FROM
+			employees E, departments D, positions P, worktypes W
+		WHERE
+			E.department_id = D.department_id AND
+			E.position_id = P.position_id AND
+			E.worktype_id = W.worktype_id AND
+			(E.name LIKE '%${search}%'            OR 
+			 D.department_name LIKE '%${search}%' OR 
+			 P.position_name LIKE '%${search}%'   OR
+			 W.worktype LIKE '%${search}%') AND
+			E.emp_flag = 1
+	</select>
+	
+	<!-- 당일 출근 인원 카운트 -->
+	<select id="nowWorkEmpCount" resultType="int">
+		SELECT
+		    COUNT(*) AS CNT
+		FROM
+		    attendance_record 
+		WHERE
+		    TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+		    atte_start IS NOT NULL
+	</select>
+	
+	<!-- 당일 부서별 출근 인원 카운트 -->
+	<select id="nowPartEmpCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			attendance_record AR, employees E, departments D
+		WHERE
+			E.department_id = D.department_id AND
+			E.employee_id = AR.employee_id AND
+			TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+			atte_start IS NOT NULL AND
+			D.department_id = #{department_id}
+	</select>
+	
+	<!-- 전체 직원 수 카운트 -->
+	<select id="allEmpCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			employees
+	</select>
+	
+	<!-- 자기 부서 직원 수 카운트 -->
+	<select id="departAllEmpCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			employees
+		WHERE
+			department_id = #{department_id}
+	</select>
+	
+	<!-- 당일 기준 휴가자 조회 -->
+	<select id="nowLeaveEmp" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    employees E, attendance_record AR, departments D, leave_history LH
+		WHERE
+		    E.department_id = D.department_id AND
+		    E.employee_id = AR.employee_id AND
+		    E.employee_id = LH.employee_id AND
+		    TO_CHAR(AR.currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+		    D.department_id = #{department_id} AND
+		    LH.status = 1
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+

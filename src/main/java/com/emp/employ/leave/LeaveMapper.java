@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.emp.employ.employee.EmployeeDTO;
+
 @Mapper
 public interface LeaveMapper {
 	void insertLeave(LeaveReqDTO leaveReqDTO);
@@ -23,4 +25,7 @@ public interface LeaveMapper {
 	void leaveAgree(LeaveReqDTO leaveReqDTO);
 
 	void leaveRefuse(LeaveReqDTO leaveReqDTO);
+	
+	/* 직원의 연차 정보 불러오기 */
+	double leaveRead(EmployeeDTO employee);
 }

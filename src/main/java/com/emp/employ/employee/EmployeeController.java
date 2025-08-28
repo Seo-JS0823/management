@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.emp.employ.atted.AttedDTO;
+import com.emp.employ.atted.AttedMapper;
+import com.emp.employ.leave.LeaveMapper;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -15,6 +19,12 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeMapper empMapper;
+	
+	@Autowired
+	private LeaveMapper leaveMapper;
+	
+	@Autowired
+	private AttedMapper attedMapper;
 	
 	/* 직원 메인 페이지 */
 	@GetMapping("/empView")
@@ -28,6 +38,18 @@ public class EmployeeController {
 			return mav;
 		}
 		
+		/* 연차 계산 */
+		double leave = leaveMapper.leaveRead(target);
+		
+		/* 출근한 시간 계산 */
+		String work_start = attedMapper.attedNowStart(target);
+		
+		/* 올해 근무한 일수 계산 */
+		int allWork = attedMapper.allWorkCount(target);
+		
+		mav.addObject("allWork", allWork);
+		mav.addObject("work_start", work_start);
+		mav.addObject("leave", leave);
 		mav.addObject("employee", target);
 		mav.setViewName("emp/empDash");
 		return mav;

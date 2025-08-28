@@ -2,6 +2,8 @@ package com.emp.employ.atted;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.emp.employ.employee.EmployeeDTO;
+
 @Mapper
 public interface AttedMapper {
 	
@@ -18,4 +20,11 @@ public interface AttedMapper {
 	
 	/* 퇴근 체크 중복 막기 */
 	int atteEndStop(AttedDTO atted);
+	
+	/* 당일 출근한 시간 조회 */
+	String attedNowStart(EmployeeDTO employee);
+	
+	/* 올해 근무한 일수 계산 */
+	int allWorkCount(EmployeeDTO employee);
+	
 }

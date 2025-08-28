@@ -2,7 +2,8 @@
 
 .emp_dashboard {
 	width: 100%;
-	height: 110%;
+	height: 100%;
+	min-height: 1000px;
 	
 	background-color: #2C3E50;
 	
@@ -12,15 +13,14 @@
 
 .emp_top_box {
 	width: 90%;
-	min-width: 1250px;
-	max-width: 1950px;
 	height: 200px;
 	margin: 0 auto;
-	margin-top: 200px;
+	margin-top: 100px;
+	padding: 20px;
 	
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
 }
 
 .emp_main_box {
@@ -28,18 +28,19 @@
 	min-width: 230px;
 	height: 150px;
 	
-	background-color: white;
+	background-color: #F5F5F5;
 	
 	border-radius: 20px;
-	box-shadow:
-		0 0 1px #000,
-		0 0 3px #FFF,
-		0 0 6px #FFF;
 		
 	text-align: center;
+	margin-right: 80px;
 	
 	display: flex;
 	flex-direction: column;
+}
+
+.emp_main_box:last-child {
+	margin-right: 0px;
 }
 
 .em_label {
@@ -47,6 +48,13 @@
 	font-weight: 600;
 	color: black;
 	padding: 3px;
+	margin-bottom: 20px;
+}
+
+.em_label:last-child {
+	font-size: 30px;
+	color: black;
+	text-shadow: 0 0 3px #000;
 }
 
 .em_time {
@@ -62,32 +70,30 @@
 }
 
 .em_sm_btn {
-	width: 50%;
-	height: 40px;
+	width: 30%;
+	height: 30px;
+	border: none;
 	border-radius: 15px;
-	border: 1.5px solid white;
 	
 	margin: 0 auto;
-	margin-top: 30px;
 	
 	font-size: 18px;
 	font-weight: 600;
 	
-	background: linear-gradient(to right, silver, #2C3E50);
+	color: white;
+	background-image: linear-gradient(150deg, #81ecec, #6c5ce7);
 	background-size: 200% auto;
 	transition: background-position 0.3s ease-in-out;
 }
 
 .em_sm_btn:hover {
 	background-position: right center;
-	color: white;
 }
 
 .emp_info_box {
 	width: 90%;
 	min-width: 1250px;
 	height: 60%;
-	min-height: 680px;
 	
 	margin: 0 auto;
 	padding: 20px;
@@ -101,23 +107,24 @@
 
 .emp_info_menu {
 	width: 30%;
-	height: 80%;
+	height: 500px;
 	
 	border-radius: 15px;
-	background-color: white;
+	background-color: #F5F5F5;
 	
-	box-shadow:
-		0 0 5px #FFF;
 	display: flex;
 	flex-direction: column;
 	padding: 5px;
+	
+	align-items: center;
+	justify-content: center;
 }
 
 .info_item {
 	width: 90%;
 	height: 40px;
 	margin: 0 auto;
-	margin-top: 15px;
+	margin-bottom: 10px;
 	padding: 5px 5px 5px 20px;
 	
 	display: flex;
@@ -125,9 +132,9 @@
 	
 	border-radius: 10px;
 	box-shadow:
-		0 0 3px #FFF;
+		0 0 3px #000;
 	
-	background-color: silver;
+	background-color: #2C3E50;
 		
 	label {
 		display: inline-block;
@@ -135,6 +142,7 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		color: white;
 	}
 	
 	label:first-child {
@@ -146,9 +154,14 @@
 	
 }
 
+.info_item:last-child {
+	background: none;
+	box-shadow: none;
+}
+
 .emp_update_box {
 	width: 700px;
-	height: 900px;
+	height: 800px;
 	
 	margin: 0 auto;
 	margin-top: 200px;

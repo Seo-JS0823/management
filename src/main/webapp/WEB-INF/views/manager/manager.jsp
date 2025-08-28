@@ -42,20 +42,16 @@
 	</c:if>
 	<div class="mng_top_box">
 		<div class="mng_top_item">
-			<p>당일 출근 인원</p>
-			<p>24명/26명</p>
+			<p>${manager.department_name} 당일 출근 인원</p>
+			<p>${nowWorkEmpCount}/${allEmpCount}명<br>${per}%</p>
 		</div>
 		<div class="mng_top_item">
-			<p>휴가자 인원</p>
-			<p>2명/26명</p>
+			<p>${manager.department_name} 부서 휴가자 인원</p>
+			<p>${nowLeaveEmp}명</p>
 		</div>
 		<div class="mng_top_item">
 			<p>휴가 승인 대기</p>
-			<p>2건</p>
-		</div>
-		<div class="mng_top_item">
-			<p>초과근무 승인 대기</p>
-			<p>5건</p>
+			<p>199987654건</p>
 		</div>
 	</div>
 	<div class="mng_bottom_box">
@@ -94,10 +90,10 @@
 			</div>
 		</div>
 		<div class="mng_bottom_item">
-			여기는 부서 직원 목록
+			부서 공지사항
 		</div>
 		<div class="mng_bottom_item">
-			여기는 당일 출근한 부서 직원 목록
+			회사 공지사항
 		</div>
 	</div>
 </main>

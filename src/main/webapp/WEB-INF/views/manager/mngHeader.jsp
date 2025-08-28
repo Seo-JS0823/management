@@ -13,7 +13,7 @@
 	<div class="mngHeader_menu">
 		<p>직원 조회</p>
 		<ul class="selected_menu">
-			<li><a href="#">직원 목록 조회</a></li>
+			<li><a href="/manage/empListView">직원 목록 조회</a></li>
 			<li><a href="#">휴가자 조회</a></li>
 		</ul>
 	</div>

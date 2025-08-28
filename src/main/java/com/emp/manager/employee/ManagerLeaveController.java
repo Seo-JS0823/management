@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.emp.employ.employee.EmployeeDTO;
+import com.emp.employ.employee.EmployeeMapper;
 import com.emp.employ.leave.LeaveDTO;
 import com.emp.employ.leave.LeaveMapper;
 import com.emp.employ.leave.LeaveReqDTO;
@@ -43,7 +44,9 @@ public class ManagerLeaveController {
 		int annual = managerLeaveMapper.annualInsert(leave);
 		
 		if(annual > 0) {
+			EmployeeDTO target = managerLeaveMapper.leaveTarget(leave);
 			mav.addObject("annualSuccess", "연차가 적립되었습니다.");
+			mav.addObject("leaveTarget", target);
 		}
 		
 		mav.setViewName("manager/annualCreate");

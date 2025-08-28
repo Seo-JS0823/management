@@ -46,4 +46,30 @@
 			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
 	</select>
 	
+	<!-- 당일 출근한 시간 조회 -->
+	<select id="attedNowStart" resultType="java.lang.String">
+		SELECT
+    		CASE
+        		WHEN COUNT(atte_start) = 0 THEN '미출근'
+        		ELSE TO_CHAR(MIN(atte_start), 'HH24"시" MI"분"')
+    		END AS work_start
+		FROM
+    		attendance_record
+		WHERE
+    		employee_id = #{employee_id} AND
+    		TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	
+	<!-- 총 근무한 일수 조회 -->
+	<select id="allWorkCount" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    attendance_record
+		WHERE
+		    employee_id = #{employee_id} AND
+		    atte_flag != 4
+		ORDER BY currentdate DESC
+	</select>
+	
 </mapper>

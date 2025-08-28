@@ -29,6 +29,8 @@ public class AttedDTO {
 	
 	private int atte_flag;
 	
+	private String work_start;
+	
 	public AttedDTO () {}
 
 	public String getEmployee_id() {
@@ -77,6 +79,14 @@ public class AttedDTO {
 
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
+	}
+
+	public String getWork_start() {
+		return work_start;
+	}
+
+	public void setWork_start(String work_start) {
+		this.work_start = work_start;
 	}
 	
 }

@@ -26,6 +26,7 @@
 		</form>
 		<!-- 직원 정보 -->
 		<form action="/manage/annualCreate" method="post">
+		<input type="hidden" id="leaveTarget" value="${leaveTarget.name}"/>
 			<div class="emp_ann">
 				<div class="emp_info">
 					<input type="hidden" name="employee_id" value="${target.employee_id}"/>
@@ -48,13 +49,11 @@
 					<input type="hidden" id="leave_date" name="leave_date"/>				
 					<input type="number" name="leave_count" placeholder="연차 수"/>
 				</div>
-				<textarea name="content" placeholder="연차 적립 사유를 입력하세요."></textarea>
+				<textarea name="content" placeholder="연차 적립 사유를 입력하세요.만근 = 만근 / 기본연차 = 기본"></textarea>
 				<input type="submit" value="연차 적립 실행"/>
 			</div>
 		</form>
 	</div>
-	
-	
 </main>
 <script src="/js/nowtime.js"></script>
 <script src="/js/annual.js"></script>

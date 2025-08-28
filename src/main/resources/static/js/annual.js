@@ -19,3 +19,9 @@ function atted() {
 atted();
 
 setInterval('atted', 600000);
+
+const targetEl = document.querySelector('[id=leaveTarget]');
+
+if(targetEl.value != '') {
+	alert(targetEl.value + ' 직원의 연차가 적립되었습니다.');
+}
