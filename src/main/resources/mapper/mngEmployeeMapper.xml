@@ -208,6 +208,23 @@
 			D.department_id = #{department_id}
 	</select>
 	
+	<!-- 월별 휴가자 내역 조회 -->
+	<select id="monthLeaveEmp" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+		    E.name,
+		    E.gender,
+		    D.department_name,
+		    TO_CHAR(LH.leave_start_date, 'YYYY-MM-DD') AS leave_start_date,
+		    TO_CHAR(LH.leave_end_date, 'YYYY-MM-DD') AS leave_end_date
+		FROM
+		    employees E, departments D, leave_history LH
+		WHERE
+		    E.department_id = D.department_id AND
+		    E.employee_id = LH.employee_id AND
+		    LH.status = 1 AND
+		    #{start} <![CDATA[<=]]> TO_CHAR(LH.leave_start_date, 'YYYY-MM-DD') AND
+		    #{end} <![CDATA[>=]]> TO_CHAR(LH.leave_end_date, 'YYYY-MM-DD')
+	</select>
 </mapper>
 
 

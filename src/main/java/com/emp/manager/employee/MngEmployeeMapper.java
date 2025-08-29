@@ -55,4 +55,7 @@ public interface MngEmployeeMapper {
 	/* 휴가기록 모두 조회 */
 	List<EmployeeDTO> allLeaveEmp();
 	
+	/* 월별 휴가자 조회 */
+	List<EmployeeDTO> monthLeaveEmp(String start, String end);
+	
 }

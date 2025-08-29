@@ -16,7 +16,8 @@ public class CalendarController {
 	private MngEmployeeMapper mngEmpMapper;
 	
 	@GetMapping("/api/leaveList")
-	public List<EmployeeDTO> leaveList() {
-		return mngEmpMapper.allLeaveEmp();
+	public List<EmployeeDTO> leaveList(String start, String end) {
+		System.out.println(start + "," + end);
+		return mngEmpMapper.monthLeaveEmp(start, end);
 	}
 }

@@ -100,9 +100,10 @@
 	<!-- 직원(본인)의 보유 연차 조회 -->
 	<select id="leaveRead" resultType="double">
 		SELECT
-		   CASE
-		   WHEN count(D.leave_count) = 0 THEN 0
-		   END AS leave_count 
+		    CASE
+		    WHEN COUNT(D.leave_count) = 0 THEN 0
+		    WHEN COUNT(D.leave_count) != 0 THEN MIN(D.leave_count)
+		    END AS leave_count
 		FROM
 		(SELECT
 		   SUM(CASE

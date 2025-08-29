@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .calendars {
-	padding: 50px;
+	padding: 20px;
 	width: 70%;
 	margin: auto;
 }
@@ -21,18 +21,17 @@ table tr[role=row] th {
 }
 
 .fc .fc-day-today {
-	background: lightpink !important;
+	background: lightyellow !important;
 }
 
 .fc-event {
 	border: none;
-	border-radius: 8px;
-	padding: 4px;
-	font-size: 14px;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 2px;
 	font-weight: 500;
 	background-color: lightgreen;
-	letter-spacing: 3px;
-	margin-bottom: 5px;
+	margin-bottom: 1px;
 }
 
 .box {
@@ -46,7 +45,8 @@ table tr[role=row] th {
 }
 
 .leave-info {
-	width: 18%;
+	width: 15%;
+	min-width: 200px;
 	height: 100%;
 	
 	background-color: #2C3E50;
@@ -58,7 +58,7 @@ table tr[role=row] th {
 
 .leave-list {
 	width: 100%;
-	height: 35px;
+	height: auto;
 	
 	
 	border: none;
@@ -67,17 +67,15 @@ table tr[role=row] th {
 	margin-bottom: 12px;
 	
 	display: flex;
-	flex-direction: row;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
 	
 	font-size: 14px;
 	
-	padding-left: 10px;
+	padding: 10px;
 	
 	color: white;
 	text-shadow: 0 0 2px #000;
-	
-	white-space: nowrap;
 }
 
 img {
@@ -86,13 +84,20 @@ img {
 }
 
 .leave-list p {
-	margin-right: 10px;
+	margin: 0px;
 }
 
+.levae-emp {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-size: 20px;
+	font-weight: 900;
+}
 
-
-
-
+tr[role=row] {
+	height: 100px;
+}
 
 
 
