@@ -14,12 +14,14 @@
 	<!-- 퇴근 체크하기 전에 출석 체크 했는지 확인 -->
 	<select id="atteEndContains" resultType="com.emp.employ.atted.AttedDTO">
 		SELECT
-			TO_CHAR(atte_start, 'HH24:MI') AS atte_start
+			TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start
 		FROM
-			attendance_record
+			attendance_record AR, employees E
 		WHERE
-			employee_id = #{employee_id} AND
-			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
+			E.employee_id = AR.employee_id AND
+			E.employee_id = #{employee_id} AND
+			TO_CHAR(AR.currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd') AND
+			E.emp_flag != 0
 	</select>
 	
 	<!-- 퇴근체크 실행 -->
@@ -39,25 +41,29 @@
 		SELECT
 			count(*)
 		FROM
-			attendance_record
+			attendance_record AR, employees E
 		WHERE
+			E.employee_id = AR.employee_id AND
 			work_time IS NOT NULL AND
-			employee_id = #{employee_id} AND
-			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
+			E.employee_id = #{employee_id} AND
+			TO_CHAR(AR.currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd') AND
+			E.emp_flag != 0
 	</select>
 	
 	<!-- 당일 출근한 시간 조회 -->
 	<select id="attedNowStart" resultType="java.lang.String">
 		SELECT
     		CASE
-        		WHEN COUNT(atte_start) = 0 THEN '미출근'
-        		ELSE TO_CHAR(MIN(atte_start), 'HH24"시" MI"분"')
+        		WHEN COUNT(AR.atte_start) = 0 THEN '미출근'
+        		ELSE TO_CHAR(MIN(AR.atte_start), 'HH24"시" MI"분"')
     		END AS work_start
 		FROM
-    		attendance_record
+    		attendance_record AR, employees E
 		WHERE
-    		employee_id = #{employee_id} AND
-    		TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			E.employee_id = AR.employee_id AND
+    		AR.employee_id = #{employee_id} AND
+    		TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+    		E.emp_flag != 0
 	</select>
 	
 	<!-- 총 근무한 일수 조회 -->
@@ -65,10 +71,12 @@
 		SELECT
 		    COUNT(*)
 		FROM
-		    attendance_record
+		    attendance_record AR, employees E
 		WHERE
-		    employee_id = #{employee_id} AND
-		    atte_flag != 4
+			E.employee_id = AR.employee_id AND
+		    AR.employee_id = #{employee_id} AND
+		    AR.atte_flag != 4 AND
+		    E.emp_flag != 0 
 		ORDER BY currentdate DESC
 	</select>
 	

@@ -35,6 +35,19 @@
 					<col style="width: 100px;">
 					<col style="width: 150px;">
 				</colgroup>
+				<c:if test="${not empty exit}">
+					<tr>
+						<th>이름</th>
+						<th>직급</th>
+						<th>사번 코드</th>
+						<th>근무 형태</th>
+						<th>입사일</th>
+						<th>부서</th>
+						<th>부서 담당자</th>
+						<th>생년월일</th>
+						<th>주소</th>
+					</tr>
+				</c:if>
 				<tr>
 					<th>이름</th>
 					<th>직급</th>
@@ -47,17 +60,34 @@
 					<th>주소</th>
 				</tr>
 				<c:forEach var="target" items="${target}">
-					<tr>
-						<td>${target.name}</td>
-						<td>${target.position_name}</td>
-						<td>${target.employee_id}</td>
-						<td>${target.worktype}</td>
-						<td>${target.employment_date}</td>
-						<td>${target.department_name}</td>
-						<td>${target.manager_name}</td>
-						<td>${target.birthdate}</td>
-						<td>${target.address}</td>
-					</tr>
+					<c:choose>
+						<c:when test="${target.emp_flag == 1}">
+							<tr>
+								<td>${target.name}</td>
+								<td>${target.position_name}</td>
+								<td>${target.employee_id}</td>
+								<td>${target.worktype}</td>
+								<td>${target.employment_date}</td>
+								<td>${target.department_name}</td>
+								<td>${target.manager_name}</td>
+								<td>${target.birthdate}</td>
+								<td>${target.address}</td>
+							</tr>
+						</c:when>
+						<c:when test="${target.emp_flag == 0 }">
+							<tr>
+								<td>${target.name}</td>
+								<td>${target.position_name}</td>
+								<td>${target.employee_id}</td>
+								<td>${target.worktype}</td>
+								<td>${target.employment_date}</td>
+								<td>${target.department_name}</td>
+								<td>${target.manager_name}</td>
+								<td>${target.birthdate}</td>
+								<td>${target.address}</td>
+							</tr>
+						</c:when>
+					</c:choose>
 				</c:forEach>
 			</table>
 		</div>

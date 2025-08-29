@@ -43,7 +43,8 @@
 			E.department_id = D.department_id AND
 			E.employee_id = D.manager_id AND
 			E.employee_id = #{employee_id} AND
-			E.password = #{password}
+			E.password = #{password} AND
+			E.emp_flag != 0
 	</select>
 	
 	<!-- 직원 정보 업데이트 -->
@@ -55,7 +56,8 @@
 			email = #{email},
 			password = #{password}
 		WHERE
-			employee_id = #{employee_id}
+			employee_id = #{employee_id} AND
+			emp_flag != 0
 	</update>
 	
 	<!-- 기본 직원 정보 -->
@@ -64,6 +66,8 @@
 			*
 		FROM
 			employees
+		WHERE
+			emp_flag != 0
 	</select>
 	
 </mapper>

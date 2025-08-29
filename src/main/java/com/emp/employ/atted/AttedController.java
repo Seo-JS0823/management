@@ -119,13 +119,13 @@ public class AttedController {
 		int stop = attedMapper.atteEndStop(atted);
 		if(stop > 0) {
 			if(manager) {
-				mav.addObject("endContains", employee.getName());
-				mav.setViewName("manager/manager");
+				employee.setEndContains(true);
+				mav.setViewName("redirect:/manage/mngindex");
 				return mav;
 			}
 			
-			mav.addObject("endContains", employee.getName());
-			mav.setViewName("emp/empDash");
+			employee.setEndContains(true);
+			mav.setViewName("redirect:/emp/empView");
 			return mav;
 		}
 		
@@ -135,13 +135,13 @@ public class AttedController {
 		/* 퇴근체크 버튼을 눌렀는데 당일 출석체크를 하지 않은 경우 */
 		if(atte_start == null) {
 			if(manager) {
-				mav.addObject("startNot", true);
-				mav.setViewName("manager/manager");
+				employee.setStartNot(true);
+				mav.setViewName("redirect:/manage/mngindex");
 				return mav;
 			}
 			
-			mav.addObject("startNot", true);
-			mav.setViewName("emp/empDash");
+			employee.setStartNot(true);
+			mav.setViewName("redirect:/emp/empView");
 			return mav;
 		}
 		

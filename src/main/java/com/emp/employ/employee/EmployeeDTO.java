@@ -58,8 +58,19 @@ public class EmployeeDTO {
 	/* 퇴근 중복 체크 */
 	private boolean endContains = false;
 	
+	/* 퇴근체크전 출석체크 여부 */
+	private boolean startNot = false;
+	
 	public EmployeeDTO() {}
 	
+	public boolean isStartNot() {
+		return startNot;
+	}
+
+	public void setStartNot(boolean startNot) {
+		this.startNot = startNot;
+	}
+
 	public boolean isStartContains() {
 		return startContains;
 	}

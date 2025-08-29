@@ -48,6 +48,12 @@ public class ManagerEmployeeController {
 			manager.setEndContains(false);
 		}
 		
+		/* 퇴근체크 전 출석체크 여부 확인 */
+		if(manager.isStartNot()) {
+			mav.addObject("startNot", true);
+			manager.setStartNot(false);
+		}
+		
 		/* 당일 부서별 출근한 직원수 */
 		int nowWorkEmpCount = mngEmpMapper.nowPartEmpCount(manager.getDepartment_id());
 		/* 자기 부서 직원수 */
@@ -145,6 +151,15 @@ public class ManagerEmployeeController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("manager/leaveNow");
+		return mav;
+	}
+	
+	/* 퇴사자로 등록 */
+	@PostMapping("/empExit")
+	public ModelAndView empExit(EmployeeDTO employee) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("redirect:/manage/mngindex");
 		return mav;
 	}
 	

@@ -9,7 +9,8 @@
 		FROM
 			address
 		WHERE
-			contains (search, #{keyword}) > 0
+			contains (search, REPLACE(TRIM('${keyword}'), ' ', '') || '%') > 0 OR
+			contains (search, '${keyword}%') > 0
 		ORDER BY
 			search ASC
 		OFFSET 0 ROWS FETCH NEXT 501 ROWS ONLY

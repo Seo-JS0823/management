@@ -50,6 +50,11 @@ public class EmployeeController {
 			target.setEndContains(false);
 		}
 		
+		/* 퇴근체크 전 출석체크 여부 확인 */
+		if(target.isStartNot()) {
+			mav.addObject("startNot", true);
+			target.setStartNot(false);
+		}
 		
 		/* 연차 계산 */
 		double leave = leaveMapper.leaveRead(target);
@@ -95,4 +100,5 @@ public class EmployeeController {
 		mav.setViewName("redirect:/emp/empView");
 		return mav;
 	}
+	
 }
