@@ -52,7 +52,29 @@ public class EmployeeDTO {
 	private int emp_flag;
 	private int address_id;
 	
+	/* 출근 중복 체크 */
+	private boolean startContains = false;
+	
+	/* 퇴근 중복 체크 */
+	private boolean endContains = false;
+	
 	public EmployeeDTO() {}
+	
+	public boolean isStartContains() {
+		return startContains;
+	}
+	
+	public void setStartContains(boolean startContains) {
+		this.startContains = startContains;
+	}
+	
+	public boolean isEndContains() {
+		return endContains;
+	}
+	
+	public void setEndContains(boolean endContains) {
+		this.endContains = endContains;
+	}
 	
 	/* Setter 영역 */
 	public void setEmployee_id(String employee_id) {

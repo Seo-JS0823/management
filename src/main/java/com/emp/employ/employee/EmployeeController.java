@@ -38,6 +38,19 @@ public class EmployeeController {
 			return mav;
 		}
 		
+		/* 출석 중복 여부 확인 */
+		if(target.isStartContains()) {
+			mav.addObject("startContains", target.getName());
+			target.setStartContains(false);
+		}
+		
+		/* 퇴근 중복 여부 확인 */
+		if(target.isEndContains()) {
+			mav.addObject("endContains", target.getName());
+			target.setEndContains(false);
+		}
+		
+		
 		/* 연차 계산 */
 		double leave = leaveMapper.leaveRead(target);
 		

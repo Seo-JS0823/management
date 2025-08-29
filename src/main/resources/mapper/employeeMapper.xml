@@ -29,7 +29,8 @@
          	E.worktype_id = W.worktype_id AND
          	E.position_id = P.position_id AND
          	E.employee_id = #{employee_id} AND
-         	E.password = #{password}
+         	E.password = #{password} AND
+         	E.emp_flag != 0
 	</select>
 
 	<!-- 부서 담당자인지 확인 -->

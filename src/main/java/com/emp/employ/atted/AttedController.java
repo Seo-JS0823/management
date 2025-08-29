@@ -58,14 +58,17 @@ public class AttedController {
 		if(contains != null) {
 			/* 관리자인 경우 관리자 페이지로 */
 			if(manager) {
-				mav.addObject("startContains", employee.getName());
-				mav.setViewName("manager/manager");
+				employee.setStartContains(true);
+				session.setAttribute("employee", employee);
+				mav.setViewName("redirect:/manage/mngindex");
 				return mav;
 			}
 			
 			/* 직원인 경우 직원 페이지로 */
-			mav.addObject("startContains", employee.getName());
-			mav.setViewName("emp/empDash");
+			
+			employee.setStartContains(true);
+			session.setAttribute("employee", employee);
+			mav.setViewName("redirect:/emp/empView");
 			return mav;
 		}
 		

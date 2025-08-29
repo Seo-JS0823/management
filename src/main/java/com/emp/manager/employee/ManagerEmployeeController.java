@@ -36,6 +36,18 @@ public class ManagerEmployeeController {
 			return mav;
 		}
 		
+		/* 출석 중복 여부 확인 */
+		if(manager.isStartContains()) {
+			mav.addObject("startContains", manager.getName());
+			manager.setStartContains(false);
+		}
+		
+		/* 퇴근 중복 여부 확인 */
+		if(manager.isEndContains()) {
+			mav.addObject("endContains", manager.getName());
+			manager.setEndContains(false);
+		}
+		
 		/* 당일 부서별 출근한 직원수 */
 		int nowWorkEmpCount = mngEmpMapper.nowPartEmpCount(manager.getDepartment_id());
 		/* 자기 부서 직원수 */
