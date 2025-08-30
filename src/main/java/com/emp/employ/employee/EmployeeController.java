@@ -56,6 +56,18 @@ public class EmployeeController {
 			target.setStartNot(false);
 		}
 		
+		/* 퇴근 체크 알림 */
+		if(target.getEndSuccess() != null) {
+			mav.addObject("endSuccess", target.getEndSuccess());
+			target.setEndSuccess(null);
+		}
+		
+		/* 출석 체크 알림 */
+		if(target.getAttedStartSuccess() != null) {
+			mav.addObject("attedStartSuccess", target.getAttedStartSuccess());
+			target.setAttedStartSuccess(null);
+		}
+		
 		/* 연차 계산 */
 		double leave = leaveMapper.leaveRead(target);
 		
@@ -100,5 +112,7 @@ public class EmployeeController {
 		mav.setViewName("redirect:/emp/empView");
 		return mav;
 	}
+	
+	
 	
 }

@@ -184,7 +184,7 @@
     <h2>직원등록</h2>
     <div class="textForm">
       <select id="departement" name="department_id" required>
-        <option value="" disabled selected>-- 부서 선택 --</option>
+        <option disabled selected>-- 부서 선택 --</option>
         <option value="1010">총무 경비팀</option>
         <option value="1020">총무 시설관리팀</option>
         <option value="2010">재무회계 1팀</option>

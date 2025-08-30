@@ -22,12 +22,7 @@
 		</a>
 	</div>
 	<div class="emp_header_item">
-		<a href="#">
-			<label class="item-label">근태 관리</label>
-		</a>
-	</div>
-	<div class="emp_header_item">
-		<a href="#">
+		<a href="/atted/empAttedView">
 			<label class="item-label">출/퇴근 기록</label>
 		</a>
 	</div>

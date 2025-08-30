@@ -54,6 +54,18 @@ public class ManagerEmployeeController {
 			manager.setStartNot(false);
 		}
 		
+		/* 퇴근 체크 알림 */
+		if(manager.getEndSuccess() != null) {
+			mav.addObject("endSuccess", manager.getEndSuccess());
+			manager.setEndSuccess(null);
+		}
+		
+		/* 출석 체크 알림 */
+		if(manager.getAttedStartSuccess() != null) {
+			mav.addObject("attedStartSuccess", manager.getAttedStartSuccess());
+			manager.setAttedStartSuccess(null);
+		}
+		
 		/* 당일 부서별 출근한 직원수 */
 		int nowWorkEmpCount = mngEmpMapper.nowPartEmpCount(manager.getDepartment_id());
 		/* 자기 부서 직원수 */

@@ -33,9 +33,9 @@ public class AttedService {
 		/* 정상 퇴근 기준 시간 */
 		LocalTime now = LocalTime.of(17, 0);
 		
-		/* 17시 전 이면 승인대기 처리 */
+		/* 17시 전 이면 지각 처리 */
 		if(atted.getAtte_end().isBefore(now)) {
-			atted.setAtte_flag(6);
+			atted.setAtte_flag(2);
 		}
 		
 		/* 17시 이후이면서 정상 출근이면 정상 퇴근 처리 */

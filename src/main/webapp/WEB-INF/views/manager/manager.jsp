@@ -18,7 +18,7 @@
 <main>
 	<!-- 출석 체크 완료되었음을 표시 -->
 	<c:if test="${not empty attedStartSuccess}">
-		<input type="hidden" id="attedStartSuccess" value="${attedStartSuccess.atte_start}"/>
+		<input type="hidden" id="attedStartSuccess" value="${attedStartSuccess}"/>
 	</c:if>
 	
 	<!-- 퇴근 체크할 때 당일 출석 체크를 하지 않았음을 표시 -->
@@ -28,7 +28,7 @@
 	
 	<!-- 퇴근 체크 완료되었음을 표시 -->
 	<c:if test="${not empty endSuccess}">
-		<input type="hidden" id="endSuccess" value="${endSuccess.atte_end}"/>
+		<input type="hidden" id="endSuccess" value="${endSuccess}"/>
 	</c:if>
 	
 	<!-- 출근체크를 한 상태에서 출근체크버튼을 눌렀을 때 보여줄 직원 이름 -->

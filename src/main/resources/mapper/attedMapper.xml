@@ -30,7 +30,8 @@
 			attendance_record
 		SET
 			atte_end = #{atte_end},
-			work_time = #{work_time}
+			work_time = #{work_time},
+			atte_flag = #{atte_flag}
 		WHERE
 			employee_id = #{employee_id} AND
 			TO_CHAR(currentDate, 'yyyy-mm-dd') = TO_CHAR(#{currentDate}, 'yyyy-mm-dd')
@@ -78,6 +79,91 @@
 		    AR.atte_flag != 4 AND
 		    E.emp_flag != 0 
 		ORDER BY currentdate DESC
+	</select>
+	
+	<!-- 직원의 출 퇴근 기록 -->
+	<select id="getAttedList" resultType="com.emp.employ.atted.AttedDTO">
+		SELECT
+			E.name,
+			TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AS currentDate,
+			TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start,
+			TO_CHAR(AR.atte_end, 'HH24:MI') AS atte_end,
+			TO_CHAR(AR.work_time, 'HH24:MI') AS work_time,
+			CASE
+				WHEN AR.atte_flag = 0 THEN '정상출근'
+				WHEN AR.atte_flag = 1 THEN '정상퇴근'
+				WHEN AR.atte_flag = 2 THEN '지각'
+				WHEN AR.atte_flag = 3 THEN '조퇴'
+				WHEN AR.atte_flag = 4 THEN '결석'
+				WHEN AR.atte_flag = 5 THEN '승인대기'
+			END AS status
+		FROM
+			attendance_record AR, employees E
+		WHERE
+			AR.employee_id = E.employee_id AND
+		  	AR.employee_id = #{employee_id} AND
+		  	#{start} <![CDATA[<=]]> TO_CHAR(currentDate, 'YYYY-MM-DD') AND
+		  	#{end} <![CDATA[>=]]> TO_CHAR(currentDate, 'YYYY-MM-DD')
+		  	<if test="search == 1">
+		  		AND AR.atte_flag = 1
+		  	</if>
+		  	<if test="search == 2">
+		  		AND AR.atte_flag = 2
+		  	</if>
+		  	<if test="search == 3">
+		  		AND AR.atte_flag = 3
+		  	</if>
+		  	<if test="search == 4">
+		  		AND AR.atte_flag = 4
+		  	</if>
+		ORDER BY currentDate ASC
+	</select>
+	
+	<!-- 페이징 직원의 출/퇴근 기록 -->
+	<select id="getPagingAttedList" resultType="com.emp.employ.atted.AttedDTO">
+		SELECT
+			E.name,
+			TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AS currentDate,
+			TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start,
+			TO_CHAR(AR.atte_end, 'HH24:MI') AS atte_end,
+			TO_CHAR(AR.work_time, 'HH24:MI') AS work_time,
+			CASE
+				WHEN AR.atte_flag = 0 THEN '정상출근'
+				WHEN AR.atte_flag = 1 THEN '정상퇴근'
+				WHEN AR.atte_flag = 2 THEN '지각'
+				WHEN AR.atte_flag = 3 THEN '조퇴'
+				WHEN AR.atte_flag = 4 THEN '결석'
+				WHEN AR.atte_flag = 5 THEN '승인대기'
+			END AS status
+		FROM
+			attendance_record AR, employees E
+		WHERE
+			AR.employee_id = E.employee_id AND
+		  	AR.employee_id = #{employee_id} AND
+		  	#{start} <![CDATA[<=]]> TO_CHAR(currentDate, 'YYYY-MM-DD') AND
+		  	#{end} <![CDATA[>=]]> TO_CHAR(currentDate, 'YYYY-MM-DD')
+		  	<if test="search == 1">
+		  		AND AR.atte_flag = 1
+		  	</if>
+		  	<if test="search == 2">
+		  		AND AR.atte_flag = 2
+		  	</if>
+		  	<if test="search == 3">
+		  		AND AR.atte_flag = 3
+		  	</if>
+		  	<if test="search == 4">
+		  		AND AR.atte_flag = 4
+		  	</if>
+		  	<if test="sort == null">
+		  		ORDER BY currentDate DESC
+		  	</if> 
+		  	<if test="sort eq 'ASC'">
+		  		ORDER BY currentDate ASC
+		  	</if>
+		  	<if test="sort eq 'DESC'">
+				ORDER BY currentDate DESC
+		  	</if>
+		OFFSET #{offset} ROWS FETCH NEXT #{recordSize} ROWS ONLY
 	</select>
 	
 </mapper>

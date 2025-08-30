@@ -18,5 +18,7 @@
 	<div class="leave-info"></div>
 	<div class="calendars" id='calendar'></div>
 </div>
+
+<script src="/js/nowtime.js"></script>
 </body>
 </html>

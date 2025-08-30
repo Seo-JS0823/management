@@ -31,6 +31,10 @@ public class AttedDTO {
 	
 	private String work_start;
 	
+	private String name;
+	
+	private String status;
+	
 	public AttedDTO () {}
 
 	public String getEmployee_id() {
@@ -87,6 +91,22 @@ public class AttedDTO {
 
 	public void setWork_start(String work_start) {
 		this.work_start = work_start;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

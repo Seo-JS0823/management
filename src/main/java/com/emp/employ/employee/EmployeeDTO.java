@@ -1,5 +1,9 @@
 package com.emp.employ.employee;
 
+import java.time.LocalTime;
+
+import com.emp.employ.atted.AttedDTO;
+
 public class EmployeeDTO {
 	
 	/*
@@ -61,8 +65,30 @@ public class EmployeeDTO {
 	/* 퇴근체크전 출석체크 여부 */
 	private boolean startNot = false;
 	
-	public EmployeeDTO() {}
+	/* 퇴근 체크 */
+	private LocalTime endSuccess;
+
+	/* 출근 체크 */
+	private LocalTime attedStartSuccess;
 	
+	public EmployeeDTO() {}
+
+	public LocalTime getEndSuccess() {
+		return endSuccess;
+	}
+	
+	public void setEndSuccess(LocalTime endSuccess) {
+		this.endSuccess = endSuccess;
+	}
+	
+	public LocalTime getAttedStartSuccess() {
+		return attedStartSuccess;
+	}
+	
+	public void setAttedStartSuccess(LocalTime attedStartSuccess) {
+		this.attedStartSuccess = attedStartSuccess;
+	}
+
 	public boolean isStartNot() {
 		return startNot;
 	}
