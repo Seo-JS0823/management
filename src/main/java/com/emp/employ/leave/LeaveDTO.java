@@ -3,13 +3,15 @@ package com.emp.employ.leave;
 public class LeaveDTO {
 	/*
 	직원에 해당하는 연차 DTO
+	leave_id    : 적립ID
 	employee_id : 사번
 	leave_date  : 연차를 적립한 날짜
 	leave_type  : 'ACCUMULATE' : 적립, 'USE' : 사용
 	leave_count : 연차 적립 / 연차 사용
-	work_month  : 한 달 만근으로 할 시
 	content     : 연차 적립 사유
+	work_month  : 한 달 만근으로 할 시
 	 */
+	private int leave_id;
 	private String employee_id;
 	private String leave_date;
 	private String leave_type;
@@ -65,6 +67,14 @@ public class LeaveDTO {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public int getLeave_id() {
+		return leave_id;
+	}
+
+	public void setLeave_id(int leave_id) {
+		this.leave_id = leave_id;
 	}
 	
 	

@@ -53,6 +53,10 @@
 			<p>휴가 승인 대기</p>
 			<p>${leaveAgreeCount} 건</p>
 		</div>
+		<div class="mng_top_item">
+			<p>직원 페이지</p>
+			<a href="/emp/empView">이동</a>
+		</div>
 	</div>
 	<div class="mng_bottom_box">
 		<div class="mng_bottom_item">

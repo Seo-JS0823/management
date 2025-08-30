@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.emp.manager.employee.ManagerLeaveMapper">
+	
 	<!-- 연차 적립할 직원 검색 -->
 	<select id="annualEmp" resultType="com.emp.employ.employee.EmployeeDTO">
 		SELECT
@@ -66,6 +67,43 @@
 		WHERE
 			employee_id = #{employee_id} AND
 			emp_flag != 0
+	</select>
+	
+	<!-- 연차 적립 내역 조회 search, sort, sortType -->
+	<select id="getLeaveSortList" resultType="com.emp.employ.leave.LeaveEmpDTO">
+		SELECT
+			A.leave_id,
+			E.name AS name,
+			D.department_name AS department_name,
+   			TO_CHAR(A.leave_date, 'YYYY-MM-DD') AS leave_date,
+   			A.leave_count,
+   			CASE
+   				WHEN A.content LIKE '%기본%' THEN '기본 연차'
+   				WHEN A.content LIKE '%만근%' THEN '만근 연차'
+   				ELSE '특별 연차'
+   			END AS content
+		FROM
+			employees E, departments D, annualleave A, worktypes W, positions P
+		WHERE
+			E.position_id = P.position_id AND
+			E.worktype_id = W.worktype_id AND
+			E.department_id = D.department_id AND
+			E.employee_id   = A.employee_id
+			<if test="search != null and (search.contains('기본') or search.contains('만근') or search.contains('특별'))">
+				AND A.content LIKE '%${search}%'
+			</if>
+			<if test="search != null and not (search.contains('기본') or search.contains('만근') or search.contains('특별'))">
+				AND ( E.name LIKE '%${search}%'            OR
+				      D.department_name LIKE '%${search}%' OR
+				      W.worktype LIKE '%${search}%'        OR
+				      P.position_name LIKE '%${search}%')
+			</if>
+			<if test="sort == 'ASC' and sortType != null">
+				ORDER BY ${sortType} ASC
+			</if>
+			<if test="sort == 'DESC' and sortType != null">
+				ORDER BY ${sortType} DESC
+			</if>
 	</select>
 	
 </mapper>

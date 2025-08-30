@@ -123,6 +123,9 @@
 			 D.department_name LIKE '%${search}%' OR 
 			 P.position_name LIKE '%${search}%'   OR
 			 W.worktype LIKE '%${search}%')
+			 <if test="search != '퇴사'">
+			 	AND E.name NOT LIKE '%퇴사%'
+			 </if>
 	</select>
 	
 	<!-- 당일 출근 인원 카운트 -->
@@ -239,6 +242,41 @@
 		    #{end} <![CDATA[>=]]> TO_CHAR(LH.leave_end_date, 'YYYY-MM-DD') AND
 		    E.emp_flag != 0
 	</select>
+	
+	<!-- 퇴사자로 등록 -->
+	<update id="empExit">
+		UPDATE
+			employees
+		SET
+			emp_flag = 0,
+			exit_date = sysdate,
+			name = name || '(퇴사)'
+		WHERE
+			employee_id = #{employee_id}
+	</update>
+	
+	<!-- 퇴사자 등록 메시지 띄우려고 SELECT -->
+	<select id="getDelEmp" resultType="string">
+		SELECT
+			name
+		FROM
+			employees
+		WHERE
+			employee_id = #{employee_id}
+	</select>
+	
+	<!-- 퇴사자 등록한 것 철회 -->
+	<update id="empExitReset">
+		UPDATE
+			employees
+		SET
+			emp_flag = 1,
+			exit_date = null,
+			name = SUBSTR(name, 1, 3)
+		WHERE
+			employee_id = #{employee_id}
+	</update>
+	
 </mapper>
 
 

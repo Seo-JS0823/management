@@ -104,6 +104,19 @@
 	text-align: center;
 }
 
+.list_table td form input {
+	color: red;
+	border: none;
+	background-color: lightpink;
+	width: 100%;
+	margin-bottom: 5px;
+	
+	&:hover {
+		outline: 1.5px solid black;
+		text-shadow: 0 0 3px #FFF;
+	}
+}
+
 .list_table th {
 	
 	background-color: #2C3E50;

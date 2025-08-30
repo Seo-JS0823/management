@@ -58,4 +58,13 @@ public interface MngEmployeeMapper {
 	/* 월별 휴가자 조회 */
 	List<EmployeeDTO> monthLeaveEmp(String start, String end);
 	
+	/* 퇴사자로 등록 */
+	int empExit(String employee_id);
+	
+	/* 퇴사자로 등록된 직원 이름 조회 */
+	String getDelEmp(String employee_id);
+	
+	/* 실수로 퇴사등록을 잘못했을 경우 복구 */
+	int empExitReset(String employee_id);
+	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.emp.employ.employee.EmployeeDTO;
+import com.emp.employ.leave.LeaveEmpDTO;
 import com.emp.util.EmployeeID;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +23,9 @@ public class ManagerEmployeeController {
 
 	@Autowired
 	private MngEmployeeMapper mngEmpMapper;
+	
+	@Autowired
+	private ManagerLeaveMapper leaveMapper;
 	
 	/* 관리자 메인 페이지 보여주기 - 서주성 - */
 	@GetMapping("/mngindex")
@@ -147,9 +151,16 @@ public class ManagerEmployeeController {
 	public ModelAndView empList(String search) {
 		ModelAndView mav = new ModelAndView();
 		
+		if(search.startsWith("퇴")) {
+			search = "퇴사";
+		}
+		
 		/* 직원검색 리스트 조회 */
 		List<EmployeeDTO> empList = mngEmpMapper.searchEmp(search);
 		
+		if(search.startsWith("퇴")) {
+			mav.addObject("exit", true);
+		}
 		
 		mav.addObject("count", empList.size() + " 명");
 		mav.addObject("target", empList);
@@ -168,10 +179,56 @@ public class ManagerEmployeeController {
 	
 	/* 퇴사자로 등록 */
 	@PostMapping("/empExit")
-	public ModelAndView empExit(EmployeeDTO employee) {
+	public ModelAndView empExit(String employee_id) {
 		ModelAndView mav = new ModelAndView();
 		
-		mav.setViewName("redirect:/manage/mngindex");
+		int del = mngEmpMapper.empExit(employee_id);
+		
+		String delName = mngEmpMapper.getDelEmp(employee_id);
+		
+		if(del > 0) {
+			mav.addObject("del", delName);
+		}
+		
+		mav.setViewName("manager/empList");
+		return mav;
+	}
+	
+	/* 퇴사등록 철회 */
+	@PostMapping("/empExitReset")
+	public ModelAndView empExitReset(String employee_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		int reset = mngEmpMapper.empExitReset(employee_id);
+		
+		String resetName = mngEmpMapper.getDelEmp(employee_id);
+		
+		if(reset > 0) {
+			mav.addObject("reset", resetName);
+		}
+		
+		mav.setViewName("manager/empList");
+		return mav;
+	}
+	
+	/* 연차 적립 내역 조회 페이지 */
+	@GetMapping("/annualReadView")
+	public ModelAndView annualReadView() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("manager/leaveHistory");
+		return mav;
+	}
+	
+	/* 연차 적립 내역 조회 search sort sortType */
+	@PostMapping("/annualRead")
+	public ModelAndView annualRead(String search, String sort, String sortType) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<LeaveEmpDTO> getLeaveList = leaveMapper.getLeaveSortList(search, sort, sortType);
+		
+		mav.addObject("leaves", getLeaveList);
+		mav.setViewName("manager/leaveHistory");
 		return mav;
 	}
 	

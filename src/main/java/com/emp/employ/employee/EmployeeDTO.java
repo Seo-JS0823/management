@@ -49,6 +49,7 @@ public class EmployeeDTO {
 	private String email;
 	private String address;
 	private String employment_date;
+	private String exit_date;
 	
 	private String leave_start_date;
 	private String leave_end_date;
@@ -72,7 +73,15 @@ public class EmployeeDTO {
 	private LocalTime attedStartSuccess;
 	
 	public EmployeeDTO() {}
-
+	
+	public String getExit_date() {
+		return exit_date;
+	}
+	
+	public void setExit_date(String exit_date) {
+		this.exit_date = exit_date;
+	}
+	
 	public LocalTime getEndSuccess() {
 		return endSuccess;
 	}

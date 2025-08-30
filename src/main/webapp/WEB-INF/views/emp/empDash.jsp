@@ -55,6 +55,12 @@
 			<label class="em_label">남은 연차</label>
 			<label class="em_label">${leave}</label>
 		</div>
+		<c:if test="${not empty valueManager}">
+			<div class="emp_main_box">
+				<label class="em_label">관리자 페이지</label>
+				<a href="/manage/mngindex">이동</a>
+			</div>
+		</c:if>
 	</div>
 	<div class="emp_info_box">
 		<div class="emp_info_menu">

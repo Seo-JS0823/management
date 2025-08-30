@@ -28,7 +28,7 @@ public class Interceptor implements HandlerInterceptor {
 		
 		/* 매니저 권한만 필요한 페이지 */
 		if(uri.startsWith("/manage")) {
-			if(!isManager) {
+			if(isManager == false) {
 				response.sendRedirect("/");
 				return false;
 			}
@@ -36,7 +36,7 @@ public class Interceptor implements HandlerInterceptor {
 		
 		/* 직원 권한만 필요한 페이지 */
 		if(uri.startsWith("/leave") || uri.startsWith("/lateness") || uri.startsWith("/atted") || uri.startsWith("/emp")) {
-			if(!isEmployee) {
+			if(isEmployee == false) {
 				response.sendRedirect("/");
 				return false;
 			}
