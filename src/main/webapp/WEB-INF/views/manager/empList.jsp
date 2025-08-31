@@ -95,8 +95,8 @@
 								<td>${target.birthdate}</td>
 								<td>
 									<form action="/manage/empExitReset" method="post">
-										<input type="hidden" name="employee_id" value="${target.employee_id}"/>
-										<input type="button" value="퇴사 철회"/>
+										<input type="hidden" class="resetName" name="employee_id" value="${target.employee_id}"/>
+										<input type="button" class="resetBtn" value="퇴사 철회"/>
 									</form> 
 								</td>
 							</tr>

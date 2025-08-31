@@ -1,4 +1,10 @@
 @charset "UTF-8";
+
+main {
+	background-color: #1C2E40;
+	display: flex;
+}
+
 .ann_box {
 	width: 60%;
 	min-width: 1200px;

@@ -5,11 +5,14 @@ import lombok.Data;
 @Data
 public class LeaveEmpDTO {
 	
-	private Integer leave_id;
+	private int leave_id;
 	private String name;
 	private String department_name;
+	private String manager_name;
+	private String position_name;
+	private String employment_date;
 	private String leave_date;
-	private Integer leave_count;
+	private int leave_count;
 	private String content;
 	
 }

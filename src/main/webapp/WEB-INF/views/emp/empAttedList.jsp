@@ -77,15 +77,15 @@
 	</div>
 	<div class="pagings">
 		<input type="hidden" id="nowPage" value="${paging.nowPage}">		
-			<a href="/atted/empAttedList?nowPage=${paging.nowPage - 1}&start=${start}&end=${end}&search=${search}">◀</a>
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage - 1}&start=${start}&end=${end}&search=${search}&sort=${sort}">◀</a>
 		<c:forEach var="page" begin="${paging.start}" end="${paging.end}">
 			<a class="nows" href="/atted/empAttedList?nowPage=${page}&start=${start}&end=${end}&search=${search}" data-nowPage="${page}">${page}</a>
 		</c:forEach>
 		<c:if test="${paging.nowPage == paging.totalPage}">
-			<a href="/atted/empAttedList?nowPage=${paging.nowPage}&start=${start}&end=${end}&search=${search}">▶</a>
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage}&start=${start}&end=${end}&search=${search}&sort=${sort}">▶</a>
 		</c:if>
 		<c:if test="${paging.nowPage != paging.totalPage}">
-			<a href="/atted/empAttedList?nowPage=${paging.nowPage + 1}&start=${start}&end=${end}&search=${search}">▶</a>
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage + 1}&start=${start}&end=${end}&search=${search}&sort=${sort}">▶</a>
 		</c:if>
 	</div>
 </div>

@@ -66,7 +66,7 @@
 						<td>${leave.leave_date}</td>
 						<td>${leave.leave_count}</td>
 						<td>${leave.content}</td>
-						<td><a href="/manage/leaveUpdateView?leave_id=${leave.leave_id}"></a></td>
+						<td><a href="/manage/annualUpdateView?leave_id=${leave.leave_id}">수정하기</a></td>
 					</tr>
 				</table>
 			</c:forEach>

@@ -17,4 +17,5 @@ public class LeaveReqDTO {
 	private String department_name;		
 	private String phone_num;
 	private int    status;
+	private int    leave_count = 0;
 }

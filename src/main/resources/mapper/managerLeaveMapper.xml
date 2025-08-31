@@ -88,7 +88,8 @@
 			E.position_id = P.position_id AND
 			E.worktype_id = W.worktype_id AND
 			E.department_id = D.department_id AND
-			E.employee_id   = A.employee_id
+			E.employee_id   = A.employee_id AND
+			E.emp_flag != 0
 			<if test="search != null and (search.contains('기본') or search.contains('만근') or search.contains('특별'))">
 				AND A.content LIKE '%${search}%'
 			</if>

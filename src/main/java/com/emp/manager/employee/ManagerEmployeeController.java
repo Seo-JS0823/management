@@ -78,6 +78,9 @@ public class ManagerEmployeeController {
 		String per = String.format("%.1f", ((double) nowWorkEmpCount / (double) departAllEmpCount) * 100);
 		/* 당일 기준 담당자의 부서별 휴가자 인원 구하기 */
 		int nowLeaveEmp = mngEmpMapper.nowLeaveEmp(manager);
+		
+		System.out.println(nowLeaveEmp);
+		
 		/* 담당 부서의 휴가 승인 대기건 조회 */
 		int leaveAgreeCount = mngEmpMapper.leaveAgreeCount(manager);
 		
@@ -232,4 +235,46 @@ public class ManagerEmployeeController {
 		return mav;
 	}
 	
+	/* 연차 적립 내역 상세보기 View */
+	@GetMapping("/annualUpdateView")
+	public ModelAndView annualUpdateView(Integer leave_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		LeaveEmpDTO leaveTarget = mngEmpMapper.getAnnualDetail(leave_id);
+		
+		mav.addObject("annual", leaveTarget);
+		mav.addObject("leave_id", leave_id);
+		mav.setViewName("manager/annualDetail");
+		return mav;
+	}
+	
+	/* 연차 적립 */
+	@PostMapping("/annualUpdate")
+	public ModelAndView annualUpdate(LeaveEmpDTO leave) {
+		ModelAndView mav = new ModelAndView();
+		
+		int upCount = mngEmpMapper.annaulUpdate(leave);
+		
+		
+		LeaveEmpDTO leaveTarget = mngEmpMapper.getAnnualDetail(leave.getLeave_id());
+		
+		if(upCount > 0) {
+			mav.addObject("clear", leaveTarget.getName());			
+		}
+		
+		mav.addObject("annual", leaveTarget);
+		mav.setViewName("manager/annualDetail");
+		return mav;
+	}
+	
+	/* 연차 삭제 */
+	@PostMapping("/annualDel")
+	public ModelAndView annualDelete(Integer leave_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		mngEmpMapper.annualDelete(leave_id);
+		
+		mav.setViewName("redirect:/manage/annualReadView");
+		return mav;
+	}
 }

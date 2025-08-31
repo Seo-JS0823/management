@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/css/mngHeader.css"/>
 	<script src="/js/index.global.min.js"></script>
 	<script src="/js/calendar.js"></script>
-	<title>My Company</title>
+	<title>My Company Management</title>
 </head>
 <body bgcolor="#F5F5F5">
 <!-- 관리자 메인 페이지 헤더 부분 -->

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="/css/reset.css"/>
 	<link rel="stylesheet" href="/css/mngHeader.css"/>
 	<link rel="stylesheet" href="/css/manager.css"/>
-	<title>My Company Manager</title>
+	<title>My Company Management</title>
 </head>
 <body>
 <!-- 관리자 메인 페이지 헤더 부분 -->

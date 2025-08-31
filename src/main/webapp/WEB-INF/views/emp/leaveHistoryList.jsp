@@ -5,10 +5,47 @@
 <head>
 <meta charset="UTF-8">
 <title>본인 휴가신청서 기록들</title>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/empHeader.css">
+<link rel="stylesheet" href="/css/empMain.css"> 
 </head>
+
+<style>
+	.emp_HistoryList_table {
+		background : white;
+		width : 70%;
+		height : 50%;
+		padding : 40px;
+		border-radius : 20px;
+		border : 3px solid #666;
+		box-shadow : 20px 20px 20px #222;
+	}
+	
+	tr,td {
+		padding : 8px;
+	}
+	
+	.div {
+		margin-top : 100px;
+		display : flex;
+		flex-direction : row;
+		align-items : center;
+		justify-content: center;
+	}
+	
+	h2{text-align : center;}
+</style>
+
 <body>
-	<main>
-		<table>
+
+	<%@ include file="empHeader.jsp" %>
+
+	<main class="emp_dashboard">
+	<div class="div">
+		<table class="emp_HistoryList_table">
+			<tr>
+				<td colspan="3"><h2>내 휴가신청 목록들</h2></td>
+			</tr>
 			<tr>
 				<td>휴가 신청일</td>
 				<td>휴가 일수</td>
@@ -22,6 +59,7 @@
 			</tr>
 			</c:forEach>
 		</table>
+	</div>
 	</main>
 	
 	<script>

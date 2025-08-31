@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+main {
+	width: 100%;
+	height: 92vh;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	
+	background-color: #1C2E40;
+}
+
+.an-detail {
+	width: 30%;
+	min-width: 700px;
+	height: 930px;
+	
+	background-color: #2C3E50;
+	padding: 5px;
+	
+	display: flex;
+	flex-direction: column;
+	
+	border: 2px solid grey;
+	box-shadow: 0 0 2px grey;
+}
+
+
+.an-detail .an-box-s {
+	width: 97%;
+	height: 50px;
+	margin: 0 auto;
+	margin-bottom: 5px;
+	background-color: white;
+	
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 10px;
+}
+
+.an-box-s:first-child {
+	height: 100px;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	width: 80%;
+	
+	text-align: center;
+	justify-content: center;
+		
+	p {
+		font-size: 30px;
+		width: 70%;
+		text-shadow: 0 0 2px #FFF;
+	}
+}
+
+.an-hr {
+	width: 35%;
+	height: 5px;
+	
+	border: none;
+	background-color: white;
+}
+
+.an-box-s p {
+	width:150px;
+	height: auto;
+	
+	padding: 5px;
+	
+	color: white;
+	background-color: #2C3E50;
+	
+	text-align: center;
+	margin-right: 30px;
+	
+	border-radius: 8px;
+}
+
+.an-box-s input[type=text] {
+	width: 68%;
+	height: 70%;
+	
+	padding-left: 10px;
+	letter-spacing: 2px;
+	
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 10px;
+	
+	border: 2px solid black;
+	
+	outline: none;
+}
+
+
+.an-box-h {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	margin-top: 30px;
+}
+
+.an-box-h .an-h2 {
+	text-align: center;
+	letter-spacing: 3px;
+	
+	color: white;
+	font-size: 35px;
+	margin: 0px;
+}
+
+.an-box-s .an-tarea {
+	width: 90%;
+	margin: 0 auto;
+	height: 80%;
+	
+	resize: none;
+	
+	font-size: 20px;
+	outline: none;
+	
+	padding: 20px;
+	border-radius: 20px;
+}
+
+.an-box-s:last-child {
+	margin-top: 10px;
+	min-height: 250px;
+	padding: 0px;
+	
+	background: none;
+}
+
+.an-box-a {
+	width: 97%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	input[type=button] {
+		margin: 10px;
+		width: 200px;
+		height: 40px;
+		
+		font-size: 18px;
+		
+		color: white;
+		background-color: #2E3CF0;
+		
+		border: none;
+		border-radius: 10px;
+		
+		&:hover {
+			background-color: #1C2BE0;
+			text-shadow: 0 0 3.5px #FFF;
+		}
+		
+	}
+}
+
+
+
+

@@ -3,9 +3,9 @@ package com.emp.manager.employee;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.emp.employ.employee.EmployeeDTO;
+import com.emp.employ.leave.LeaveEmpDTO;
 
 @Mapper
 public interface MngEmployeeMapper {
@@ -66,5 +66,15 @@ public interface MngEmployeeMapper {
 	
 	/* 실수로 퇴사등록을 잘못했을 경우 복구 */
 	int empExitReset(String employee_id);
+	
+	/* 연차적립 내역 상세 보기 */
+	LeaveEmpDTO getAnnualDetail(Integer leave_id);
+	
+	/* 연차적립 내역 수정 하기 */
+	int annaulUpdate(LeaveEmpDTO leave);
+	
+	/* 연차적립 삭제 */
+	int annualDelete(Integer leave_id);
+	
 	
 }

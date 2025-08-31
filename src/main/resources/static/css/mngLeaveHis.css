@@ -76,7 +76,7 @@ main {
 }
 
 .leave-menu-middle .search-bar {
-	width: 80%;
+	width: 90%;
 	height: 50px;
 	
 	background-color: white;
@@ -90,9 +90,11 @@ main {
 }
 
 .search-bar .in-search {
-	width: 30%;
+	width: 25%;
 	height: auto;
 	padding: 3px;
+	
+	margin-right: 50px;
 	
 	border: none;
 	border-radius: 15px;
@@ -162,6 +164,8 @@ main {
 .leave-list .leave-tb {
 	width: 75%;
 	height: 75%;
+	max-height: 610px;
+	
 	
 	padding: 15px;
 	
@@ -190,6 +194,22 @@ main {
 	padding: 5px;
 }
 
+.leave-tb table:not(:first-child) td a {
+	display: block;
+	text-decoration: none;
+	color: red;
+	margin: 0 auto;
+	
+	background-color: lightpink;
+	border-radius: 10px;
+	width: 70%;
+	
+	&:hover {
+		color: white;
+		text-shadow: 0 0 2px #FFF;
+	}
+	
+}
 
 .leave-tb th {
 	background-color: #2C3E50;

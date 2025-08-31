@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 public class ManagerLeaveController {
 	
 	@Autowired
-	private ManagerLeaveMapper managerLeaveMapper; 
+	private ManagerLeaveMapper managerLeaveMapper;
 	
 	@Autowired
 	private LeaveMapper leaveMapper;
@@ -71,9 +71,14 @@ public class ManagerLeaveController {
 	 * 백승목
 	 * 관리자 : 직원 휴가 신청리스트 */
 	@RequestMapping("/showLeaveReqList")
-	public ModelAndView showLRL() {
+	public ModelAndView showLRL(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		List<LeaveReqDTO> leaveReqList = leaveMapper.getLeaveReqList();
+		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		int department_id = manager.getDepartment_id();
+		
+		List<LeaveReqDTO> leaveReqList = leaveMapper.getLeaveReqList(department_id);
 		
 		mav.addObject("leaveReqList", leaveReqList);
 		mav.setViewName("manager/leaveReqList");
@@ -113,6 +118,8 @@ public class ManagerLeaveController {
 		ModelAndView mav = new ModelAndView();
 		
 		leaveMapper.leaveAgree(leaveReqDTO);
+		
+		leaveMapper.leaveAgree2(leaveReqDTO);
 		mav.setViewName("redirect:/manage/mngindex");
 		return mav;
 	}

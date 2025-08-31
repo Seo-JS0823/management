@@ -181,14 +181,13 @@
 	<!-- 당일 기준 휴가자 조회 -->
 	<select id="nowLeaveEmp" resultType="int">
 		SELECT
-		    COUNT(*)
+		    count(*)
 		FROM
-		    employees E, attendance_record AR, departments D, leave_history LH
+		    employees E, departments D, leave_history LH
 		WHERE
 		    E.department_id = D.department_id AND
-		    E.employee_id = AR.employee_id AND
 		    E.employee_id = LH.employee_id AND
-		    TO_CHAR(AR.currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+		    SYSDATE BETWEEN LH.leave_start_date AND LH.leave_end_date AND
 		    D.department_id = #{department_id} AND
 		    LH.status = 1 AND
 		    E.emp_flag != 0
@@ -221,6 +220,7 @@
 			E.department_id = D.department_id AND
 			E.employee_id = LH.employee_id AND
 			D.department_id = #{department_id} AND
+			LH.status = 0 AND
 			E.emp_flag != 0
 	</select>
 	
@@ -276,6 +276,47 @@
 		WHERE
 			employee_id = #{employee_id}
 	</update>
+	
+	<!-- 연차 적립 상세보기 -->
+	<select id="getAnnualDetail" resultType="com.emp.employ.leave.LeaveEmpDTO">
+		SELECT
+			E.name,
+			D.department_name,
+			NVL(D.manager_name, '미지정') AS manager_name,
+			P.position_name,
+			TO_CHAR(E.employment_date, 'YYYY-MM-DD') AS employment_date,
+			TO_CHAR(A.leave_date, 'YYYY-MM-DD') AS leave_date,
+			A.leave_count,
+			A.content,
+			A.leave_id
+		FROM
+			employees E, departments D, annualleave A, positions P
+		WHERE
+			E.department_id = D.department_id AND
+			E.position_id = P.position_id AND
+			E.employee_id = A.employee_id AND
+			A.leave_id = #{leave_id} AND
+			E.emp_flag != 0
+	</select>
+	
+	<!-- 적립한 연차 수정하기 -->
+	<update id="annaulUpdate">
+		UPDATE
+			annualleave
+		SET
+			leave_count = #{leave_count},
+			content = #{content}
+		WHERE
+			leave_id = #{leave_id}
+	</update>
+	
+	<!-- 적립한 연차 삭제하기 -->
+	<delete id="annualDelete">
+		DELETE FROM
+			annualleave
+		WHERE
+			leave_id = #{leave_id}
+	</delete>
 	
 </mapper>
 

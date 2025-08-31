@@ -28,14 +28,19 @@ public class LeaveController {
 	 * 메서드 이름 : leaveView 
 	 */
 	@RequestMapping("/leaveView")
-	public ModelAndView leaveView(String employee_id, HttpSession session) {
+	public ModelAndView leaveView(LeaveReqDTO leaveReqDTO, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
 		EmployeeDTO target = (EmployeeDTO) session.getAttribute("employee");
 		
-		System.out.println(employee_id);
+		// 직원의 남은 연차 일수 가져오기
+		double leave = leaveMapper.leaveRead(target);
 		
-		mav.addObject("employee_id",employee_id);
+		
+		mav.addObject("employee_id", target.getEmployee_id());
+		mav.addObject("leave_count",leave);
+		
+		
 		mav.addObject("employee",target);
 		mav.setViewName("emp/leaveReq");
 		return mav;
@@ -110,73 +115,6 @@ public class LeaveController {
 		return mav;
 	}
 	
-	/*
-	 * 백승목
-	 * 휴가 신청 내역 삭제
-	 * 메서드 이름 : leaveDelete
-	 */
-	public ModelAndView leaveDelete() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
 	
-	/*
-	 * 백승목
-	 * 초과 근무 신청
-	 * 메서드 이름 : overCreate
-	 */
-	public ModelAndView overCreate() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
-	
-	
-	/*
-	 * 백승목
-	 * 초과 근무 신청 내역 조회
-	 * 메서드 이름 : overRead
-	 */
-	public ModelAndView overRead() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
-	
-	
-	/*
-	 * 백승목
-	 * 초과 근무 신청 내역 수정
-	 * 메서드 이름 : overUpdate
-	 */
-	public ModelAndView overUpdate() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
-	
-	/*
-	 * 백승목
-	 * 초과 근무 신청 내역 삭제
-	 * 메서드 이름 : overDelete
-	 */
-	public ModelAndView overDelete() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
-	
-	/*
-	 * 백승목
-	 * 직원이 작성한 초과 근무 내역 수정 View
-	 * 메서드 이름 : overUpdateView
-	 */
-	@GetMapping("/overUpdateView")
-	public ModelAndView overUpdateView() {
-		ModelAndView mav = new ModelAndView();
-		
-		return mav;
-	}
 	
 }

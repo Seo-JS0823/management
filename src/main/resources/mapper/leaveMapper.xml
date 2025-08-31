@@ -3,112 +3,152 @@
 
 <mapper namespace="com.emp.employ.leave.LeaveMapper">
 
-<insert id="insertLeave">
-	INSERT INTO leave_history(
-		seq,
-		employee_id,
-		reg_date,
-		annual_days,
-		leave_start_date,
-		leave_end_date,
-		content,
-		status
-	)
-	VALUES(
-		S_LEAVE_HIS.NEXTVAL,
-		#{employee_id},
-		#{reg_date},
-		#{annual_days},
-		#{leave_start_date},
-		#{leave_end_date},
-		#{content},
-		0
-	)
-</insert>
-
-<select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT
-		lh.seq, lh.reg_date, e.name            
-	FROM
-		leave_history lh JOIN employees e 
-		ON lh.employee_id = e.employee_id
-	WHERE
-		lh.status = 0
-	ORDER BY lh.seq DESC
-</select>
-
-<select id="getLeaveHistoryList" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT 
-		seq, 
-		employee_id, 
-		TO_CHAR(reg_date,'YYYY-MM-DD') AS reg_date, 
-		annual_days,
-		status
-	FROM
-		leave_history  
-	WHERE
-		employee_id = #{employee_id}
-	ORDER BY seq DESC
-</select>
-
-<select id="leaveDetail" resultType="com.emp.employ.leave.LeaveReqDTO">
-	SELECT 
-		e.name,
-		e.employee_id,
-		e.phone_num,
-		d.department_name,
-		d.manager_name,
-		lh.seq,
-		TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
-		lh.annual_days,
-		TO_CHAR(lh.leave_start_date,'YYYY-MM-DD') AS leave_start_date,
-		TO_CHAR(lh.leave_end_date,'YYYY-MM-DD') AS leave_end_date,
-		lh.content,
-		lh.status
-	FROM
-		leave_history lh 
-		JOIN employees e   ON lh.employee_id = e.employee_id
-		JOIN departments d ON e.department_id = d.department_id
-	WHERE
-		lh.seq = #{seq}
-</select>
-
-<delete id="deleteLeave">
-	DELETE FROM
-		leave_history
-	WHERE
-		seq = #{seq}
-</delete>
-
-<update id="empLeaveUpdate">
-	UPDATE
-		leave_history
-	SET 
-		reg_date = #{reg_date},
-		leave_start_date = #{leave_start_date},
-		leave_end_date = #{leave_end_date},
-		annual_days = #{annual_days},
-		content = #{content},
-		status = 0
-	WHERE
-		seq = #{seq}
-</update>
-
-<update id="leaveAgree">
-	UPDATE
-		leave_history
-	SET
-		status = 1
-	WHERE
-		seq = #{seq}
-</update>
-
-<update id="leaveRefuse">
-	UPDATE leave_history
-	SET 
-	 status = 2
-	WHERE seq = #{seq}
-</update>
+	<insert id="insertLeave">
+		INSERT INTO leave_history(
+			seq,
+			employee_id,
+			reg_date,
+			annual_days,
+			leave_start_date,
+			leave_end_date,
+			content,
+			status
+		)
+		VALUES(
+			S_LEAVE_HIS.NEXTVAL,
+			#{employee_id},
+			#{reg_date},
+			#{annual_days},
+			#{leave_start_date},
+			#{leave_end_date},
+			#{content},
+			0
+		)
+	</insert>
+	
+	<select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
+		SELECT
+			lh.seq, lh.reg_date, e.name            
+		FROM
+			leave_history lh JOIN employees e 
+			ON lh.employee_id = e.employee_id
+		WHERE
+			lh.status = 0 AND
+			e.department_id = #{department_id}
+		ORDER BY lh.seq DESC
+	</select>
+	
+	<select id="getLeaveHistoryList" resultType="com.emp.employ.leave.LeaveReqDTO">
+		SELECT 
+			seq, 
+			employee_id, 
+			TO_CHAR(reg_date,'YYYY-MM-DD') AS reg_date, 
+			annual_days,
+			status
+		FROM
+			leave_history  
+		WHERE
+			employee_id = #{employee_id}
+		ORDER BY seq DESC
+	</select>
+	
+	<select id="leaveDetail" resultType="com.emp.employ.leave.LeaveReqDTO">
+		SELECT 
+			e.name,
+			e.employee_id,
+			e.phone_num,
+			d.department_name,
+			d.manager_name,
+			lh.seq,
+			TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
+			lh.annual_days,
+			TO_CHAR(lh.leave_start_date,'YYYY-MM-DD') AS leave_start_date,
+			TO_CHAR(lh.leave_end_date,'YYYY-MM-DD') AS leave_end_date,
+			lh.content,
+			lh.status
+		FROM
+			leave_history lh 
+			JOIN employees e   ON lh.employee_id = e.employee_id
+			JOIN departments d ON e.department_id = d.department_id
+		WHERE
+			lh.seq = #{seq}
+	</select>
+	
+	<delete id="deleteLeave">
+		DELETE FROM
+			leave_history
+		WHERE
+			seq = #{seq}
+	</delete>
+	
+	<update id="empLeaveUpdate">
+		UPDATE
+			leave_history
+		SET 
+			reg_date = #{reg_date},
+			leave_start_date = #{leave_start_date},
+			leave_end_date = #{leave_end_date},
+			annual_days = #{annual_days},
+			content = #{content},
+			status = 0
+		WHERE
+			seq = #{seq}
+	</update>
+	
+	<update id="leaveAgree">
+		UPDATE
+			leave_history
+		SET
+			status = 1
+		WHERE
+			seq = #{seq}
+	</update>
+	
+	<insert id="leaveAgree2">
+		INSERT INTO annualleave(
+			employee_id, 
+			leave_date, 
+			leave_type, 
+			leave_count, 
+			content
+		)
+		VALUES(
+			#{employee_id},
+			#{leave_start_date},
+			'USE',
+			#{annual_days},
+			#{content}
+		)
+	</insert>
+	
+	<select id="getLeave_count" resultType="com.emp.employ.leave.LeaveReqDTO">
+		SELECT
+		   D.employee_id,
+		   CASE
+		   	WHEN count(D.leave_count) = 0 THEN 0
+		   	WHEN count(D.leave_count) != 0 THEN MIN(D.leave_count)
+		   END AS leave_count FROM
+		(SELECT
+		   employee_id,
+		   SUM(CASE
+		      WHEN leave_type = 'SAVE' THEN leave_count
+		      WHEN leave_type = 'USE' THEN -leave_count
+		      ELSE 0
+		   END) AS leave_count
+		FROM
+		   annualleave
+		WHERE
+		   employee_id = #{employee_id}
+		GROUP BY employee_id) D
+		GROUP BY employee_id
+	</select>
+	
+	<update id="leaveRefuse">
+		UPDATE leave_history
+		SET 
+		 status = 2
+		WHERE seq = #{seq}
+	</update>
 	
 	<!-- 직원(본인)의 보유 연차 조회 -->
 	<select id="leaveRead" resultType="double">

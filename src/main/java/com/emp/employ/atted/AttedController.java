@@ -201,6 +201,7 @@ public class AttedController {
 		paging.setList(pagingList);
 		Map<String, Integer> pagingNum = paging.getPagingMap();
 		
+		mav.addObject("sort", sort);
 		mav.addObject("search", search);
 		mav.addObject("emp", employee);
 		mav.addObject("start", start);
