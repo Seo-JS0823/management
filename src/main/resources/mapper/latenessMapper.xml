@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.employ.lateness.LatenessMapper">
+    <select id="selectLatenessListByEmployee_id" parameterType="String" resultType="com.emp.employ.lateness.LatenessDTO">
+        SELECT
+            employee_id,
+            TO_CHAR(ness_date, 'YYYY-MM-DD') AS ness_date,
+            TO_CHAR(created_date, 'YYYY-MM-DD') AS created_date,
+            atte_flag,
+            content,
+            status
+        FROM lateness
+        WHERE employee_id = #{employee_id} 
+        ORDER BY ness_date DESC
+    </select>
+    
+    <insert id="insertLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
+        INSERT INTO lateness (
+            employee_id,
+            ness_date,
+            created_date,
+            atte_flag,
+            content,
+            status
+        ) VALUES (
+            #{employee_id},
+            #{ness_date},
+            SYSDATE,
+            #{atte_flag},
+            #{content},
+            #{status}
+        )
+    </insert>
+    
+    <!-- 수정 전 정보를 위한 select -->
+    <select id="selectLatenessByEmployee_idAndNess_date" resultType="com.emp.employ.lateness.LatenessDTO">
+        SELECT
+            employee_id,
+            TO_CHAR(ness_date, 'YYYY-MM-DD') AS ness_date,
+            TO_CHAR(created_date, 'YYYY-MM-DD') AS created_date,
+            atte_flag,
+            content,
+            status
+        FROM lateness
+        WHERE employee_id = #{employee_id} AND TO_CHAR(ness_date, 'YYYY-MM-DD') = #{ness_date}
+    </select>
+    
+    <!-- 수정 -->
+	<update id="updateLateness" parameterType="map">
+	    UPDATE lateness
+	    SET
+	        ness_date = #{latenessDTO.ness_date},
+	        content = #{latenessDTO.content},
+	        atte_flag = #{latenessDTO.atte_flag}
+	    WHERE
+	        employee_id = #{latenessDTO.employee_id} AND ness_date = TO_DATE(#{originalNessDate}, 'YYYY-MM-DD')
+	</update>
+	
+	<update id="updateLatenessNew">
+    UPDATE lateness
+    SET
+        ness_date = #{ness_date},
+        content = #{content},
+        atte_flag = #{atte_flag}
+    WHERE
+        employee_id = #{employee_id} AND ness_date = TO_DATE(#{originalNessDate}, 'YYYY-MM-DD')
+    </update>
+    
+    <delete id="deleteLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
+    DELETE FROM lateness
+    WHERE employee_id = #{employee_id} AND ness_date = #{ness_date}
+    </delete>
+    
+    <!-- 검색기능 -->
+        <select id="selectLatenessListByEmployee_idAndStatusAndAtte_flag" resultType="com.emp.employ.lateness.LatenessDTO">
+        SELECT
+            employee_id,
+            TO_CHAR(ness_date, 'YYYY-MM-DD') AS ness_date,
+            TO_CHAR(created_date, 'YYYY-MM-DD') AS created_date,
+            atte_flag,
+            content,
+            status
+        FROM lateness
+        WHERE
+            employee_id = #{employee_id}
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+            <if test="atte_flag != null">
+                AND atte_flag = #{atte_flag}
+            </if>
+        ORDER BY ness_date DESC
+    </select>
+    
+    <!-- 관리자가 신청 정보를 조회 -->
+	<select id="selectLatenessListAll" resultType="com.emp.employ.lateness.LatenessDTO">
+	    SELECT
+	        l.employee_id,
+	        TO_CHAR(l.ness_date, 'YYYY-MM-DD') AS ness_date,
+	        TO_CHAR(l.created_date, 'YYYY-MM-DD') AS created_date,
+	        l.atte_flag,
+	        l.content,
+	        l.status,
+	        e.name,
+	        d.department_name AS department
+	    FROM lateness l
+	    JOIN employees e ON l.employee_id = e.employee_id
+	    JOIN departments d ON e.department_id = d.department_id
+	    ORDER BY l.created_date DESC
+		<where>
+		    <if test="searchText != null and !searchText.isEmpty()">
+		        (l.employee_id = #{searchText} OR e.name LIKE '%' || #{searchText} || '%' OR d.department_name LIKE '%' || #{searchText} || '%')
+		    </if>
+		    <if test="status != null">
+		        AND l.status = #{status}
+		    </if>
+		    <if test="atte_flag != null">
+		        AND l.atte_flag = #{atte_flag}
+		    </if>
+		</where>
+	</select>
+
+   <!--  승인여부 업데이트 -->
+   <update id="updateLatenessStatus">
+    UPDATE lateness
+    SET status = #{status}
+    WHERE employee_id = #{employee_id} AND ness_date = TO_DATE(#{ness_date}, 'YYYY-MM-DD')
+   </update>
+   
+   <!-- 관리자 페이지 검색 -->
+	<select id="selectLatenessListByManager" resultType="com.emp.employ.lateness.LatenessDTO">
+	    SELECT
+	        l.employee_id,
+	        TO_CHAR(l.ness_date, 'YYYY-MM-DD') AS ness_date,
+	        TO_CHAR(l.created_date, 'YYYY-MM-DD') AS created_date,
+	        l.atte_flag,
+	        l.content,
+	        l.status,
+	        e.name,
+	        d.department_name AS department
+	    FROM lateness l
+	    JOIN employees e ON l.employee_id = e.employee_id
+	    JOIN departments d ON e.department_id = d.department_id
+		<where>
+		    <if test="searchText != null and !searchText.isEmpty()">
+		        (l.employee_id = #{searchText} OR e.name LIKE '%' || #{searchText} || '%' OR d.department_name LIKE '%' || #{searchText} || '%')
+		    </if>
+		    <if test="status != null">
+		        AND l.status = #{status}
+		    </if>
+		    <if test="atte_flag != null">
+		        AND l.atte_flag = #{atte_flag}
+		    </if>
+		</where>
+	    ORDER BY l.created_date DESC
+	</select>
+</mapper>

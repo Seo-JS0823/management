@@ -23,6 +23,7 @@
 			<li><a href="/manage/showLeaveReqList">휴가자 승인</a></li>
 			<li><a href="/manage/annualCreateView">연차 적립</a>
 			<li><a href="/manage/annualReadView">연차 적립 내역</a></li>
+			<li><a href="/manage/managerEatView">결근/조퇴 승인</a></li>
 		</ul>
 	</div>
 	<div class="mngHeader_menu">

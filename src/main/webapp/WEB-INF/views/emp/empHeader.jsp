@@ -22,6 +22,11 @@
 		</a>
 	</div>
 	<div class="emp_header_item">
+		<a href="/lateness/eatView">
+			<label class="item-label">결근/조퇴</label>
+		</a>
+	</div>
+	<div class="emp_header_item">
 		<a href="/atted/empAttedView">
 			<label class="item-label">출/퇴근 기록</label>
 		</a>
