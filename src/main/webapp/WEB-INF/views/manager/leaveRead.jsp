@@ -4,12 +4,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>My Company Management</title>
+	<title>직원의 휴가 상세정보 보기</title>
 <link rel="stylesheet" href="/css/reset.css" />
 <link rel="stylesheet" href="/css/mngHeader.css" />
 <link rel="stylesheet" href="/css/manager.css" />
-<link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/empHeader.css">
+
 <link rel="stylesheet" href="/css/empMain.css">
 
 <style>
@@ -19,26 +18,32 @@
 	}
 	
 	#mng_back{
-		background:white;
+		background:#EEEEEE;
 		width:100%;
 		height:9%;
+		text-align : center;
+		padding : 20px 0 20px 0;
+		font-size : 35px;
+		font-weight : 1000;
+		letter-spacing: 2px;
 	}
 	
   table {
     border-collapse: collapse;
-    width : 800px;
-		height : 500px;
+    width : 1000px;
+		height : 900px;
     margin: 20px auto;
     background : white;
 		border : 3px solid black;
     box-shadow: 0 0 3px #FFF;
     margin-top : 40px;
-    height : 75%;
-    width : 65%;
     white-space: nowrap;
   }
   
-  h2 { text-align : center; }
+  h2 { 
+ 	  text-align : center; 
+  	font-size : 35px;
+  }
   
   td, th {
     border: 1px solid black;
@@ -71,6 +76,34 @@
   		}
   	}
   	
+  #mng_leave_submit {
+  	display : block;
+  	width : 95px;
+  	height :52px;
+  	background : #2C3E50;
+  	color : white; 
+  	border-radius : 10px;
+  	font-size : 20px;
+  	font-weight : 700;
+  	&:hover {
+  		text-shadow : 0 0 3px #FFF;
+  	}
+
+  }
+  	
+  #mng_leave_refuse {
+ 		margin-bottom : 10px;
+  	padding : 10px 30px 10px 30px;
+	 	background : #2C3E50;
+	 	color : white; 
+	 	border-radius : 10px;
+	 	font-size : 20px;
+	 	font-weight : 700;
+	 	text-decoration : none;
+	 	&:hover {
+	 		text-shadow : 0 0 3px #FFF;
+  	} 
+ }
   .overlay {
 	 position: fixed;
 	 top: 0;
@@ -100,11 +133,11 @@
 </head>
 <%@ include file="mngHeader.jsp" %>
 
-<div id="mng_back"></div>
+<div id="mng_back">${leaveDetail.name} 직원의 휴가 상세정보</div>
 <body>
 
 	<main class="emp_dashboard">		
-	<form action="/manage/leaveAgree" method="GET">
+	<form id="mng_check_form" action="/manage/leaveAgree" method="GET">
 		<input type ="hidden" name="employee_id" value="${leaveDetail.employee_id}"/>
 		<input type ="hidden" name="seq" value="${leaveDetail.seq}"/>
 		<table>
@@ -127,7 +160,7 @@
 		  	<td>신청일</td>
 		  	<td><input type="date" value="${leaveDetail.reg_date}" readonly/></td>
 		  	<td>남은 연차일수</td>
-		  	<td><input type="number" value="${leave_cnt.leave_count}"></td>
+		  	<td><input type="number" value="${leave_cnt.leave_count}" readonly></td>
 		  </tr>
 		  <tr>
 		  <tr>
@@ -143,9 +176,7 @@
 		  <tr>
 		    <td>사유</td>
 		    <td colspan="3">
-		    <textarea style="width:100%; height:120px; resize:none; outline:none;" name="content" readonly>
-		    ${leaveDetail.content}
-		    </textarea>
+		    <textarea style="width:100%; height:120px; resize:none; outline:none;" name="content" readonly>${leaveDetail.content}</textarea>
 		    </td>
 		  </tr>
 		  <tr>
@@ -157,8 +188,8 @@
 		  </tr>
 		  <tr>
 		  	<td colspan="4">
-		  	<input type="submit" value="승인"/><br>
-		  	<a href="/manage/leaveRefuse?seq=${leaveDetail.seq}">반려</a><br>
+		  	<input type="submit" value="승인" id="mng_leave_submit"/><br>
+		  	<a href="/manage/leaveRefuse?seq=${leaveDetail.seq}" id="mng_leave_refuse">반려</a><br>
 		  	</td>
 		  </tr>
 		</table>
@@ -166,5 +197,84 @@
 		
 	</main>
 <script src="/js/nowtime.js"></script>
+
+<script>
+	const submitEl = document.querySelector('#mng_leave_submit')
+	const formEl = document.querySelector('#mng_check_form')
+	
+	submitEl.addEventListener('click', function(e) {
+		
+		e.preventDefault(); // 기존 기능 실행취소
+		
+		const overlay = document.createElement('div');
+		overlay.className= "overlay";
+		
+		const modal = document.createElement('div');
+		modal.className = "modal";
+		
+		const message = document.createElement('p')
+		message.innerHTML = "정말로 해당 휴가신청을 승인 하겠습니까?";
+		
+		const check = document.createElement('button')
+		check.innerHTML = "확인";
+		check.addEventListener('click', function() {
+			alert("승인 완료")
+			document.body.removeChild(overlay);
+			formEl.submit(); 
+		})
+		
+		const cancel = document.createElement('button')
+		cancel.innerHTML = "취소";
+		cancel.addEventListener('click', function() {
+			document.body.removeChild(overlay);
+		})
+		
+		document.body.appendChild(overlay);
+		overlay.appendChild(modal);
+		modal.appendChild(message);
+		modal.appendChild(check);
+		modal.appendChild(cancel);
+		
+	});
+	
+	const refuseEl = document.querySelector('#mng_leave_refuse')
+	
+	refuseEl.addEventListener('click', function(e) {
+		
+		e.preventDefault(); // 기존 기능 실행취소
+		
+		const overlay = document.createElement('div');
+		overlay.className= "overlay";
+		
+		const modal = document.createElement('div');
+		modal.className = "modal";
+		
+		const message = document.createElement('p')
+		message.innerHTML = "정말로 해당 휴가신청을 반려 하시겠습니까?";
+		
+		const check = document.createElement('button')
+		check.innerHTML = "확인";
+		check.addEventListener('click', function() {
+			alert("반려 성공")
+			document.body.removeChild(overlay);
+			window.location.href = refuseEl.href
+		})
+		
+		const cancel = document.createElement('button')
+		cancel.innerHTML = "취소";
+		cancel.addEventListener('click', function() {
+			document.body.removeChild(overlay);
+		})
+		
+		document.body.appendChild(overlay);
+		overlay.appendChild(modal);
+		modal.appendChild(message);
+		modal.appendChild(check);
+		modal.appendChild(cancel);
+		
+	});
+	
+	
+</script>
 </body>
 </html>

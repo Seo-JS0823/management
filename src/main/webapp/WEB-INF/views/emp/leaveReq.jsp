@@ -17,19 +17,20 @@
 	
   table {
     border-collapse: collapse;
-    width : 800px;
-		height : 500px;
+    width : 1000px;
+		height : 900px;
     margin: 20px auto;
     background : white;
 		border : 3px solid black;
     box-shadow: 0 0 3px #FFF;
     margin-top : 80px;
-    height : 75%;
-    width : 65%;
     white-space: nowrap;
   }
   
-  h2 { text-align : center; }
+  h2 { 
+  	text-align : center;
+  	font-size : 30px;
+   }
   
   td, th {
     border: 1px solid black;
@@ -119,7 +120,7 @@
 		  	<td>${leave_count}</td>
 		  </tr>
 		  <tr>
-		    <td>기간</td>
+		    <td>휴가 기간</td>
 		    <td>
 		    <input id="start" class="date" type="date" name="leave_start_date" >
 		     ~ 
@@ -129,7 +130,7 @@
 		  </tr>
 		  <tr>
 		    <td>사유</td>
-		    <td colspan="3"><textarea style="width:100%; height:120px; resize:none; outline:none; " name="content"></textarea></td>
+		    <td colspan="3"><textarea id="emp_content" style="width:100%; height:120px; resize:none; outline:none; " name="content"></textarea></td>
 		  </tr>
 		  <tr>
 		    <td>신청자 (인)</td>
@@ -177,12 +178,36 @@
 	
 	const subBtn = document.querySelector('#emp_leave_req');
 	const formEL = document.querySelector('#form');
+	const emp_contentEL = document.querySelector('#emp_content');
+	const annual_daysEl = document.querySelector('#annual_days');
 	subBtn.addEventListener('click',function(e) { 
 			
-		if(${leaveReqDTO.leave_count} == 0) {
+		if(${leave_count} == 0) {
 			e.preventDefault(); // 기존 기능 실행취소
 			alert('남은 연차가 없습니다')
+			return; 
+			// if 조건문이 실행되면 return;을 만나서 흐름을 여기서 끊어버림
+			// 즉 아레 오버레이 로직이 실행안댐
+		}
+		
+		if(emp_contentEL.value.length < 5 || emp_contentEL.value.length > 150 ) {
+			e.preventDefault();
+			alert('사유는 5 ~ 150자 입니다')
 			return;
+		}
+		
+		if(annual_daysEl.value > ${leave_count}) {
+			e.preventDefault();
+			alert('보유한 연차가 부족합니다')
+			return;
+		}
+		
+		for(let date of dateEls) {
+			if(date.value == "") {
+				e.preventDefault();
+				alert('날짜를 입력하세요')
+				return;
+			}
 		}
 		
 		e.preventDefault(); // 기존 기능 실행취소
@@ -221,3 +246,6 @@
 	
 </body>
 </html>
+
+
+

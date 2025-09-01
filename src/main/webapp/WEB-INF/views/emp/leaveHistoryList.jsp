@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>본인 휴가신청서 기록들</title>
+	<script src="/js/pagings.js"></script>
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/empHeader.css">
 <link rel="stylesheet" href="/css/empMain.css"> 
@@ -13,7 +14,7 @@
 <style>
 	.emp_HistoryList_table {
 		background : white;
-		width : 70%;
+		width : 60%;
 		height : 50%;
 		padding : 40px;
 		border-radius : 20px;
@@ -23,7 +24,21 @@
 	
 	tr,td {
 		padding : 8px;
+		font-size : 20px;
+		font-weight : 700;
+		text-align : center;
+		width : 33%
 	}
+	
+	a {
+		text-decoration : none;
+		color : #444;
+		font-weight : 800;
+		font-size : 25px;
+		&:hover {
+			text-shadow : 2px 1px 1px #888;
+		}
+	} 
 	
 	.div {
 		margin-top : 100px;
@@ -60,7 +75,23 @@
 			</c:forEach>
 		</table>
 	</div>
+	
+		<div class="pagings">
+		<input type="hidden" id="nowPage" value="${paging.nowPage}">		
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage - 1}&start=${start}&end=${end}&search=${search}&sort=${sort}">◀</a>
+		<c:forEach var="page" begin="${paging.start}" end="${paging.end}">
+			<a class="nows" href="/atted/empAttedList?nowPage=${page}&start=${start}&end=${end}&search=${search}" data-nowPage="${page}">${page}</a>
+		</c:forEach>
+		<c:if test="${paging.nowPage == paging.totalPage}">
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage}&start=${start}&end=${end}&search=${search}&sort=${sort}">▶</a>
+		</c:if>
+		<c:if test="${paging.nowPage != paging.totalPage}">
+			<a href="/atted/empAttedList?nowPage=${paging.nowPage + 1}&start=${start}&end=${end}&search=${search}&sort=${sort}">▶</a>
+		</c:if>
+	</div>
 	</main>
+	
+	<script src="/js/nowtime.js"></script>
 	
 	<script>
 		let statusEl = document.querySelectorAll('.status')

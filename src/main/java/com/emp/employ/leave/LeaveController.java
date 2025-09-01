@@ -1,6 +1,7 @@
 package com.emp.employ.leave;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.emp.employ.employee.EmployeeDTO;
-
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -21,6 +21,7 @@ public class LeaveController {
 	
 	@Autowired
 	private OtMapper otMapper;
+	
 	
 	/* 
 	 * 백승목
@@ -70,8 +71,11 @@ public class LeaveController {
 	 * 메서드 이름 : leaveRead
 	 */
 	@RequestMapping("/leaveReqHistoryList") //employee_id - hidden 으로 employee_id 를 넘겨줘야함 혹 session
-	public ModelAndView leaveReqHistoryList(LeaveReqDTO leaveReqDTO) {
+	public ModelAndView leaveReqHistoryList(LeaveReqDTO leaveReqDTO, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO employee = (EmployeeDTO) session.getAttribute("employee");
+		
 		
 		// 본인이 신청한 휴가기록들 갖고오기 leaveHistoryList = seq, employee_id, leave_date, status
 		List<LeaveReqDTO> leaveHistoryList = leaveMapper.getLeaveHistoryList(leaveReqDTO);
@@ -111,7 +115,7 @@ public class LeaveController {
 		System.out.println("휴가 수정값 : " + leaveReqDTO);
 		leaveMapper.empLeaveUpdate(leaveReqDTO);
 		
-		mav.setViewName("redirect:/");
+		mav.setViewName("redirect:/emp/empView");
 		return mav;
 	}
 	

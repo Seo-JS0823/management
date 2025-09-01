@@ -92,8 +92,12 @@ public class ManagerLeaveController {
 	public ModelAndView leaveDetail(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
 		
+		// 직원의 남은 연차 일수 가져오기
+		LeaveReqDTO leave_cnt = leaveMapper.getLeave_count(leaveReqDTO);
+		
+		// 신청서 상세정보 가져오기
 		leaveReqDTO = leaveMapper.leaveDetail(leaveReqDTO);
-		System.out.println("직원의 휴가 상세정보 : " + leaveReqDTO);
+		
 		/*
 		EmployeeDTO employee = (EmployeeDTO) session.getAttribute("employee");
 		
@@ -105,6 +109,7 @@ public class ManagerLeaveController {
 		mav.addObject("employee", employee);
 		*/
 		mav.addObject("leaveDetail", leaveReqDTO);
+		mav.addObject("leave_cnt", leave_cnt);
 		mav.setViewName("manager/leaveRead");
 		return mav;
 	}
