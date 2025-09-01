@@ -3,6 +3,7 @@ package com.emp.manager.employee;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.emp.employ.atted.AttedDTO;
 import com.emp.employ.employee.EmployeeDTO;
 import com.emp.employ.leave.LeaveEmpDTO;
 import com.emp.util.EmployeeID;
+import com.emp.util.Paging;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -277,4 +280,68 @@ public class ManagerEmployeeController {
 		mav.setViewName("redirect:/manage/annualReadView");
 		return mav;
 	}
+	
+	/* 부서별 출퇴근 기록부 View */
+	@GetMapping("/attedListView")
+	public ModelAndView departAttedView(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		mav.addObject("manager", manager);
+		mav.setViewName("manager/departAttedList");
+		return mav;
+	}
+	
+	/* 부서별 출퇴근 기록부 페이징 search */
+	@RequestMapping("/partAttedList")
+	public ModelAndView partAttedList(HttpSession session, int nowPage, String start, String end, String sort) {
+		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		List<AttedDTO> employees = mngEmpMapper.getPartAttedList(manager.getDepartment_id(), start, end, sort);
+		
+		/* 출력된 것 없을 때 */
+		if(employees.size() == 0) {
+			mav.addObject("zero", "검색된 기록이 없습니다.");
+			mav.setViewName("manager/departAttedList");
+			return mav;
+		}
+		
+		Paging<AttedDTO> paging = null;
+		
+		int offset = 0;
+		int recordSize = 5;
+		
+		List<AttedDTO> pagingList = null;
+		
+		Map<String, Integer> pagingNum = null;
+		
+		if(employees.size() != 0) {
+			int totalRecordSize = employees.size();
+			paging = new Paging<>(nowPage, 15, totalRecordSize, 5, 1);
+			
+			offset = paging.getOffset();
+			recordSize = paging.getRecordSize();
+			
+			pagingList = mngEmpMapper.getPagingPartAttedList(manager.getDepartment_id(), start, end, sort, offset, recordSize);
+			
+			paging.setList(pagingList);
+			
+			pagingNum = paging.getPagingMap();
+			
+			mav.addObject("sort", sort);
+			mav.addObject("employees", pagingList);
+			mav.addObject("start", start);
+			mav.addObject("end", end);
+			mav.addObject("manager", manager);
+			mav.addObject("paging", pagingNum);
+		}
+		
+		
+		mav.setViewName("manager/departAttedList");
+		return mav;
+	}
+	
+	
 }

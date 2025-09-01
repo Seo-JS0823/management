@@ -1,0 +1,198 @@
+@charset "UTF-8";
+
+main {
+	width: 100%;
+	height: 93vh;
+	
+	background-color: #1C2E40;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.part-main {
+	width: 80%;
+	height: 800px;
+	margin: 0 auto;
+	
+	background-color: white;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	
+	padding-top: 15px;
+	
+	border-radius: 20px;
+}
+
+.part-h {
+	width: 80%;
+	height: 70px;
+	
+	background-color: #1C2E40;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	border-radius: 15px;
+	margin-bottom: 15px;
+	
+	p {
+		color: white;
+		font-size: 30px;
+		text-shadow: 0 0 2px #FFF;
+		letter-spacing: 1px;
+	}
+	
+}
+
+.part-search-s {
+	width: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+	height: 60px;
+	
+	background-color: #1C2E40;
+	
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.search-box-s {
+	width: auto;
+	height: auto;
+	
+	background-color: white;
+	
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	
+	input[type=submit] {
+		width: 150px;
+		height: 40px;
+		outline: none;
+		border: none;
+		
+		font-size: 20px;
+		
+		background-color: #2C3EF0;
+		border-radius: 15px;
+		color: white;
+		
+		&:hover {
+			text-shadow: 0 0 3px #FFF;
+		}
+		
+	}
+	
+}
+
+.search-box-s:nth-of-type(1), .search-box-s:nth-of-type(2) {
+	margin-left: 5px;
+	padding-left: 5px;
+	font-size: 18px;
+	border-radius: 0px;
+	
+	input[type=date] {
+		width: 200px;
+		text-align: center;
+		height: 40px;
+		font-size: 20px;
+		
+		outline: none;
+		border: none;
+	}
+}
+
+.search-box-s:nth-of-type(3) {
+	margin-left: 5px;
+	
+	select {
+		width: 200px;
+		text-align: center;
+		height: 40px;
+		font-size: 20px;
+		
+		outline: none;
+		border: none;		
+	}
+	margin-right: 5px;
+}
+
+.search-box-s:nth-of-type(4) {
+	background: none;
+}
+
+.tb-list {
+	width: 70%;
+	height: 600px;
+}
+
+.part-main table {
+	width: 100%;
+	height: auto;
+	
+	margin-top: 15px;
+	table-layout: fixed;
+}
+
+.part-main th {
+	background-color: #1C2E40;
+	color: white;
+	padding: 3px;
+	
+}
+
+.part-main table, .part-main th, .part-main td {
+	border: 1px solid #666;
+	border-collapse: collapse;
+}
+
+.part-main th, .part-main td {
+	padding: 5px;
+	text-align: center;
+}
+
+.pagings {
+	width: 50%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.pagings a {
+	width: 25px;
+	line-height: 25px;
+	margin: 10px;
+	text-decoration: none;
+	
+	font-size: 14px;
+	
+	color: white;
+	background-color: #1C2E40;
+	text-align: center;
+	
+	border-radius: 5px;
+	
+	padding: 0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+

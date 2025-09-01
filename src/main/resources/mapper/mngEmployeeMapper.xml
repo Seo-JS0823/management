@@ -318,6 +318,70 @@
 			leave_id = #{leave_id}
 	</delete>
 	
+	<!-- 부서별 직원 수 조회 -->
+	<select id="getPartAttedList">
+		SELECT
+		    E.name,
+		    TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AS currentDate,
+		    TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start,
+		    TO_CHAR(AR.atte_end, 'HH24:MI') AS atte_end,
+		    TO_CHAR(AR.work_time, 'HH24:MI') AS work_time,
+		    CASE
+		        WHEN AR.atte_flag = 0 THEN '정상출근'
+		        WHEN AR.atte_flag = 1 THEN '정상퇴근'
+		        WHEN AR.atte_flag = 2 THEN '지각'
+		        WHEN AR.atte_flag = 3 THEN '조퇴'
+		        WHEN AR.atte_flag = 4 THEN '결석'
+		        WHEN AR.atte_flag = 5 THEN '승인대기'
+		    END AS status
+		FROM
+		    attendance_record AR, employees E
+		WHERE
+		    AR.employee_id = E.employee_id AND
+		    E.department_id = #{department_id} AND
+		    #{start} <![CDATA[<=]]> TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AND
+		    #{end} <![CDATA[>=]]> TO_CHAR(AR.currentDate, 'YYYY-MM-DD')
+		<if test="sort == 'ASC'">
+		    ORDER BY currentDate ASC
+		</if>
+		<if test="sort == 'DESC'">
+		    ORDER BY currentDate DESC
+		</if>
+	</select>
+	
+	<!-- 부서별 출/퇴근 페이징 조회 -->
+	<select id="getPagingPartAttedList" resultType="com.emp.employ.atted.AttedDTO">
+		SELECT
+		    E.name,
+		    TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AS currentDate,
+		    TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start,
+		    TO_CHAR(AR.atte_end, 'HH24:MI') AS atte_end,
+		    TO_CHAR(AR.work_time, 'HH24:MI') AS work_time,
+		    CASE
+		        WHEN AR.atte_flag = 0 THEN '정상출근'
+		        WHEN AR.atte_flag = 1 THEN '정상퇴근'
+		        WHEN AR.atte_flag = 2 THEN '지각'
+		        WHEN AR.atte_flag = 3 THEN '조퇴'
+		        WHEN AR.atte_flag = 4 THEN '결석'
+		        WHEN AR.atte_flag = 5 THEN '승인대기'
+		    END AS status
+		FROM
+		    attendance_record AR, employees E
+		WHERE
+		    AR.employee_id = E.employee_id AND
+		    E.department_id = #{department_id} AND
+		    #{start} <![CDATA[<=]]> TO_CHAR(AR.currentDate, 'YYYY-MM-DD') AND
+		    #{end} <![CDATA[>=]]> TO_CHAR(AR.currentDate, 'YYYY-MM-DD')
+		<if test="sort == 'ASC'">
+		    ORDER BY currentDate ASC
+		</if>
+		<if test="sort == 'DESC'">
+		    ORDER BY currentDate DESC
+		</if>
+		OFFSET #{offset} ROWS
+		FETCH NEXT #{recordSize} ROWS ONLY
+	</select>
+	
 </mapper>
 
 

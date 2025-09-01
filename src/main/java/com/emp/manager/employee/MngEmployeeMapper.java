@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.emp.employ.atted.AttedDTO;
 import com.emp.employ.employee.EmployeeDTO;
 import com.emp.employ.leave.LeaveEmpDTO;
 
@@ -76,5 +77,9 @@ public interface MngEmployeeMapper {
 	/* 연차적립 삭제 */
 	int annualDelete(Integer leave_id);
 	
+	/* 부서별 출/퇴근 조회 */
+	List<AttedDTO> getPartAttedList(int department_id, String start, String end, String sort);
 	
+	/* 부서별 페이징 출/퇴근 조회 */
+	List<AttedDTO> getPagingPartAttedList(int department_id, String start, String end, String sort, int offset, int recordSize);
 }

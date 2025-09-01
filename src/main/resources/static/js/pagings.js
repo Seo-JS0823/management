@@ -1,15 +1,19 @@
 window.onload = function() {
 	let searchEl = document.getElementById('searchs');
-	let options = searchEl.options;
 	
-	let searchNumEl = document.querySelector('[id=searchNum]');
 	
-	for(let i = 0; i < options.length; i++) {
-		if(options[i].value == searchNumEl.value) {
-			options[i].selected = true;
-			break;
+	if(searchEl != null) {
+		let options = searchEl.options;
+		let searchNumEl = document.querySelector('[id=searchNum]');
+		
+		for(let i = 0; i < options.length; i++) {
+			if(options[i].value == searchNumEl.value) {
+				options[i].selected = true;
+				break;
+			}
 		}
 	}
+	
 	
 	let nowPageEl = document.querySelector('[id=nowPage]').value;
 	

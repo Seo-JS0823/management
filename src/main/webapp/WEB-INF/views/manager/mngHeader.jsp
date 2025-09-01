@@ -6,8 +6,7 @@
 	<div class="mngHeader_menu">
 		<p>출/퇴근 현황</p>
 		<ul class="selected_menu">
-			<li><a href="#">당일 출/퇴근 현황</a></li>
-			<li><a href="#">출/퇴근 기록부</a></li>
+			<li><a href="/manage/attedListView">출/퇴근 기록부</a></li>
 		</ul>
 	</div>
 	<div class="mngHeader_menu">

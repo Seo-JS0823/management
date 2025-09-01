@@ -63,6 +63,13 @@
 				<th>총 근무시간</th>
 				<th>비고</th>
 			</tr>
+			
+			<c:if test="${not empty zero}">
+				<tr>
+					<td colspan="6">${zero}</td>
+				</tr>
+			</c:if>
+			
 			<c:forEach var="employee" items="${list}">
 			<tr>
 				<td>${employee.name}</td>

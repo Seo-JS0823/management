@@ -189,25 +189,39 @@ public class AttedController {
 		EmployeeDTO employee = (EmployeeDTO) session.getAttribute("employee");
 		
 		List<AttedDTO> getAttedList = attedMapper.getAttedList(start, end, search, employee.getEmployee_id());
-		int totalRecordSize = getAttedList.size();
 		
-		Paging<AttedDTO> paging = new Paging<>(nowPage, 10, totalRecordSize, 5, 1); 
+		Paging<AttedDTO> paging = null;
 		
-		int offset = paging.getOffset();
-		int recordSize = paging.getRecordSize();
+		int offset = 0;
+		int recordSize = 5;
 		
-		List<AttedDTO> pagingList = attedMapper.getPagingAttedList(start, end, employee.getEmployee_id(), sort, search, offset, recordSize);
+		List<AttedDTO> pagingList = null;
 		
-		paging.setList(pagingList);
-		Map<String, Integer> pagingNum = paging.getPagingMap();
+		Map<String, Integer> pagingNum = null;
+		if(getAttedList.size() != 0) {
+			int totalRecordSize = getAttedList.size();
+			paging = new Paging<>(nowPage, 10, totalRecordSize, 5, 1); 
+			
+			offset = paging.getOffset();
+			recordSize = paging.getRecordSize();
+			
+			pagingList = attedMapper.getPagingAttedList(start, end, employee.getEmployee_id(), sort, search, offset, recordSize);
+			
+			paging.setList(pagingList);
+			
+			pagingNum = paging.getPagingMap();
+			
+			mav.addObject("sort", sort);
+			mav.addObject("search", search);
+			mav.addObject("emp", employee);
+			mav.addObject("start", start);
+			mav.addObject("end", end);
+			mav.addObject("list", pagingList);
+			mav.addObject("paging", pagingNum);
+		} else {
+			mav.addObject("zero", "검색된 기록이 없습니다.");
+		}
 		
-		mav.addObject("sort", sort);
-		mav.addObject("search", search);
-		mav.addObject("emp", employee);
-		mav.addObject("start", start);
-		mav.addObject("end", end);
-		mav.addObject("list", pagingList);
-		mav.addObject("paging", pagingNum);
 		mav.setViewName("emp/empAttedList");
 		return mav;
 	}
