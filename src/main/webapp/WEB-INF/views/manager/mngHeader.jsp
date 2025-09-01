@@ -28,6 +28,9 @@
 	<div class="mngHeader_menu">
 		<a href="/manage/empView">직원 등록</a>
 	</div>
+	<div class="mngHeader_menu">
+		<a href="/manage/managerChangeView">관리자 변경</a>
+	</div>
 	
 	<!-- 시계 -->
 	<div class="mngHeader_menu">

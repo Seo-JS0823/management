@@ -183,8 +183,8 @@
   <form action="/manage/empCreate" method="POST" class="joinForm">
     <h2>직원등록</h2>
     <div class="textForm">
-      <select id="departement" name="department_id" required>
-        <option disabled selected>-- 부서 선택 --</option>
+      <select id="part" name="department_id">
+        <option value="" disabled selected>-- 부서 선택 --</option>
         <option value="1010">총무 경비팀</option>
         <option value="1020">총무 시설관리팀</option>
         <option value="2010">재무회계 1팀</option>
@@ -201,12 +201,13 @@
         <option value="6030">생산 3라인</option>
         <option value="7010">운송 1팀</option>
         <option value="8010">안전관리팀</option>
+        <option value="9010">인사팀</option>
       </select>
     </div>
 
     <div class="textForm">
-      <select name="worktype_id">
-          <option disabled selected>-- 근무 형태 --</option>
+      <select id="work" name="worktype_id">
+          <option value="" disabled selected>-- 근무 형태 --</option>
           <option value="1">정규직</option>
           <option value="2">계약직</option>
           <option value="3">파견직</option>
@@ -216,8 +217,8 @@
     </div>
 	
 	<div class="textForm">
-		<select name="position_id">
-			<option disabled selected>-- 직급 --</option>
+		<select id="posi" name="position_id">
+			<option value="" disabled selected>-- 직급 --</option>
 			<option value="11">사원</option>
 			<option value="12">대리</option>
 			<option value="13">과장</option>
@@ -247,31 +248,31 @@
     </div>
 
     <div class="textForm">
-      <input name="email" type="email" placeholder="이메일" required />
+      <input name="email" id="email" type="email" placeholder="이메일" />
     </div>
 
     <div class="textForm">
     	<input type="hidden" id="addressCode" name="address_id"/>
       <button type="button" id="addressSearch" class="address">주소검색</button>
-      <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" />
+      <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" required/>
     </div>
 
     
     <div class="textForm">
-      <input name="phone_num" type="text" placeholder="전화번호" required />
+      <input name="phone_num" id="phone" type="text" placeholder="전화번호" required />
     </div>
 
     <div class="textForm">
       생년월일
-      <input id="hiredate" name="birthdate" type="date" value="1980-01-01"/>
+      <input id="hiredate" name="birthdate" type="date" value="1980-01-01" required/>
     </div>
     
     <div class="textForm">
     	입사일
-    	<input name="employment_date" type="date" value="2025-05-01"/>
+    	<input name="employment_date" type="date" value="2025-05-01" required/>
     </div>
 
-    <input type="submit" class="btn" value="J O I N" />
+    <input type="submit" id="join" class="btn" value="J O I N" />
     <a href="/emp/empView" class="btn">뒤로가기</a>
   </form>
   	
@@ -286,5 +287,6 @@
     </div>
   </div>
   <script src="/js/address.js"></script>
+<script src="/js/empCreate.js"></script>
 </body>
 </html>

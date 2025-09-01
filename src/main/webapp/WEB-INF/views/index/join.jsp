@@ -4,13 +4,204 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/css/join.css">
-	<link rel="stylesheet" href="/css/reset.css">
 	<title>My Company JoIn</title>
 <style>
-	#addressModal {
-		display: none;
-	}
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #2c3e50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .joinForm {
+      width: 500px;
+      background-color: #fff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      height: 900px;
+    }
+
+    .joinForm h2 {
+      margin-bottom: 30px;
+      color: #2c3e50;
+      font-size: 28px;
+    }
+
+    .textForm {
+      margin-bottom: 20px;
+    }
+
+    .textForm input,
+    .textForm select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: all 0.3s;
+      background-color: #f8f9fa;
+    }
+
+    .textForm input:focus,
+    .textForm select:focus {
+      outline: none;
+      border-color: #6c5ce7;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(108, 92, 231, 0.4);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(125deg, #81ecec, #6c5ce7, #81ecec);
+      background-size: 200%;
+      background-position: left;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.4s;
+      margin-top: 10px;
+      
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-position: right;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .address {
+      background-color: #dfe6e9;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .address:hover {
+      background-color: #b2bec3;
+    }
+
+    /* 모달창 스타일 */
+    #addressModal {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      
+      width: 600px;
+      margin: 0 auto;
+      
+    }
+
+    #addressModal input[type="text"] {
+      width: calc(100% - 80px);
+      padding: 10px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #searchBtn,
+    #closeModal {
+      padding: 10px 15px;
+      background-color: #6c5ce7;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #searchBtn:hover,
+    #closeModal:hover {
+      background-color: #4b4edc;
+    }
+
+    #addressList {
+      list-style: none;
+      margin-top: 15px;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-left: 0;
+      
+      padding: 10px;
+    }
+
+    #addressList li {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+    }
+
+    #addressList li:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .modal {
+    	width: 100%;
+    	height: 100%;
+    	display: none;
+    	
+    	background-color: rgba(0, 0, 0, 0.8);
+    	top: 50%;
+		left: 50%;
+		position: fixed;
+		transform: translate(-50%, -50%);
+		
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+    }
+    
+    .textForm:nth-of-type(5) {
+    	display: flex;
+    	flex-direction: row;
+    	align-items: center;
+    	justify-content: flex-start;
+    	
+    	background-color: #f8f9fa;
+    	padding: 5px;
+    	border: 1px solid #ccc;
+    	border-radius: 5px;
+    	
+    	p {
+    		width: 80px;
+    		line-height: 100%;
+    		margin-right: 10px;
+    	}
+    	
+    	h3 {
+    		width: auto;
+    		line-height: 100%;
+    		white-space: nowrap;
+    	}
+    	
+    	input[type=radio] {
+    		width: auto;
+    		margin-left: 10px;
+    		margin-right: 50px;
+    	}
+    }
 </style>
 </head>
 <body style="background: #2C3E50;">
@@ -20,104 +211,116 @@
 <c:if test="${not empty equals}">
 	<input type="hidden" id="equals" value="${equals}"/>
 </c:if>
-<form action="/join" method="post">
-	<div class="join_box">
-		<div class="join_menu">
-			<h1>관리자 회원가입</h1>
-		</div>
-		<div class="join_menu">
-			<p>이름</p><input type="text" name="name"/>
-		</div>
-		<div class="join_menu">
-			<p>전화번호</p><input type="text" name="phone_num"/>
-		</div>
-		<div class="join_menu">
-			<p>성별</p>
-			<h3>남자</h3>
-			<input type="radio" name="gender" value="남"/>
-			<h3>여자</h3>
-			<input type="radio" name="gender" value="여"/>			
-		</div>
-		<div class="join_menu">
-			<p>부서</p>
-			<select name="department_id" required>
-				<option value="" disabled selected>-- 부서 선택 --</option>
-		        <option value="1010">총무 경비팀</option>
-		        <option value="1020">총무 시설관리팀</option>
-		        <option value="2010">재무회계 1팀</option>
-		        <option value="2020">재무회계 2팀</option>
-		        <option value="2030">감사팀</option>
-		        <option value="3010">영업 1팀</option>
-		        <option value="3020">영업 2팀</option>
-		        <option value="3030">영업 3팀</option>
-		        <option value="4010">자재관리팀</option>
-		        <option value="5010">가공 1팀</option>
-		        <option value="5020">가공 2팀</option>
-		        <option value="6010">생산 1라인</option>
-		        <option value="6020">생산 2라인</option>
-		        <option value="6030">생산 3라인</option>
-		        <option value="7010">운송 1팀</option>
-		        <option value="8010">안전관리팀</option>
-		        <option value="9010">인사팀</option>
-			</select>
-		</div>
-		<div class="join_menu">
-			<p>고용 형태</p>
-			<select name="worktype_id">
-				<option disabled selected>-- 고용 형태 --</option>
-				<option value="1">정규직</option>
-				<option value="2">계약직</option>
-				<option value="3">파견직</option>
-				<option value="4">일용직</option>
-			</select>
-		</div>
-		<div class="join_menu">
-			<p>직급</p>
-			<select name="position_id">
-				<option disabled selected>-- 직급 --</option>
-				<option value="15">부장</option>
-				<option value="24">생산반장</option>
-				<option value="25">생산부팀장</option>
-				<option value="26">생산본부장</option>
-				<option value="32">가공반장</option>
-				<option value="42">운송팀장</option>
-				<option value="43">운송본부장</option>
-				<option value="51">안전관리본부장</option>
-			</select>
-		</div>
-		<div class="join_menu">
-			<p>입사일</p>
-			<input type="date" name="employment_date" value="2024-12-01"/>
-		</div>
-		<div class="join_menu">
-			<p>이메일</p>
-			<input type="text" name="email"/>
-		</div>
-		<div class="join_menu">
-			<p>주소</p>
-			<input type="hidden" id="addressCode" name="address_id"/>
-			<input type="button" id="addressSearch" value="주소 검색"/>
-		</div>
-		<div class="join_menu">
-			<input type="text" id="successAddr" name="address" readOnly/>
-		</div>
-		<div class="join_menu">
-			<p>생년월일</p>
-			<input type="date" name="birthdate" value="1995-01-01"/>
-		</div>
-		<input type="submit" value="관리자 회원가입"/>
-	</div>
-</form>
+<form action="/join" method="POST" class="joinForm">
+    <h2>관리자 등록</h2>
+    <div class="textForm">
+      <select id="part" name="department_id">
+        <option value="" disabled selected>-- 부서 선택 --</option>
+        <option value="1010">총무 경비팀</option>
+        <option value="1020">총무 시설관리팀</option>
+        <option value="2010">재무회계 1팀</option>
+        <option value="2020">재무회계 2팀</option>
+        <option value="2030">감사팀</option>
+        <option value="3010">영업 1팀</option>
+        <option value="3020">영업 2팀</option>
+        <option value="3030">영업 3팀</option>
+        <option value="4010">자재관리팀</option>
+        <option value="5010">가공 1팀</option>
+        <option value="5020">가공 2팀</option>
+        <option value="6010">생산 1라인</option>
+        <option value="6020">생산 2라인</option>
+        <option value="6030">생산 3라인</option>
+        <option value="7010">운송 1팀</option>
+        <option value="8010">안전관리팀</option>
+        <option value="9010">인사팀</option>
+      </select>
+    </div>
 
-<!-- 주소 모달창 -->
-<div id="addressModal">
-	<div>
-		<input type="text" id="searchKeyword" placeholder="도로명 주소를 입력하세요." />
-		<button type="button" id="searchBtn">검색</button>
-		<ul id="addressList"></ul>
-		<button type="button" id="closeModal">닫기</button>
+    <div class="textForm">
+      <select id="work" name="worktype_id">
+          <option value="" disabled selected>-- 근무 형태 --</option>
+          <option value="1">정규직</option>
+          <option value="2">계약직</option>
+          <option value="3">파견직</option>
+          <option value="4">일용직</option>
+      </select>
+      
+    </div>
+	
+	<div class="textForm">
+		<select id="posi" name="position_id">
+			<option value="" disabled selected>-- 직급 --</option>
+			<option value="11">사원</option>
+			<option value="12">대리</option>
+			<option value="13">과장</option>
+			<option value="14">차장</option>
+			<option value="15">부장</option>
+			<option value="21">생산사원</option>
+			<option value="22">A팀 반장</option>
+			<option value="23">B팀 반장</option>
+			<option value="24">생산반장</option>
+			<option value="25">생산부팀장</option>
+			<option value="26">생산본부장</option>
+			<option value="31">가공사원</option>
+			<option value="32">가공반장</option>
+			<option value="41">운송사원</option>
+			<option value="42">운송팀장</option>
+			<option value="43">운송본부장</option>
+			<option value="51">안전관리본부장</option>
+		</select>
 	</div>
-</div>
+	
+    <div class="textForm">
+      <input name="name" id="name" type="text" placeholder="이름" required />
+    </div>
+
+    <div class="textForm">
+		<p>성별</p>
+		<h3>남자</h3>
+		<input type="radio" name="gender" value="남" checked required/>
+		<h3>여자</h3>
+		<input type="radio" name="gender" value="여" required/>
+    </div>
+
+    <div class="textForm">
+      <input name="email" id="email" type="email" placeholder="이메일"/>
+    </div>
+
+    <div class="textForm">
+    	<input type="hidden" id="addressCode" name="address_id"/>
+      <button type="button" id="addressSearch" class="address">주소검색</button>
+      <input type="text" id="successAddr" name="address" readonly placeholder="선택된 주소" style="margin-top: 10px;" required/>
+    </div>
+
+    
+    <div class="textForm">
+      <input name="phone_num" id="phone" type="text" placeholder="전화번호" required />
+    </div>
+
+    <div class="textForm">
+      생년월일
+      <input id="birth" name="birthdate" type="date" value="1980-01-01" required/>
+    </div>
+    
+    <div class="textForm">
+    	입사일
+    	<input name="employment_date" id="emp-date" type="date" value="2025-05-01" required/>
+    </div>
+
+    <input type="submit" id="join" class="btn" value="J O I N" />
+    <a href="/" class="btn">뒤로가기</a>
+  </form>
+  	
+  <div class="modal">
+    <div id="addressModal">
+      <div style="display: flex;">
+        <input type="text" id="searchKeyword" placeholder="도로명 주소 입력" />
+        <button type="button" id="searchBtn">검색</button>
+      </div>
+      <ul id="addressList"></ul>
+      <button type="button" id="closeModal" style="margin-top: 10px;">닫기</button>
+    </div>
+  </div>
 <script src="/js/address.js"></script>
 <script src="/js/join.js"></script>
 </body>

@@ -338,8 +338,16 @@ public class ManagerEmployeeController {
 			mav.addObject("paging", pagingNum);
 		}
 		
-		
 		mav.setViewName("manager/departAttedList");
+		return mav;
+	}
+	
+	/* 관리자 변경 */
+	@GetMapping("/managerChangeView")
+	public ModelAndView managerChangeView() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("manager/change");
 		return mav;
 	}
 	

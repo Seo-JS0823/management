@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			hour12: false
 		},
 		events: function(fetchInfo, successCallback, failureCallback) {
-			fetch(`http://192.168.0.97:9090/api/leaveList?start=${fetchInfo.startStr}&end=${fetchInfo.endStr}`)
+			fetch(`http://localhost:9090/api/leaveList?start=${fetchInfo.startStr}&end=${fetchInfo.endStr}`)
 				.then(response => response.json())
 				.then(data => {
 					let events = data.map(leave => ({
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				.catch(err => failureCallback(err));
 		},
 		datesSet: function(info) {
-			fetch(`http://192.168.0.97:9090/api/leaveList?start=${info.startStr}&end=${info.endStr}`)
+			fetch(`http://localhost:9090/api/leaveList?start=${info.startStr}&end=${info.endStr}`)
 				.then(response => response.json())
 				.then(data => {
 					updateLeaveList(data);
