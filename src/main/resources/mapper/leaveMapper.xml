@@ -45,6 +45,7 @@
 
 <select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
 	SELECT
+	 lh.status,
 	 lh.annual_days,
 	 lh.seq,
 	 TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
@@ -52,7 +53,7 @@
 	 e.employee_id            
 	FROM leave_history lh JOIN employees e 
 	ON lh.employee_id = e.employee_id
-	WHERE lh.status = 0
+	WHERE lh.status in(0,1)
 	ORDER BY lh.seq DESC
 </select>
 
@@ -110,11 +111,6 @@ GROUP BY employee_id
 	WHERE lh.seq = #{seq}
 </select>
 
-<delete id="deleteLeave">
-	DELETE FROM leave_history
-	WHERE seq = #{seq}
-</delete>
-
 <update id="empLeaveUpdate">
 	UPDATE leave_history
 	SET 
@@ -134,7 +130,6 @@ GROUP BY employee_id
 	WHERE seq = #{seq}
 </update>
 
-
 <update id="leaveRefuse">
 	UPDATE leave_history
 	SET 
@@ -142,26 +137,37 @@ GROUP BY employee_id
 	WHERE seq = #{seq}
 </update>
 
-	<!-- 직원(본인)의 보유 연차 조회 -->
-	<select id="leaveRead" resultType="double">
-		SELECT
-		    CASE
-		    WHEN COUNT(D.leave_count) = 0 THEN 0
-		    WHEN COUNT(D.leave_count) != 0 THEN MIN(D.leave_count)
-		    END AS leave_count
-		FROM
-		(SELECT
-		   SUM(CASE
-		      WHEN leave_type = 'SAVE' THEN leave_count
-		      WHEN leave_type = 'USE' THEN - leave_count
-		      ELSE 0
-		   END) AS leave_count
-		FROM
-		   annualleave
-		WHERE
-		   employee_id = #{employee_id}
-		GROUP BY employee_id) D
-	</select>
+<select id="leaveRead" resultType="double">
+	SELECT
+	    CASE
+	    WHEN COUNT(D.leave_count) = 0 THEN 0
+	    WHEN COUNT(D.leave_count) != 0 THEN MIN(D.leave_count)
+	    END AS leave_count
+	FROM
+	(SELECT
+	   SUM(CASE
+	      WHEN leave_type = 'SAVE' THEN leave_count
+	      WHEN leave_type = 'USE' THEN - leave_count
+	      ELSE 0
+	   END) AS leave_count
+	FROM
+	   annualleave
+	WHERE
+	   employee_id = #{employee_id}
+	GROUP BY employee_id) D
+</select>
+
+<delete id="submitCancel">
+	DELETE FROM annualleave
+	WHERE leave_id = (
+		SELECT leave_id
+		FROM annualleave
+		WHERE 
+			employee_id = #{employee_id}
+	  AND 
+	  	leave_date = #{leave_start_date}
+	)
+</delete>
 
 </mapper>
 

@@ -62,16 +62,19 @@
                             <c:when test="${lateness.status == 1}">승인</c:when>
                             <c:otherwise>대기</c:otherwise>
                         </c:choose>
+                    <td>
+                      <c:if test="${lateness.status == 0}">
+                        <a href="/lateness/eatUpdateView?employee_id=${lateness.employee_id}&ness_date=${lateness.ness_date}" style="display:inline-block; padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background-color: #f0f0f0; text-decoration: none; color: black;">수정</a>
+                    </c:if>
                     </td>
                     <td>
-                        <c:if test="${lateness.status == 0}">
-                            <a href="/lateness/eatUpdateView?employee_id=${lateness.employee_id}&ness_date=${lateness.ness_date}">수정</a>
-                        </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${lateness.status == 0}">
-                            <a href="/lateness/eatDelete?employee_id=${lateness.employee_id}&ness_date=${lateness.ness_date}">삭제</a>
-                        </c:if>
+ 					<c:if test="${lateness.status == 0}">
+                        <form action="/lateness/eatDelete" method="post" ">
+                            <input type="hidden" name="employee_id" value="${lateness.employee_id}">
+                            <input type="hidden" name="ness_date" value="${lateness.ness_date}">
+                            <button type="submit">삭제</button>
+                        </form>
+                    </c:if>
                     </td>
                 </tr>
             </c:forEach>

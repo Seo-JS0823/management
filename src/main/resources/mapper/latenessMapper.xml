@@ -67,10 +67,10 @@
         employee_id = #{employee_id} AND ness_date = TO_DATE(#{originalNessDate}, 'YYYY-MM-DD')
     </update>
     
-    <delete id="deleteLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
-    DELETE FROM lateness
-    WHERE employee_id = #{employee_id} AND ness_date = #{ness_date}
-    </delete>
+		<delete id="deleteLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
+		DELETE FROM lateness
+		WHERE employee_id = #{employee_id} AND ness_date = TO_DATE(#{ness_date}, 'YYYY-MM-DD')
+		</delete>
     
     <!-- 검색기능 -->
         <select id="selectLatenessListByEmployee_idAndStatusAndAtte_flag" resultType="com.emp.employ.lateness.LatenessDTO">
@@ -122,11 +122,15 @@
 	</select>
 
    <!--  승인여부 업데이트 -->
-   <update id="updateLatenessStatus">
-    UPDATE lateness
-    SET status = #{status}
-    WHERE employee_id = #{employee_id} AND ness_date = TO_DATE(#{ness_date}, 'YYYY-MM-DD')
-   </update>
+    <update id="updateLatenessStatus">
+        UPDATE lateness
+        SET 
+            status = #{status}
+        WHERE 
+            employee_id = #{employee_id}
+        AND 
+            ness_date = #{ness_date}
+    </update>
    
    <!-- 관리자 페이지 검색 -->
 	<select id="selectLatenessListByManager" resultType="com.emp.employ.lateness.LatenessDTO">

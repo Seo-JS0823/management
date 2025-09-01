@@ -38,4 +38,7 @@ public interface LeaveMapper {
 	/* 직원의 연차 정보 불러오기 */
 	double leaveRead(EmployeeDTO employee);
 	
+	/* 승인취소시 쓴 연차 다시 반환 delete */
+	void submitCancel(LeaveReqDTO leaveReq);
+	
 }

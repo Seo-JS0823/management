@@ -97,10 +97,13 @@ public class LatenessController {
 		
 		return mav;
 	}
-	@RequestMapping("/delete")
-	public String delete(LatenessDTO latenessDTO) {
-	    latenessMapper.deleteLateness(latenessDTO); 
-	    return "redirect:/lateness/eatView"; 
+	@PostMapping("/eatDelete")
+	public String eatDelete(@RequestParam("employee_id") String employee_id, @RequestParam("ness_date") String ness_date) {
+	    LatenessDTO latenessDTO = new LatenessDTO();
+	    latenessDTO.setEmployee_id(employee_id);
+	    latenessDTO.setNess_date(ness_date);
+	    latenessMapper.deleteLateness(latenessDTO);
+	    return "redirect:/lateness/eatView";
 	}
 	/*
 	 * 권재균

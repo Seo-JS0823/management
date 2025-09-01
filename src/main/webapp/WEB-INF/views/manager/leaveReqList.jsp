@@ -81,7 +81,14 @@
 			</tr>
 			<c:forEach var="List" items="${leaveReqList}">
 				<tr>
-					<td><a href="/manage/showLeaveDetail?seq=${List.seq}&employee_id=${List.employee_id}">${List.name}</a></td>
+					<td>
+					<c:if test="${List.status == 0}">
+					<a href="/manage/showLeaveDetail?seq=${List.seq}&employee_id=${List.employee_id}" >${List.name} (미승인)</a>
+					</c:if>
+					<c:if test="${List.status == 1}">
+					<a href="/manage/showCancelDetail?seq=${List.seq}&employee_id=${List.employee_id}" >${List.name} (승인 완료)</a>
+					</c:if>
+					</td>
 					<td>${List.reg_date}</td>
 					<td>${List.annual_days}</td>
 				</tr>
@@ -91,5 +98,6 @@
 	</main>
 	
 	<script src="/js/nowtime.js"></script>
+	
 </body>
 </html>

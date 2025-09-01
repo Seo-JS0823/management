@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,19 +43,33 @@ public class ManagerLatenessController {
         return mv;
     }
     
-    @GetMapping("/eatDeny")
-    public String denyLateness(@RequestParam("employee_id") String employee_id, @RequestParam("ness_date") String ness_date) {
+    @PostMapping("/eatApproveDeny")
+    public ModelAndView handleLatenessAction(
+        @RequestParam("employee_id") String employee_id, 
+        @RequestParam("ness_date") String ness_date, 
+        @RequestParam("action") String action
+    ) {
+        if ("approve".equals(action)) {
+            latenessMapper.updateLatenessStatus(employee_id, ness_date, 1);
+            LatenessDTO lateness = latenessMapper.searchLatenessDetail(employee_id, ness_date);
+            
+            if(lateness != null) {
 
-        latenessMapper.updateLatenessStatus(employee_id, ness_date, 0); 
+                Integer existingRecordCount = latenessMapper.selectAttendanceCount(employee_id, ness_date);
+                
+                if(existingRecordCount == null || existingRecordCount == 0) {
+                    latenessMapper.insertAttendanceRecord(employee_id, ness_date, lateness.getAtte_flag());
+                } else {
+                    latenessMapper.updateAttendanceRecord(employee_id, ness_date, lateness.getAtte_flag());
+                }
+            }
         
-        return "redirect:/manage/managerEatView";
-    }
-
-    @GetMapping("/eatApprove")
-    public String approveLateness(@RequestParam("employee_id") String employee_id, @RequestParam("ness_date") String ness_date) {
-
-        latenessMapper.updateLatenessStatus(employee_id, ness_date, 1);
         
-        return "redirect:/manage/managerEatView";
-    }
+        }else if ("deny".equals(action)) {
+            latenessMapper.updateLatenessStatus(employee_id, ness_date, 0);
+        }
+        
+        ModelAndView mav = new ModelAndView("redirect:/manage/managerEatView");
+        return mav;
+    }	
 }

@@ -88,7 +88,7 @@ public class ManagerLeaveController {
 	/* 
 	 * 백승목
 	 * 관리자 : 직원 휴가신청서 상세정보 */
-	@RequestMapping("/showLeaveDetail")     //seq
+	@RequestMapping("/showLeaveDetail")     //seq, employee_id
 	public ModelAndView leaveDetail(LeaveReqDTO leaveReqDTO) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -114,6 +114,44 @@ public class ManagerLeaveController {
 		return mav;
 	}
 	
+	/*
+	 * 백승목
+	 * 관리자 : 휴가 승인 취소페이지 가기
+	 */
+	@RequestMapping("/showCancelDetail")      // seq, employee_id
+	public ModelAndView leaveSubmitCancle(LeaveReqDTO leaveReqDTO) {
+		ModelAndView mav = new ModelAndView(); 
+		
+		// 직원의 남은 연차 일수 가져오기
+		LeaveReqDTO leave_cnt = leaveMapper.getLeave_count(leaveReqDTO);
+		
+		// 신청서 상세정보 가져오기
+		leaveReqDTO = leaveMapper.leaveDetail(leaveReqDTO);
+		
+		mav.addObject("leaveDetail",leaveReqDTO);
+		mav.addObject("leave_cnt",leave_cnt);
+		mav.setViewName("manager/leaveSubmitCancel");
+		return mav;
+	}
+	
+	/*
+	 * 백승목
+	 * 관리자 : 휴가 승인 취소
+	 */
+	
+	@RequestMapping("/leaveSubmitCancel") // employee_id, leave_start_date, seq
+	public ModelAndView leaveSubmitCancel(LeaveReqDTO leaveReq) {
+		ModelAndView mav = new ModelAndView();
+		
+		// 승인취소시 쓴 연차 다시 반환
+		leaveMapper.submitCancel(leaveReq);
+		
+		
+		leaveMapper.leaveRefuse(leaveReq);
+		mav.setViewName("redirect:/manage/mngindex");
+		return mav;
+	
+	}
 	/*
 	 * 백승목
 	 * 관리자 : 휴가 승인
