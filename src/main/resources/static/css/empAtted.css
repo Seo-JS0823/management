@@ -165,20 +165,13 @@ tr {
 	border: none;
 	border-radius: 10px;
 	
-	/*background-image: linear-gradient(to left, #F97794, #ABDCFF, #F97794);*/
-	background-image: linear-gradient(315deg, grey, black, grey);
-	
-	background-size: 200% 100%;
-	background-position: 100% 100;
-	transition: background-position 0.5s ease;
+	background-color: #1B2CF0;
+	transition: background-color 0.5s ease;
 }
 
 .at-search-box input[type=submit]:hover {
-	transition: background-position 0.5s ease;
-	background-position: 100% 0;
-	text-shadow:
-		0 0 2px #FFF, 
-		0 0 5px #FFF;
+	transition: background-color 0.5s ease;
+	background-color: black;
 }
 
 .pagings {

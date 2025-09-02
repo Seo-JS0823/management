@@ -25,6 +25,7 @@
 		    D.department_id = N.department_id AND
 		    D.manager_id = E.employee_id AND
 		    D.department_id = #{department_id}
+		ORDER BY posting_date DESC
 	    
 	</select>
 	

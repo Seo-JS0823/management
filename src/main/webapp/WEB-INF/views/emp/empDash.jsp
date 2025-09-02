@@ -72,6 +72,9 @@
 					<label>사번코드</label><label id="employee_id">${employee.employee_id}</label>
 				</div>
 				<div class="info_item">
+					<label>이메일</label><label id="email">${employee.email}</label>
+				</div>
+				<div class="info_item">
 					<label>부서</label><label id="department_name">${employee.department_name}</label>
 				</div>
 				<div class="info_item">

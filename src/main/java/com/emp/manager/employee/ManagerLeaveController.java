@@ -55,10 +55,10 @@ public class ManagerLeaveController {
 
 	/* 연차 적립할 직원 검색 */
 	@PostMapping("/annualEmp")
-	public ModelAndView annualEmp(String name) {
+	public ModelAndView annualEmp(String name, int department_id) {
 		ModelAndView mav = new ModelAndView();
 		
-		EmployeeDTO employee = managerLeaveMapper.annualEmp(name);
+		EmployeeDTO employee = managerLeaveMapper.annualEmp(name, department_id);
 		if(employee != null) {
 			mav.addObject("target", employee);
 		}

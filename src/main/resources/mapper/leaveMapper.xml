@@ -45,15 +45,19 @@
 
 <select id="getLeaveReqList" resultType="com.emp.employ.leave.LeaveReqDTO">
 	SELECT
-	 lh.status,
-	 lh.annual_days,
-	 lh.seq,
-	 TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
-	 e.name, 
-	 e.employee_id            
-	FROM leave_history lh JOIN employees e 
-	ON lh.employee_id = e.employee_id
-	WHERE lh.status in(0,1)
+		lh.status,
+		lh.annual_days,
+		lh.seq,
+		TO_CHAR(lh.reg_date,'YYYY-MM-DD') AS reg_date,
+		e.name, 
+		e.employee_id            
+	FROM
+		leave_history lh, employees e, departments D
+	WHERE
+		lh.employee_id = e.employee_id AND
+		e.department_id = D.department_id AND
+		e.department_id = #{department_id} AND
+		lh.status in(0,1)
 	ORDER BY lh.seq DESC
 </select>
 

@@ -16,7 +16,7 @@
 <main>
 	<input type="hidden" id="clear" value="${clear}"/>
 	<div class="change-top">
-		<h3>-- 부서 이동 --</h3>
+		<h3>직원 부서 이동</h3>
 	</div>
 	<div class="change-middle">
 		<div class="change-s">

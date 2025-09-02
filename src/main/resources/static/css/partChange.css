@@ -96,13 +96,25 @@ main {
 	margin: 10px;
 }
 
-.change-s:nth-of-type(2) .middle-box { 
+.change-s:first-child {
+	min-height: 360px;
+	max-height: 360px;
+	
+	overflow-y: auto;
+	
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+.change-s:nth-of-type(2) .middle-box {
+	
 	p {
 		width: 100%;
 	}
 	
 	select {
-		width: 45%;
+		width: 30%;
 		margin: 0 auto;
 		height: 40px;
 		text-align: center;
@@ -111,7 +123,7 @@ main {
 		border: none;
 		
 		background-color: #1C2E40;
-		font-size: 20px;
+		font-size: 15px;
 		color: white;
 		
 		border-radius: 10px;

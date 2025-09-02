@@ -17,17 +17,12 @@
 <main>
 	<div class="mg-box">
 		<div class="mg-h">
-			<p>관리자 변경</p>
+			<p>${manager.department_name} 부서 관리자 변경</p>
 			<hr>
 		</div>
 		<div class="mg-main">
 			<div class="mg-list-s">
-				<p>부서명</p>
-				<input type="hidden" name="department_id" value="${manager.department_id}"/>
-				<input type="text" name="department_name" value="${manager.department_name}" readOnly/>
-			</div>
-			<div class="mg-list-s">
-				<p>담당자</p>
+				<p>담당자 (현)</p>
 				<input type="text" value="${manager.name}" readOnly/>
 			</div>
 		</div>
@@ -45,14 +40,14 @@
 				</tr>
 				<c:forEach var="employee" items="${employees}">
 					<tr>
-						<td>${employee.name}</td>
+						<td class="names">${employee.name}</td>
 						<td>${employee.employee_id}</td>
 						<td>${employee.employment_date}</td>
 						<td>${employee.position_name}</td>
 						<td>
 							<form action="/manage/empPartChg" method="post">
 								<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
-								<input type="submit" value="부서장 임명"/>
+								<input class="btns" type="submit" value="부서장 임명"/>
 							</form>
 						</td>
 					</tr>
@@ -62,5 +57,27 @@
 	</div>
 </main>
 <script src="/js/nowtime.js"></script>
+<script>
+	const btnsEls = document.querySelectorAll('.btns');
+	
+	
+	if(btnsEls.length > 0) {
+		const namesEls = document.querySelectorAll('.names');
+		for(let i = 0; i < btnsEls.length; i++) {
+			btnsEls[i].addEventListener('click', (e) => {
+				let name = namesEls[i].innerHTML;
+				
+				if(confirm(name + ' 직원을 담당자로 변경하시는게 확실하십니까?')) {
+					return true;
+				} else {
+					e.preventDefault();
+					return false;
+				}
+				
+			})
+		};
+	}
+	
+</script>
 </body>
 </html>

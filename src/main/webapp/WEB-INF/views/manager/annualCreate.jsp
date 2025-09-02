@@ -20,6 +20,7 @@
 		<form id="run" action="/manage/annualEmp" method="post">
 			<h1>연차 적립</h1>
 			<div class="ann_search">
+				<input type="hidden" name="department_id" value="${manager.department_id}"/>
 				<input type="text" name="name" placeholder="성함을 입력해주세요."/>
 				<img id="search" src="/images/search-icon.png"/>
 			</div>

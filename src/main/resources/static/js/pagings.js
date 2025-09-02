@@ -23,7 +23,7 @@ window.onload = function() {
 		let nowEl = e.getAttribute('data-nowPage');
 		
 		if(nowPageEl == nowEl) {
-			e.style.backgroundImage = 'linear-gradient(315deg, grey, black, grey)';
+			e.style.backgroundColor = '#1B2CF0';
 			e.style.lineHeight = '30px';
 			return;
 		}

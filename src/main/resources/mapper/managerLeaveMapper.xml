@@ -18,6 +18,7 @@
 			E.department_id = D.department_id AND
 			E.position_id = P.position_id AND
 			E.name = #{name} AND
+			E.department_id = #{department_id} AND
 			E.emp_flag != 0
 	</select>
 	
@@ -29,27 +30,47 @@
 		    #{leave_date},
 		    'SAVE',
 		    CASE
-		        WHEN #{content} LIKE '%기본 연차%' OR #{content} LIKE '%기본연차%' OR #{content} LIKE '%기본%' THEN #{leave_count}
+		        WHEN ((#{content} LIKE '%기본 연차%' OR #{content} LIKE '%기본연차%' OR #{content} LIKE '%기본%') AND
+		        (SELECT
+        			D.cnt
+        		FROM (
+        			SELECT
+        				count(*) as cnt
+        			FROM
+      	    			annualleave
+      	    		WHERE
+      	    			employee_id = #{employee_id} AND
+      	    			content LIKE '%' || SUBSTR(#{work_month}, 1, 4) || '%') D) != 0)
+        	    THEN 0
+		    	WHEN #{content} LIKE '%기본 연차%' OR #{content} LIKE '%기본연차%' OR #{content} LIKE '%기본%' THEN #{leave_count}
 		        WHEN EXISTS (
 		            SELECT 1
 		            FROM (
-		                SELECT COUNT(*) AS work_days
-		                FROM attendance_record
-		                WHERE employee_id = #{employee_id}
-		                  AND TO_CHAR(currentDate, 'YYYY-MM') = SUBSTR(#{work_month}, 1, 7)
-		                  AND atte_flag = 1
+		                SELECT
+		                	COUNT(*) AS work_days
+		                FROM
+		                	attendance_record
+		                WHERE
+		                	employee_id = #{employee_id} AND
+		                	TO_CHAR(currentDate, 'YYYY-MM') = SUBSTR(#{work_month}, 1, 7) AND
+		                	atte_flag = 1
 		            ) a
-		            JOIN (
-		                SELECT COUNT(*) AS total_work_days
+		            , (
+		                SELECT
+		                	COUNT(*) AS total_work_days
 		                FROM (
-		                    SELECT TRUNC(TO_DATE(#{work_month}, 'YYYY-MM-DD'), 'MM') + LEVEL - 1 AS DT
-		                    FROM DUAL
+		                    SELECT
+		                    	TRUNC(TO_DATE(#{work_month}, 'YYYY-MM-DD'), 'MM') + LEVEL - 1 AS DT
+		                    FROM
+		                    	DUAL
 		                    CONNECT BY LEVEL <![CDATA[<=]]> TO_NUMBER(TO_CHAR(LAST_DAY(TO_DATE(#{work_month}, 'YYYY-MM-DD')), 'DD'))
 		                )
-		                WHERE TO_CHAR(DT, 'DY', 'NLS_DATE_LANGUAGE=KOREAN') NOT IN ('토', '일')
-		            ) b ON a.work_days = b.total_work_days
-		        )
-		            THEN #{leave_count}
+		                WHERE
+		                	TO_CHAR(DT, 'DY', 'NLS_DATE_LANGUAGE=KOREAN') NOT IN ('토', '일')
+		            ) b
+		            WHERE
+		            	a.work_days = b.total_work_days
+		        ) THEN #{leave_count}
 		        ELSE 0
 		    END AS leave_count,
 		    #{content} AS content,

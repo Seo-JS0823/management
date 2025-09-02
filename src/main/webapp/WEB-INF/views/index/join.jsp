@@ -250,20 +250,13 @@
 	<div class="textForm">
 		<select id="posi" name="position_id">
 			<option value="" disabled selected>-- 직급 --</option>
-			<option value="11">사원</option>
-			<option value="12">대리</option>
-			<option value="13">과장</option>
-			<option value="14">차장</option>
 			<option value="15">부장</option>
-			<option value="21">생산사원</option>
 			<option value="22">A팀 반장</option>
 			<option value="23">B팀 반장</option>
 			<option value="24">생산반장</option>
 			<option value="25">생산부팀장</option>
 			<option value="26">생산본부장</option>
-			<option value="31">가공사원</option>
 			<option value="32">가공반장</option>
-			<option value="41">운송사원</option>
 			<option value="42">운송팀장</option>
 			<option value="43">운송본부장</option>
 			<option value="51">안전관리본부장</option>

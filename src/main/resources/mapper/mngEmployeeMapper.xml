@@ -435,10 +435,12 @@
 			TO_CHAR(E.employment_date, 'YYYY-MM-DD') AS employment_date,
 			P.position_name
 		FROM
-			employees E, Positions P
+			employees E, Positions P, departments D
 		WHERE
+			E.department_id = D.department_id AND
 			E.position_id = P.position_id AND
-			E.department_id = #{department_id}
+			E.department_id = #{department_id} AND
+			E.employee_id != D.manager_id
 			
 	</select>
 	
