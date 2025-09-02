@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.emp.employ.notice.NoticeMapper">
+	<insert id="noticeInsert" >
+		INSERT INTO notice
+		    (department_id, manager_id, posting_date, content, title)
+		VALUES
+		    (#{department_id}, #{manager_id}, SYSDATE, #{content}, #{title})
+	</insert>
+		
+	<select id="getNoticeList" resultType="com.emp.employ.notice.NoticeDTO">
+		SELECT
+		    N.posting_num,
+		    E.name,
+		    D.department_name,
+		    N.title,
+		    TO_CHAR(N.posting_date, 'YYYY-MM-DD') AS posting_date,
+		    N.content
+
+		FROM
+		    employees E, departments D, notice N
+		WHERE
+		    E.department_id = D.department_id AND
+		    D.department_id = N.department_id AND
+		    D.manager_id = E.employee_id AND
+		    D.department_id = #{department_id}
+	    
+	</select>
+	
+	<insert id="noticeAdd">
+		      INSERT INTO notice
+            (department_id, manager_id, posting_date, content, title)
+        VALUES
+            (#{department_id}, #{manager_id}, SYSDATE, #{content}, #{title})
+	</insert>
+
+	<select id="getNoticeByNum" resultType="com.emp.employ.notice.NoticeDTO">
+		SELECT
+			*
+		FROM
+			notice
+		WHERE
+			posting_num = #{posting_num}
+	</select>
+
+
+	<update id="noticeUpdate">
+		UPDATE
+		    notice
+		SET
+		    content = #{content},
+		    title = #{title}
+		WHERE
+		    posting_num = #{posting_num}
+	</update>
+
+</mapper>

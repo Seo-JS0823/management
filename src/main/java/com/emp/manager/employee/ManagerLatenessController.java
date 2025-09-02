@@ -35,7 +35,7 @@ public class ManagerLatenessController {
         } else {
             latenessList = latenessMapper.selectLatenessListAll();
         }
-        
+
         mv.addObject("LatenessDTOList", latenessList);
         
         mv.setViewName("manager/managerEatView");
@@ -47,7 +47,10 @@ public class ManagerLatenessController {
     public ModelAndView handleLatenessAction(
         @RequestParam("employee_id") String employee_id, 
         @RequestParam("ness_date") String ness_date, 
-        @RequestParam("action") String action
+        @RequestParam("action") String action,
+        @RequestParam(value = "search_text", required = false) String searchText,
+        @RequestParam(value = "status", required = false) Integer status,
+        @RequestParam(value = "atte_flag", required = false) Integer atteFlag
     ) {
         if ("approve".equals(action)) {
             latenessMapper.updateLatenessStatus(employee_id, ness_date, 1);
@@ -68,8 +71,15 @@ public class ManagerLatenessController {
         }else if ("deny".equals(action)) {
             latenessMapper.updateLatenessStatus(employee_id, ness_date, 0);
         }
+        String redirectUrl = "redirect:/manage/managerEatView";
+        redirectUrl += "?search_text=" + (searchText != null ? searchText : "");
+        redirectUrl += "&status=" + (status != null ? status : "");
+        redirectUrl += "&atte_flag=" + (atteFlag != null ? atteFlag : "");
         
         ModelAndView mav = new ModelAndView("redirect:/manage/managerEatView");
+        mav.addObject("search_text", searchText);
+        mav.addObject("status", status);
+        mav.addObject("atte_flag", atteFlag);
         return mav;
     }	
 }

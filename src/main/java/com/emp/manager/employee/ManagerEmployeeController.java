@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.emp.employ.atted.AttedDTO;
 import com.emp.employ.employee.EmployeeDTO;
 import com.emp.employ.leave.LeaveEmpDTO;
+import com.emp.employ.notice.NoticeDTO;
+import com.emp.employ.notice.NoticeMapper;
 import com.emp.util.EmployeeID;
 import com.emp.util.Paging;
 
@@ -29,6 +31,9 @@ public class ManagerEmployeeController {
 	
 	@Autowired
 	private ManagerLeaveMapper leaveMapper;
+	
+	@Autowired
+	private NoticeMapper noticeMapper;
 	
 	/* 관리자 메인 페이지 보여주기 - 서주성 - */
 	@GetMapping("/mngindex")
@@ -95,6 +100,14 @@ public class ManagerEmployeeController {
 		/* 담당 부서의 휴가 승인 대기건 조회 */
 		int leaveAgreeCount = mngEmpMapper.leaveAgreeCount(manager);
 		
+		/* 공지사항 */
+		List<NoticeDTO> noticeList = noticeMapper.getNoticeList(manager.getDepartment_id());
+		
+		
+		
+		if(noticeList.size() != 0) {
+			mav.addObject("notices", noticeList);
+		}
 		
 		mav.addObject("leaveAgreeCount", leaveAgreeCount);
 		mav.addObject("nowLeaveEmp", nowLeaveEmp);

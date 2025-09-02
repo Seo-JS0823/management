@@ -214,8 +214,23 @@ main {
 		color: white;
 		font-weight: normal;
 		padding: 5px;
+		
+		background-color: #2C3E50;
 	}
 	
+}
+
+.mng_bottom_item:nth-of-type(3) {
+	width: 40%;
+	
+	a {
+		text-decoration: none;
+		color: white;
+		
+		&:hover {
+			text-shadow: 0 0 2px #FFF;
+		}
+	}
 }
 
 .mng_bottom_menu a {

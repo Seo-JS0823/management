@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.emp.employ.lateness.LatenessMapper">
+
     <select id="selectLatenessListByEmployee_id" parameterType="String" resultType="com.emp.employ.lateness.LatenessDTO">
         SELECT
             employee_id,
@@ -67,13 +67,13 @@
         employee_id = #{employee_id} AND ness_date = TO_DATE(#{originalNessDate}, 'YYYY-MM-DD')
     </update>
     
-		<delete id="deleteLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
+	<delete id="deleteLateness" parameterType="com.emp.employ.lateness.LatenessDTO">
 		DELETE FROM lateness
 		WHERE employee_id = #{employee_id} AND ness_date = TO_DATE(#{ness_date}, 'YYYY-MM-DD')
-		</delete>
+	</delete>
     
     <!-- 검색기능 -->
-        <select id="selectLatenessListByEmployee_idAndStatusAndAtte_flag" resultType="com.emp.employ.lateness.LatenessDTO">
+    <select id="selectLatenessListByEmployee_idAndStatusAndAtte_flag" resultType="com.emp.employ.lateness.LatenessDTO">
         SELECT
             employee_id,
             TO_CHAR(ness_date, 'YYYY-MM-DD') AS ness_date,
@@ -93,7 +93,7 @@
         ORDER BY ness_date DESC
     </select>
     
-    <!-- 관리자가 신청 정보를 조회 -->
+    <!-- 전체 신청 목록을 조회하는 쿼리 (관리자 페이지용) -->
 	<select id="selectLatenessListAll" resultType="com.emp.employ.lateness.LatenessDTO">
 	    SELECT
 	        l.employee_id,
@@ -103,22 +103,11 @@
 	        l.content,
 	        l.status,
 	        e.name,
-	        d.department_name AS department
+	        d.department_name AS departments
 	    FROM lateness l
 	    JOIN employees e ON l.employee_id = e.employee_id
-	    JOIN departments d ON e.department_id = d.department_id
+	    JOIN departments d ON e.department_id = d.department_id	    
 	    ORDER BY l.created_date DESC
-		<where>
-		    <if test="searchText != null and !searchText.isEmpty()">
-		        (l.employee_id = #{searchText} OR e.name LIKE '%' || #{searchText} || '%' OR d.department_name LIKE '%' || #{searchText} || '%')
-		    </if>
-		    <if test="status != null">
-		        AND l.status = #{status}
-		    </if>
-		    <if test="atte_flag != null">
-		        AND l.atte_flag = #{atte_flag}
-		    </if>
-		</where>
 	</select>
 
    <!--  승인여부 업데이트 -->
@@ -142,7 +131,7 @@
 	        l.content,
 	        l.status,
 	        e.name,
-	        d.department_name AS department
+	        d.department_name AS departments
 	    FROM lateness l
 	    JOIN employees e ON l.employee_id = e.employee_id
 	    JOIN departments d ON e.department_id = d.department_id
@@ -157,6 +146,31 @@
 		        AND l.atte_flag = #{atte_flag}
 		    </if>
 		</where>
-	    ORDER BY l.created_date DESC
+	    ORDER BY l.created_date DESC, l.ness_date DESC
 	</select>
+	
+	<!--  연동을 위한 문구 -->
+	
+		<!--  조회 -->
+		<select id = "searchLatenessDetail" resultType="com.emp.employ.lateness.LatenessDTO">
+			SELECT 	* FROM lateness
+			WHERE employee_id = #{employee_id} AND ness_date = #{ness_date}
+		</select>
+		<!-- 출근 기록 -->
+		<select id="selectAttendanceCount" resultType="int">
+		    SELECT count(*)
+		    FROM attendance_record
+		    WHERE employee_id = #{employee_id} AND currentdate = #{ness_date}
+		</select>
+		<!-- 결근 삽입 -->
+		<insert id="insertAttendanceRecord">
+		    INSERT INTO attendance_record (employee_id, currentdate, atte_flag)
+		    VALUES (#{employee_id}, #{ness_date}, #{atte_flag})
+		</insert>
+		<!-- 지각 업데이트 -->
+		<update id="updateAttendanceRecord">
+		    UPDATE attendance_record
+		    SET atte_flag = #{atte_flag}
+		    WHERE employee_id = #{employee_id} AND currentdate = #{ness_date}
+	    </update>
 </mapper>

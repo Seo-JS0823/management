@@ -8,6 +8,7 @@ public class LatenessDTO {
     private int atte_flag;
     private String content;
     private int status;
+    private String departments;
 	/*
 	지각/결석/조퇴사유서 DTO
 	employee_id : 사번
@@ -94,6 +95,14 @@ public class LatenessDTO {
 
 	public void setCreated_date(String created_date) {
 		this.created_date = created_date;
+	}
+
+	public String getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(String departments) {
+		this.departments = departments;
 	}
 
 

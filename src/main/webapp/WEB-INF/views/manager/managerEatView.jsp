@@ -7,12 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/reset.css"/>
-	<link rel="stylesheet" href="/css/mngHeader.css"/>
+    <link rel="stylesheet" href="/css/mngHeader.css"/>
     <link rel="stylesheet" href="/css/mngEatView.css"/>
     <title>결근&조퇴 신청 내역</title>
 </head>
 <body>
-<!-- 관리자 메인 페이지 헤더 부분 -->
 <%@ include file="mngHeader.jsp" %>
 
 <div class="content">
@@ -21,11 +20,11 @@
         <div class="search-box">
             <label for="search_text">검색:</label> <input type="text" name="search_text" id="search_text" value="${param.search_text}">
             <label for="status">상태:</label>
-            <select name="status" id="status">
-                <option value="">상태 전체</option>
-                <option value="0" ${param.status == 0 ? 'selected' : ''}>미승인</option>
-                <option value="1" ${param.status == 1 ? 'selected' : ''}>승인</option>
-            </select>
+			<select name="status" id="status">
+			    <option value="" ${param.status == null or param.status == '' ? 'selected' : ''}>상태 전체</option>
+			    <option value="0" ${param.status == '0' ? 'selected' : ''}>미승인</option>
+			    <option value="1" ${param.status == '1' ? 'selected' : ''}>승인</option>
+			</select>
             <label for="atte_flag">유형:</label>
             <select name="atte_flag" id="atte_flag">
                 <option value="">유형 전체</option>
@@ -38,6 +37,7 @@
 
     <hr>
     
+    <div class = "table-scroll-container">
     <table class="data-table">
         <thead>
             <tr>
@@ -46,8 +46,8 @@
             <tr>
                 <th>이름</th>
                 <th>부서</th>
-                <th>신청일</th>
                 <th>작성일</th>
+                <th>발생일</th>
                 <th>유형</th>
                 <th>사유</th>
                 <th>상태</th>
@@ -55,49 +55,75 @@
             </tr>
         </thead>
         <tbody>
-        	<c:if test="${not empty LatenessDTOList}">
-			<c:forEach var="lateness" items="${LatenessDTOList}">
-			    <tr>
-			        <td>${lateness.name}</td>
-			        <td>${lateness.department}</td>
-			        <td>${lateness.ness_date}</td>
-			        <td>${lateness.created_date}</td>
-			        <td>
-			            <c:if test="${lateness.atte_flag == 3}">조퇴</c:if>
-			            <c:if test="${lateness.atte_flag == 4}">결근</c:if>
-			        </td>
-			        <td>
-			            <div class="tooltip-container">
-			                <span class="content-text">${lateness.content}</span>
-			                <span class="tooltip-text">${lateness.content}</span>
-			            </div>
-			        </td>
-			        <td>
-			            <c:if test="${lateness.status == 0}">미승인</c:if>
-			            <c:if test="${lateness.status == 1}">승인</c:if>
-			        </td>
-			        <td>
-					    <div class="btn-group">
-					        <form action="/manage/eatApproveDeny" method="post" style="display:inline;">
-					            <input type="hidden" name="employee_id" value="${lateness.employee_id}" />
-					            <input type="hidden" name="ness_date" value="${lateness.ness_date}" />
-					            <input type="hidden" name="action" value="approve" />
-					            <button type="submit" class="btn approve-btn">승인</button>
-					        </form>	
-					        <form action="/manage/eatApproveDeny" method="post" style="display:inline;">
-					            <input type="hidden" name="employee_id" value="${lateness.employee_id}" />
-					            <input type="hidden" name="ness_date" value="${lateness.ness_date}" />
-					            <input type="hidden" name="action" value="deny" />
-					            <button type="submit" class="btn deny-btn">미승인</button>
-					        </form>
-					    </div>
-			        </td>
-			    </tr>
-			</c:forEach>
-			</c:if>
+         <c:forEach var="lateness" items="${LatenessDTOList}">
+             <tr>
+                 <td>${lateness.name}</td>
+                 <td>${lateness.departments}</td>
+                 <td>${lateness.created_date}</td>
+                 <td>${lateness.ness_date}</td>
+                 <td>
+                     <c:if test="${lateness.atte_flag == 3}">조퇴</c:if>
+                     <c:if test="${lateness.atte_flag == 4}">결근</c:if>
+                 </td>
+                 <td>
+                     <div class="tooltip-container">
+                         <span class="content-text">${lateness.content}</span>
+                         <span class="tooltip-text">${lateness.content}</span>
+                     </div>
+                 </td>
+                 <td>
+                     <c:if test="${lateness.status == 0}">미승인</c:if>
+                     <c:if test="${lateness.status == 1}">승인</c:if>
+                 </td>
+                 <td>
+                   <div class="btn-group">
+                       <c:if test="${lateness.status == 0}">
+                           <form action="/manage/eatApproveDeny" method="post" style="display:inline;">
+                               <input type="hidden" name="employee_id" value="${lateness.employee_id}" />
+                               <input type="hidden" name="ness_date" value="${lateness.ness_date}" />
+                               <input type="hidden" name="action" value="approve" />
+                               
+                                <input type="hidden" name="search_text" value="${param.search_text}" />
+				                <input type="hidden" name="status" value="${param.status}" />
+				                <input type="hidden" name="atte_flag" value="${param.atte_flag}" />
+                               <button type="submit" class="btn approve-btn">승인</button>
+                           </form>
+                       </c:if>
+                       
+                       <c:if test="${lateness.status == 1}">
+                           <form action="/manage/eatApproveDeny" method="post" style="display:inline;">
+                               <input type="hidden" name="employee_id" value="${lateness.employee_id}" />
+                               <input type="hidden" name="ness_date" value="${lateness.ness_date}" />
+                               <input type="hidden" name="action" value="deny" />
+                               
+                               <input type="hidden" name="search_text" value="${param.search_text}" />
+				               <input type="hidden" name="status" value="${param.status}" />
+				               <input type="hidden" name="atte_flag" value="${param.atte_flag}" />
+                               <button type="submit" class="btn deny-btn">미승인</button>
+                           </form>
+                       </c:if>
+                   </div>
+                 </td>
+             </tr>
+         </c:forEach>
         </tbody>
     </table>
 </div>
+         <script>
+             document.addEventListener('DOMContentLoaded', () => {
+                 const tableBody = document.querySelector('.data-table tbody');
+                 const rows = tableBody.getElementsByTagName('tr');
+                 const scrollContainer = document.querySelector('.table-scroll-container');
+         
+                 if (rows.length > 8) {
+                     scrollContainer.style.maxHeight = '500px';
+                     scrollContainer.style.overflowY = 'auto';
+                 } else {
+                     scrollContainer.style.maxHeight = 'none';
+                     scrollContainer.style.overflowY = 'visible';
+                 }
+             });
+         </script>
 
 <script src="/js/nowtime.js"></script>
 </body>

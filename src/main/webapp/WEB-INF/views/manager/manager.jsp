@@ -116,20 +116,21 @@
 		</div>
 		<div class="mng_bottom_item">
 			<div class="mng_bottom_menu">
-				<h3>부서 공지사항</h3><a href="#">공지 작성</a>
+				<h3>부서 공지사항</h3>
+				<a href="/manage/noticeWriteView?department_id=${manager.department_id}&manager_id=${manager.employee_id}" class="notice-add-btn">공지 작성</a>
 			</div>
-				<c:if test="${not empty partNotice}">
+				<c:if test="${not empty notices}">
 					<table>
 						<tr>
 							<th>게시일</th>
 							<th>부서명</th>
 							<th>제목</th>
 						</tr>
-						<c:forEach var="notice" items="${partNotice}">
+						<c:forEach var="notice" items="${notices}">
 							<tr>
 								<td>${notice.posting_date}</td>
 								<td>${notice.department_name}</td>
-								<td>${notice.title}</td>
+								<td><a href="/manage/noticeReadView?posting_num=${notice.posting_num}">${notice.title}</a></td>
 							</tr>
 						</c:forEach>
 					</table>
