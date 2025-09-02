@@ -44,13 +44,17 @@ if(managerSuccessEl != null) {
 	managerSuccessEl.style.display = 'flex';
 }
 
-idBtnEl.addEventListener('click', function() {
-	managerSuccessEl.style.display = 'none';
-});
+if(idBtnEl != null) {
+	idBtnEl.addEventListener('click', function() {
+		managerSuccessEl.style.display = 'none';
+	});
+}
 
+const partChgEl = document.querySelector('[id=partChg]');
 
-
-
+if(partChgEl != null) {
+	alert(partChgEl.value);
+}
 
 
 

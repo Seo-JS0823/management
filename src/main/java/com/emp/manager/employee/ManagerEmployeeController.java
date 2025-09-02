@@ -75,6 +75,14 @@ public class ManagerEmployeeController {
 		
 		/* 당일 부서별 출근한 직원수 */
 		int nowWorkEmpCount = mngEmpMapper.nowPartEmpCount(manager.getDepartment_id());
+		
+		/* 당일 부서별 출근한 직원 정보 */
+		List<AttedDTO> partEmpList = mngEmpMapper.partEmpList(manager.getDepartment_id());
+		
+		if(partEmpList.size() != 0) {
+			mav.addObject("partEmp", partEmpList);
+		}
+		
 		/* 자기 부서 직원수 */
 		int departAllEmpCount = mngEmpMapper.departAllEmpCount(manager.getDepartment_id());
 		/* 출근율 퍼센테이지 */
@@ -342,14 +350,76 @@ public class ManagerEmployeeController {
 		return mav;
 	}
 	
-	/* 관리자 변경 */
+	/* 관리자 변경 View */
 	@GetMapping("/managerChangeView")
-	public ModelAndView managerChangeView() {
+	public ModelAndView managerChangeView(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		List<EmployeeDTO> list = mngEmpMapper.mePartEmpList(manager.getDepartment_id());
+		
+		if(list.size() != 0) {
+			mav.addObject("employees", list);					
+		}
 		
 		mav.setViewName("manager/change");
 		return mav;
 	}
 	
+	/* 관리자 변경 로직 */
+	@PostMapping("/empPartChg")
+	public ModelAndView empPartChg(HttpSession session, String employee_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		int department_id = manager.getDepartment_id();
+		
+		int updated = mngEmpMapper.partEmpChg(employee_id, department_id);
+		
+		if(updated != 0) {
+			session.invalidate();
+			mav.addObject("partChg", "담당자가 변경 되었습니다. 다시 로그인 하세요.");
+			mav.setViewName("index/login");
+			return mav;			
+		}
+		
+		mav.addObject("partNoChg", "오류로 인해 부서 담당자를 변경할 수 없습니다.");
+		mav.setViewName("manage/change");
+		return mav;
+	}
+	
+	/* 직원 부서 이동 페이지 */
+	@GetMapping("/empPartChangeView")
+	public ModelAndView empPartChangeView(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		EmployeeDTO manager = (EmployeeDTO) session.getAttribute("manager");
+		
+		List<EmployeeDTO> list = mngEmpMapper.getPartEmpList(manager.getDepartment_id());
+		
+		mav.addObject("partEmps", list);
+		mav.setViewName("manager/empPartChange");
+		return mav;
+	}
+	
+	/* 직원의 부서 이동 실행 */
+	@PostMapping("/empPartChange")
+	public ModelAndView empPartChange(int department_id, String employee_id) {
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println(department_id);
+		System.out.println(employee_id);
+		
+		int updated = mngEmpMapper.empPartChange(department_id, employee_id);
+		
+		if(updated != 0) {
+			mav.addObject("clear", "해당 직원의 부서 정보가 변경되었습니다.");
+		}
+		
+		mav.setViewName("manager/empPartChange");
+		return mav;
+	}
 	
 }

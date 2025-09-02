@@ -15,7 +15,7 @@
 			P.position_name,
 			E.name,
 			E.gender,
-			E.birthdate,
+			TO_CHAR(E.birthdate, 'YYYY"년" MM"월" DD"일"') AS birthdate,
 			E.phone_num,
 			E.email,
 			E.address,

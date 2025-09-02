@@ -40,7 +40,7 @@ searchBtnEl.addEventListener('click', () => {
 		return;
 	}
 	
-	fetch(`http://localhost:9090/address?keyword=${encodeURIComponent(keyword)}`)
+	fetch(`http://192.168.0.97:9090/address?keyword=${encodeURIComponent(keyword)}`)
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("네트워크 오류");

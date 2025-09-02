@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+main {
+	width: 100%;
+	height: 93vh;
+	
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	
+	background-color: #1C2E40;
+}
+
+.change-top {
+	width: 60%;
+	min-width: 600px;
+	height: 120px;
+	
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
+	background-color: #E4E7E9;
+	border: 3px solid #AAA;
+	
+	border-radius: 20px;
+	
+	display: flex;
+	flex-direction: rows;
+	align-items: center;
+	justify-content: center;
+	
+	h3 {
+		margin: 0px;
+		font-size: 50px;
+		white-space: nowrap;
+	}
+}
+
+.change-middle {
+	width: 65%;
+	height: auto;
+	
+	background-color: #E4E7E9;
+	border: 3px solid #AAA;
+	border-radius: 20px;
+	padding: 15px;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-around;
+	
+}
+
+.change-middle .change-s .middle-box {
+	width: 100%;
+	height: 70px;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	
+	p {
+		display: flexbox;
+		width: 120px;
+		text-align: center;
+		height: auto;
+		
+		padding-top: 5px;
+		padding-bottom: 5px;
+		
+		background-color: #1C2E40;
+		color: white;
+		
+		font-size: 22px;
+		letter-spacing: 1.5px;
+		
+		border: 2px solid #AAA;
+		border-radius: 10px;
+		margin: 10px;
+	}
+	
+	p:nth-of-type(2) {
+		width: 65%;
+	}
+}
+
+.change-s {
+	width: 40%;
+	height: auto;
+	background-color: white;
+	box-shadow: 0 0 3px #FFF;
+	
+	margin: 10px;
+}
+
+.change-s:nth-of-type(2) .middle-box { 
+	p {
+		width: 100%;
+	}
+	
+	select {
+		width: 45%;
+		margin: 0 auto;
+		height: 40px;
+		text-align: center;
+		
+		outline: none;
+		border: none;
+		
+		background-color: #1C2E40;
+		font-size: 20px;
+		color: white;
+		
+		border-radius: 10px;
+		border: 3px solid #AAA;
+	}
+}
+
+.change-s:nth-of-type(2) .middle-box:nth-of-type(3) {
+	margin-top: 150px;
+	
+	input[type=submit] {
+	
+		width: 45%;
+		margin: 0 auto;
+		height: 45px;
+		font-size: 20px;
+		
+		outline: none;
+		border: none;
+		background-color: #1C2E40;
+		
+		color: white;
+		text-shadow: 0 0 3px #FFF;
+		
+		border-radius: 10px;
+		border: 3px solid #2C3EA0;
+		
+		&:hover {
+			border: 3px solid #1C2E40;
+			background-color: #2C3EA0;
+		}
+		
+	}
+	
+}
+
+.change-s:nth-of-type(1) {
+	width: 55%;
+}
+
+.change-s {
+	table {
+		width: 100%;
+		height: auto;
+	}
+	
+	table, th, td {
+		border: 1px solid #AAA;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	
+	th {
+		background-color: #2C3E50;
+		color: white;
+		padding: 5px;
+	}
+	
+}
+
+
+
+
+

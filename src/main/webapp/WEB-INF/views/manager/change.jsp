@@ -31,6 +31,34 @@
 				<input type="text" value="${manager.name}" readOnly/>
 			</div>
 		</div>
+		<div class="mg-list-m">
+			<p>직원 목록에서 선택하세요.</p>
+		</div>
+		<div class="mg-list-l">
+			<table>
+				<tr>
+					<th>이름</th>
+					<th>사번코드</th>
+					<th>입사일</th>
+					<th>직급</th>
+					<th>변경</th>
+				</tr>
+				<c:forEach var="employee" items="${employees}">
+					<tr>
+						<td>${employee.name}</td>
+						<td>${employee.employee_id}</td>
+						<td>${employee.employment_date}</td>
+						<td>${employee.position_name}</td>
+						<td>
+							<form action="/manage/empPartChg" method="post">
+								<input type="hidden" name="employee_id" value="${employee.employee_id}"/>
+								<input type="submit" value="부서장 임명"/>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
 </main>
 <script src="/js/nowtime.js"></script>

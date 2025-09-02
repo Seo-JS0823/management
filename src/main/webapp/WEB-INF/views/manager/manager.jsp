@@ -94,10 +94,46 @@
 			</div>
 		</div>
 		<div class="mng_bottom_item">
-			부서 공지사항
+			<div class="mng_bottom_menu">
+				<h3>부서 출근 인원</h3>
+			</div>
+				<c:if test="${not empty partEmp}">
+					<table>
+						<tr>
+							<th>이름</th>
+							<th>날짜</th>
+							<th>출근 시간</th>							
+						</tr>
+					<c:forEach var="partEmp" items="${partEmp}">
+						<tr>
+							<td>${partEmp.name}</td>
+							<td>${partEmp.currentDate}</td>
+							<td>${partEmp.atte_start}</td>
+						</tr>
+					</c:forEach>
+					</table>
+				</c:if>
 		</div>
 		<div class="mng_bottom_item">
-			회사 공지사항
+			<div class="mng_bottom_menu">
+				<h3>부서 공지사항</h3><a href="#">공지 작성</a>
+			</div>
+				<c:if test="${not empty partNotice}">
+					<table>
+						<tr>
+							<th>게시일</th>
+							<th>부서명</th>
+							<th>제목</th>
+						</tr>
+						<c:forEach var="notice" items="${partNotice}">
+							<tr>
+								<td>${notice.posting_date}</td>
+								<td>${notice.department_name}</td>
+								<td>${notice.title}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
 		</div>
 	</div>
 </main>

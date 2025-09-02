@@ -151,12 +151,28 @@
 		WHERE
 			E.department_id = D.department_id AND
 			E.employee_id = AR.employee_id AND
-			TO_CHAR(currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
-			atte_start IS NOT NULL AND
+			TO_CHAR(AR.currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+			AR.atte_start IS NOT NULL AND
 			D.department_id = #{department_id} AND
 			E.emp_flag != 0
 	</select>
 	
+	<!-- 당일 부서별 출근 정보 -->
+	<select id="partEmpList" resultType="com.emp.employ.atted.AttedDTO">
+		SELECT
+			E.name,
+			TO_CHAR(AR.atte_start, 'HH24:MI') AS atte_start,
+			TO_CHAR(AR.currentdate, 'YYYY-MM-DD') AS currentdate
+		FROM
+			attendance_record AR, employees E, departments D
+		WHERE
+			E.department_id = D.department_id AND
+			E.employee_id = AR.employee_id AND
+			TO_CHAR(AR.currentdate, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND
+			AR.atte_start IS NOT NULL AND
+			D.department_id = #{department_id} AND
+			E.emp_flag != 0
+	</select>	
 	<!-- 전체 직원 수 카운트 -->
 	<select id="allEmpCount" resultType="int">
 		SELECT
@@ -410,6 +426,65 @@
 		OFFSET #{offset} ROWS
 		FETCH NEXT #{recordSize} ROWS ONLY
 	</select>
+	
+	<!-- 자기 부서 직원 정보 mePartEmpList -->
+	<select id="mePartEmpList" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+			E.name,
+			E.employee_id,
+			TO_CHAR(E.employment_date, 'YYYY-MM-DD') AS employment_date,
+			P.position_name
+		FROM
+			employees E, Positions P
+		WHERE
+			E.position_id = P.position_id AND
+			E.department_id = #{department_id}
+			
+	</select>
+	
+	<!-- 부서 담당자 변경 지정 -->
+	<update id="partEmpChg">
+		UPDATE
+			departments
+		SET
+			manager_id = #{employee_id},
+			manager_name = 
+			(SELECT
+				name
+			 FROM
+			 	employees
+			 WHERE
+			 	employee_id = #{employee_id}
+			 )
+		WHERE
+			department_id = #{department_id}
+	</update>
+	
+	<!-- 부서 이동을 위한 부서별 직원 SELECT -->
+	<select id="getPartEmpList" resultType="com.emp.employ.employee.EmployeeDTO">
+		SELECT
+			E.employee_id,
+			E.name,
+			TO_CHAR(E.employment_date, 'RR/MM/DD') AS employment_date,
+			D.department_name,
+			D.manager_name
+		FROM
+			employees E, departments D
+		WHERE
+			E.department_id = D.department_id AND
+			E.department_id = #{department_id} AND
+			D.manager_id != E.employee_id
+	</select>
+	
+	<!-- 직원의 부서 이동 UPDATE -->
+	<update id="empPartChange">
+		UPDATE
+			employees
+		SET
+			department_id = #{department_id}
+		WHERE
+			employee_id = #{employee_id}
+	</update>
 	
 </mapper>
 

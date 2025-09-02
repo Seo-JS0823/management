@@ -25,7 +25,7 @@ public class LeaveController {
 	
 	/* 
 	 * 백승목
-	 * 휴가 / 초과근무 View 보여주기
+	 * 휴가 View 보여주기
 	 * 메서드 이름 : leaveView 
 	 */
 	@RequestMapping("/leaveView")

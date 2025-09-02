@@ -12,6 +12,9 @@
 	<c:if test="${not empty notEmp}">
 		<input type="hidden" id="notEmp" value="${notEmp}">
 	</c:if>
+	<c:if test="${not empty partChg}">
+		<input type="hidden" id="partChg" value="${partChg}">
+	</c:if>
 	<div class="login_box">
 		<form class="login_form" action="/login" method="post">
 			<h1>My Company</h1>

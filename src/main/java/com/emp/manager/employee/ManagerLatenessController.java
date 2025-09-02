@@ -35,7 +35,7 @@ public class ManagerLatenessController {
         } else {
             latenessList = latenessMapper.selectLatenessListAll();
         }
-
+        
         mv.addObject("LatenessDTOList", latenessList);
         
         mv.setViewName("manager/managerEatView");

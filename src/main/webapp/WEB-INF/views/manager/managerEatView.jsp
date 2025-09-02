@@ -55,6 +55,7 @@
             </tr>
         </thead>
         <tbody>
+        	<c:if test="${not empty LatenessDTOList}">
 			<c:forEach var="lateness" items="${LatenessDTOList}">
 			    <tr>
 			        <td>${lateness.name}</td>
@@ -93,6 +94,7 @@
 			        </td>
 			    </tr>
 			</c:forEach>
+			</c:if>
         </tbody>
     </table>
 </div>

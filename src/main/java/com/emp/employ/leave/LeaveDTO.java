@@ -11,11 +11,11 @@ public class LeaveDTO {
 	content     : 연차 적립 사유
 	work_month  : 한 달 만근으로 할 시
 	 */
-	private int leave_id;
+	private Integer leave_id;
 	private String employee_id;
 	private String leave_date;
 	private String leave_type;
-	private int leave_count;
+	private Double leave_count;
 	private String work_month;
 	private String content;
 	
@@ -45,11 +45,11 @@ public class LeaveDTO {
 		this.leave_type = leave_type;
 	}
 
-	public int getLeave_count() {
+	public Double getLeave_count() {
 		return leave_count;
 	}
 
-	public void setLeave_count(int leave_count) {
+	public void setLeave_count(Double leave_count) {
 		this.leave_count = leave_count;
 	}
 

@@ -4,10 +4,7 @@
 		<a href="/manage/mngindex">Manager Dash Board</a>
 	</div>
 	<div class="mngHeader_menu">
-		<p>출/퇴근 현황</p>
-		<ul class="selected_menu">
-			<li><a href="/manage/attedListView">출/퇴근 기록부</a></li>
-		</ul>
+		<a href="/manage/attedListView">출/퇴근 기록부</a>
 	</div>
 	<div class="mngHeader_menu">
 		<p>직원 조회</p>
@@ -30,6 +27,9 @@
 	</div>
 	<div class="mngHeader_menu">
 		<a href="/manage/managerChangeView">관리자 변경</a>
+	</div>
+	<div class="mngHeader_menu">
+		<a href="/manage/empPartChangeView">직원 부서 이동</a>
 	</div>
 	
 	<!-- 시계 -->

@@ -82,4 +82,31 @@ public interface MngEmployeeMapper {
 	
 	/* 부서별 페이징 출/퇴근 조회 */
 	List<AttedDTO> getPagingPartAttedList(int department_id, String start, String end, String sort, int offset, int recordSize);
+	
+	/* 당일 부서 출근한 인원 정보 조회 */
+	List<AttedDTO> partEmpList(int department_id);
+	
+	/* 자기 부서 직원 정보 */
+	List<EmployeeDTO> mePartEmpList(int department_id);
+	
+	/*  */
+	int partEmpChg(String employee_id, int department_id);
+	
+	/* 부서 이동을 위한 직원 SELECT */
+	List<EmployeeDTO> getPartEmpList(int department_id);
+	
+	/* 직원의 부서 이동 UPDATE */
+	int empPartChange(int department_id, String employee_id);
+	
 }
+
+
+
+
+
+
+
+
+
+
+
