@@ -1,14 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/reset.css"/>
+	<link rel="stylesheet" href="/css/empHeader.css">
     <title>공지사항 - 부가가치세</title>
     <style>
         body {
             font-family: sans-serif;
-            background-color: #f8f8f8;
+            background-color: #2C3E50;
             margin: 0;
             padding: 0;
         }
@@ -80,7 +82,7 @@
 </head>
 <body>
 
-<header>회사 공지사항</header>
+<%@ include file="empHeader.jsp" %>
 <div class="container">
     <h2>${manager.department_name} 부서 공지사항 - ${notice.posting_num}</h2>
 
@@ -111,14 +113,11 @@
             <label for="content">내용</label>
             <textarea id="content" name="content">${notice.content}</textarea>
         </div>
-
-        <div class="buttons">
-            <button type="submit">수정</button>
-            <button type="button" onclick="location.href='/manage/noticeDelete?posting_num=${notice.posting_num}'">삭제</button>
-        </div>
+		
     </form>
 </div>
 
+<script src="/js/nowtime.js"></script>
 </body>
 </html>
 

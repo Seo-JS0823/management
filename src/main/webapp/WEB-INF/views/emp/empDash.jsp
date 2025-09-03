@@ -124,7 +124,7 @@
 				<c:forEach var="notice" items="${notices}">
 					<tr>
 						<td>${notice.department_name}</td>
-						<td><a href="/manage/noticeReadView?posting_num=${notice.posting_num}">${notice.title}</a></td>
+						<td><a href="/notice/noticeReadView?posting_num=${notice.posting_num}">${notice.title}</a></td>
 						<td>${notice.posting_date}</td>
 					</tr>
 				</c:forEach>

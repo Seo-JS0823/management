@@ -22,7 +22,6 @@
 			E.emp_flag != 0
 	</select>
 	
-	<!-- 연차 적립 실행 : 이거 건들면 프로젝트 망-->
 	<insert id="annualInsert">
 		INSERT INTO annualleave (employee_id, leave_date, leave_type, leave_count, content, work_month)
 		SELECT

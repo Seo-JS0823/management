@@ -1,5 +1,7 @@
 package com.emp.employ.employee;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.emp.employ.atted.AttedDTO;
 import com.emp.employ.atted.AttedMapper;
 import com.emp.employ.leave.LeaveMapper;
+import com.emp.employ.notice.NoticeDTO;
+import com.emp.employ.notice.NoticeMapper;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +28,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private AttedMapper attedMapper;
+	
+	@Autowired
+	private NoticeMapper noticeMapper;
 	
 	/* 직원 메인 페이지 */
 	@GetMapping("/empView")
@@ -77,6 +83,10 @@ public class EmployeeController {
 		/* 올해 근무한 일수 계산 */
 		int allWork = attedMapper.allWorkCount(target);
 		
+		/* 직원의 부서 공지사항 리스트 */
+		List<NoticeDTO> list = noticeMapper.getNoticeList(target.getDepartment_id());
+		
+		mav.addObject("notices", list);
 		mav.addObject("allWork", allWork);
 		mav.addObject("work_start", work_start);
 		mav.addObject("leave", leave);

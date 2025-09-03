@@ -38,11 +38,20 @@
 
 	<select id="getNoticeByNum" resultType="com.emp.employ.notice.NoticeDTO">
 		SELECT
-			*
+			E.name,
+			N.posting_num,
+			D.manager_name,
+			N.title,
+			N.content,
+			TO_CHAR(N.posting_date, 'RR/MM/DD') AS posting_date,
+			D.department_name
 		FROM
-			notice
+			notice N, employees E, departments D
 		WHERE
-			posting_num = #{posting_num}
+			E.department_id = D.department_id AND
+			D.department_id = N.department_id AND
+			E.employee_id = N.manager_id AND
+			N.posting_num = #{posting_num}
 	</select>
 
 

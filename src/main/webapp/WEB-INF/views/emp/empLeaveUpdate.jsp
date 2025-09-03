@@ -158,51 +158,56 @@
 		const formEl = document.getElementById('form')
 		const titleEL  = document.querySelector('.title')
 		
-		formEl.addEventListener('submit', function(e) {	
-		if(statusEl.value == 0) {
-			alert('관리자가 확인 전까진 원본 수정이 불가능합니다')
-			titleEL.focus();
-			e.preventDefault();
-			e.stopPropagation();
-		}
-	})
 	
-	const btnEl = document.querySelector('#emp_submit_btn')
-	
-	btnEl.addEventListener('click', function(e) {
+		const btnEl = document.querySelector('#emp_submit_btn')
 		
-		e.preventDefault(); // 기존 기능 실행취소
+		btnEl.addEventListener('click', function(e) {
 		
-		const overlay = document.createElement('div');
-		overlay.className= "overlay";
+			e.preventDefault(); // 기존 기능 실행취소
+			
+			const overlay = document.createElement('div');
+			overlay.className= "overlay";
+			
+			const modal = document.createElement('div');
+			modal.className = "modal";
+			
+			const message = document.createElement('p')
+			message.innerHTML = "수정사항을 제출 하겠습니까?";
+			
+			const check = document.createElement('button')
+			check.innerHTML = "확인";
+			check.addEventListener('click', function() {
+				
+				if(statusEl.value == 0) {
+					alert('관리자가 확인전까지 수정 불가합니다.');
+					e.preventDefault();
+					return false;
+				}
+				
+				if(statusEl.value == 1) {
+					alert('승인된 휴가는 수정할 수 없습니다.');
+					e.preventDefault();
+					return false;
+				}
+				
+				alert("제출 성공")
+				document.body.removeChild(overlay);
+				formEl.submit();
+			})
+			
+			const cancel = document.createElement('button')
+			cancel.innerHTML = "취소";
+			cancel.addEventListener('click', function() {
+				document.body.removeChild(overlay);
+			})
+			
+			document.body.appendChild(overlay);
+			overlay.appendChild(modal);
+			modal.appendChild(message);
+			modal.appendChild(check);
+			modal.appendChild(cancel);
 		
-		const modal = document.createElement('div');
-		modal.className = "modal";
-		
-		const message = document.createElement('p')
-		message.innerHTML = "수정사항을 제출 하겠습니까?";
-		
-		const check = document.createElement('button')
-		check.innerHTML = "확인";
-		check.addEventListener('click', function() {
-			alert("제출 성공")
-			document.body.removeChild(overlay);
-			formEl.submit(); 
-		})
-		
-		const cancel = document.createElement('button')
-		cancel.innerHTML = "취소";
-		cancel.addEventListener('click', function() {
-			document.body.removeChild(overlay);
-		})
-		
-		document.body.appendChild(overlay);
-		overlay.appendChild(modal);
-		modal.appendChild(message);
-		modal.appendChild(check);
-		modal.appendChild(cancel);
-		
-	});
+		});
 	</script>
 	
 </body>
